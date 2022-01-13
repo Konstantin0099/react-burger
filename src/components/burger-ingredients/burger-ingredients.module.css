@@ -1,4 +1,4 @@
-.buns{
+.menu{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@
     max-height: 750px;
     overflow: auto;
 }
-.bun{
+.itemMenu{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -29,6 +29,7 @@
     list-style-type: none; 
 }
 .ingredients{
+    border: grey 0.1px dashed;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

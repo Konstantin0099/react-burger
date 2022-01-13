@@ -3,7 +3,7 @@ import './App.css';
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
 import BurgerConstructor from '../burger-constructor/burger-constructor.js';
-import { data } from '../../utils/data.js';
+import { data, dataOrder  } from '../../utils/data.js';
 
 export default class App extends React.Component {
   state = {
@@ -14,9 +14,10 @@ export default class App extends React.Component {
   return (
     <div className="App">
      <AppHeader />
+     
      <BurgerIngredients />
      <BurgerConstructor />
-
+     
     </div>
   );}
 }

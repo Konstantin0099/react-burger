@@ -1,0 +1,11 @@
+.ingredient{
+    display: flex;
+    list-style-type: none; 
+    border: 1px dashed red;
+}
+.ingredients{
+    border: 1px dashed red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

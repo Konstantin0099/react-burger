@@ -1,11 +1,10 @@
-
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./food.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data, dataOrder  } from "../../utils/data.js";
+import PropTypes from 'prop-types';
 
 
-export const Food = ({ item }) => {
+export const Food = ({ item,  dataOrder }) => {
     let count = dataOrder.find(el => el._id === item._id);
     return (
       <li className={style.itemMenu}>
@@ -21,3 +20,9 @@ export const Food = ({ item }) => {
       </li>
     );
   };
+
+  Food.propTypes = {
+    dataOrder: PropTypes.array,
+    item: PropTypes.object
+   }
+  

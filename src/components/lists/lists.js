@@ -1,10 +1,10 @@
-
+import PropTypes from 'prop-types';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleConstructor from "./lists.module.css";
 
 
-export const Lists = ({ data, dataOrder }) => {
+export const Lists = (props) => {
     return (
       <div
         style={{
@@ -16,7 +16,7 @@ export const Lists = ({ data, dataOrder }) => {
         }}
       >
         <ul className={styleConstructor.order}>
-          {dataOrder.map(
+          {props.dataOrder.map(
             (item, index) =>
               item.type === "bun" && (
                 <li
@@ -35,7 +35,7 @@ export const Lists = ({ data, dataOrder }) => {
           )}
   
           <ul className={styleConstructor.ingredients}>
-            {data.map(
+            {props.data.map(
               (item, index) =>
               item.type !== "bun" && (
                   <li
@@ -53,7 +53,7 @@ export const Lists = ({ data, dataOrder }) => {
             )}
           </ul>
   
-          {dataOrder.map(
+          {props.dataOrder.map(
             (item, index) =>
               item.type === "bun" && (
                 <li
@@ -74,3 +74,7 @@ export const Lists = ({ data, dataOrder }) => {
       </div>
     );
   };
+  Lists.propTypes = {
+    dataOrder: PropTypes.array,
+    data: PropTypes.array
+   }

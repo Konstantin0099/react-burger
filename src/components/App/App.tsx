@@ -16,8 +16,8 @@ export default class App extends React.Component {
     <div className={style.app}>
      <AppHeader />
      <main className={style.main}>
-     <BurgerIngredients data="data"/>
-     <BurgerConstructor dataOrder="dataOrder"/>
+     <BurgerIngredients data={this.state.data} dataOrder={this.state.dataOrder}/>
+     <BurgerConstructor data={this.state.data} dataOrder={this.state.dataOrder}/>
      </main>
     </div>
   );}

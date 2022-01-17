@@ -1,5 +1,5 @@
 import React from "react";
-import { data, dataOrder  } from "../../utils/data.js";
+import PropTypes from 'prop-types';
 import style from "./burger-ingredients.module.css";
 import {PutFood} from "../put-food/put-food.js";
 import {Ingredients} from "../ingredients/ingredients.js";
@@ -15,20 +15,25 @@ export default class BurgerIngredients extends React.Component {
         <ul className={style.list + " pt-10"}>
           <li className={style.listBlock + " text text_type_main-medium"}>
             Булки
-            <PutFood data={data} ingredient="bun" />
+            <PutFood data={this.props.data} ingredient="bun" dataOrder={this.props.dataOrder}/>
           </li>
           <li className={style.listBlock + " text text_type_main-medium"}>
             Соусы
-            <PutFood data={data} ingredient="sauce" />
+            <PutFood data={this.props.data} ingredient="sauce" dataOrder={this.props.dataOrder} />
           </li>
           <li className={style.listBlock + " text text_type_main-medium"}>
             Начинки
-            <PutFood data={data} ingredient="main" />
+            <PutFood data={this.props.data} ingredient="main" dataOrder={this.props.dataOrder} />
           </li>
         </ul>
       </section>
     );
   }
 }
+
+BurgerIngredients.propTypes = {
+  dataOrder: PropTypes.array,
+  data: PropTypes.array
+ }
 
 

@@ -20,7 +20,7 @@ export default class AppHeader extends React.Component {
             <a href="#" className="text text_type_main-default text_color_inactive ml-2">Лента заказов</a>
           </li>
         </ul>
-        <Logo/>
+        <span className={styles.logo}><Logo/></span>
         <ul className={styles.navigation}>
           <li className={"pt-4 pb-4 " + styles.profile}>
             <ProfileIcon type="primary" />

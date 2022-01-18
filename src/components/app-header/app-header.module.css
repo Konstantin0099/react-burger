@@ -1,67 +1,63 @@
+.header {
+  position: relative;
+  background-color: rgba(28, 28, 33, 1);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  min-height: 88px;
+  max-width: 1920px;
+  min-width: 1280px;
+  width: 100%;
+  /* padding: 0 320px calc(1920px + 100px); */
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
 
-  .header {
-    position: relative;
-    background-color: rgba(28, 28, 33, 1);
-    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    min-height: 88px;
-    max-width: 1920px;
-    min-width: 1280px;
-    width: 100%;
-    /* padding: 0 320px calc(1920px + 100px); */
-    box-sizing: border-box;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    color: white;
-  }
-  
-  .link {
-    color: white;
-    text-decoration: underline;
-    display: flex;
-    flex-direction: row;
-   
-  }
-  .navigation{
-  
-    display: flex;
-    flex-direction: row;
-    max-width: 383px;
-    min-height: 56px;
-    list-style-type: none; 
-  }
+.link {
+  color: white;
+  text-decoration: underline;
+  display: flex;
+  flex-direction: row;
+}
+.navigation {
+  display: flex;
+  flex-direction: row;
+  max-width: 383px;
+  min-height: 56px;
+  list-style-type: none;
+}
 
-  .constructor{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 178px;
-    min-height: 56px;
-  }
+.constructor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 178px;
+  min-height: 56px;
+}
 
-  .orderList{
-    /* margin-right: 145px; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 197px;
-    min-height: 56px;
-  }
-  
-  .profile{
-    /* margin-left: 145px; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 207px;
-    min-height: 56px;
-  }
-.logo{
+.orderList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 197px;
+  min-height: 56px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 207px;
+  min-height: 56px;
+}
+.logo {
   position: absolute;
   left: center;
   width: 290px;
   height: 40px;
 }
- 

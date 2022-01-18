@@ -1,17 +1,17 @@
-.itemMenu{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 208px;
-    align-items: center;
+.itemMenu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 208px;
+  align-items: center;
 }
-.price{
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
+.price {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 }
-.img{
-    width: 240px;
-    height: 120px;
+.img {
+  width: 240px;
+  height: 120px;
 }

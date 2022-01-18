@@ -5,10 +5,9 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-align-items: center;
-
+  align-items: center;
 }
-.main{
+.main {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

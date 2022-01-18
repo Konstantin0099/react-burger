@@ -1,7 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-
 export const Tabs = () => {
   const [current, setCurrent] = React.useState("one");
   return (

@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styleConstructor from "./place-order.module.css";
+import styleConstructor from "./order-sum.module.css";
 
-export const PlaceOrder = () => {
+export const OrderSum = () => {
   return (
     <div className={styleConstructor.placeOrder}>
       <span className={styleConstructor.sumOrder + " mr-15"}>

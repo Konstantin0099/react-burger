@@ -1,31 +1,4 @@
 
-.ingredient{
-    display: flex;
-    list-style-type: none; 
-    align-items: center;
-    justify-content: space-between;
-    width: 568px;
-    box-sizing: border-box;
-}
-
-.ingredients{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin: 0;
-    padding: 0;
-    max-height: 476px;
-    overflow: auto;
-    max-width: 600px;
-}
-.order{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    max-width: 600px;
-    margin: 0;
-    padding: 0;
-}
 .burgerConstructor{
     box-sizing: border-box;
     width: 600px;
@@ -35,16 +8,3 @@
     align-items: center;
     
 }
-/* .placeOrder{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-}
-.sumOrder{
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-} */

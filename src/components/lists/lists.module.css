@@ -18,6 +18,15 @@
     overflow: auto;
     max-width: 600px;
 }
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+}
+.ingredients::-webkit-scrollbar-track {
+    background: #2F2F37; 
+}
+.ingredients::-webkit-scrollbar-thumb {
+    background: #8585AD; 
+}
 .order{
     display: flex;
     flex-direction: column;

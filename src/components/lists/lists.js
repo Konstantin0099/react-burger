@@ -20,13 +20,13 @@ export const Lists = (props) => {
             (item, index) =>
               item.type === "bun" && (
                 <li
-                  className={styleConstructor.ingredient + " pl-8 mb-2"}
-                  key={index}
+                  className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
+                  key={item._id}
                 >
                   <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={item.name + "верх"}
+                    text={item.name + " (верх)"}
                     price={item.price / 2}
                     thumbnail={item.image}
                   />
@@ -40,7 +40,7 @@ export const Lists = (props) => {
               item.type !== "bun" && (
                   <li
                     className={styleConstructor.ingredient + " mt-2 mb-2"}
-                    key={index}
+                    key={item._id}
                   >
                     <DragIcon />
                     <ConstructorElement
@@ -57,13 +57,13 @@ export const Lists = (props) => {
             (item, index) =>
               item.type === "bun" && (
                 <li
-                  className={styleConstructor.ingredient + " pl-8 mt-3"}
-                  key={index}
+                  className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
+                  key={item._id}
                 >
                   <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={item.name + "низ"}
+                    text={item.name + " (низ)"}
                     price={item.price / 2}
                     thumbnail={item.image}
                   />

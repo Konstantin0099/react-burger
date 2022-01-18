@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import styleConstructor from "./burger-constructor.module.css";
 import {Lists} from "../lists/lists.js";
-import {PlaceOrder} from "../place-order/place-order.js";
+import {OrderSum} from "../order-sum/order-sum.js";
 
 
 export default class BurgerConstructor extends React.Component {
@@ -15,8 +15,7 @@ export default class BurgerConstructor extends React.Component {
         }
       >
         <Lists data={this.props.data} dataOrder={this.props.dataOrder}/>
-        {/* <Constructor /> */}
-        <PlaceOrder />
+        <OrderSum />
       </section>
     );
   }

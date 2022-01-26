@@ -1,5 +1,4 @@
 .itemMenu {
-  border: 1px dashed red;
   position: relative;
   display: flex;
   flex-direction: column;

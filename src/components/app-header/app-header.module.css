@@ -8,7 +8,6 @@
   max-width: 1920px;
   min-width: 1280px;
   width: 100%;
-  /* padding: 0 320px calc(1920px + 100px); */
   box-sizing: border-box;
   margin: 0 auto;
   display: flex;

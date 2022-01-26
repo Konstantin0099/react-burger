@@ -10,7 +10,7 @@ export const OrderSum = () => {
   const [visible, setShown] = React.useState(false);
   function toggle() {
     setShown(!visible);
-  }
+  };
   return (
     <div className={styleConstructor.placeOrder}>
       <span className={styleConstructor.sumOrder + " mr-15"}>
@@ -20,8 +20,11 @@ export const OrderSum = () => {
       <Button type="primary" size="large" onClick={toggle}>
         Оформить заказ
       </Button>
-      {visible && <Modal toggle={toggle}><OrderDetails id="337733" /></Modal>}
+      {visible && (
+        <Modal toggle={toggle}>
+          <OrderDetails id="337733" />
+        </Modal>
+      )}
     </div>
   );
 };
-

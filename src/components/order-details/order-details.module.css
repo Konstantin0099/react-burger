@@ -1,10 +1,10 @@
-.order{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
+.order {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
-.content{
-    color: #8585AD;
-    text-align: center;
+.content {
+  color: #8585ad;
+  text-align: center;
 }

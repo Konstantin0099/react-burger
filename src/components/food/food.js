@@ -10,13 +10,17 @@ export const Food = ({ item, dataOrder }) => {
   let count = dataOrder.find((el) => el._id === item._id);
   const [visible, setShown] = React.useState(false);
   function toggle() {
-    // console.log(item);
     setShown(!visible);
-  }
-  
+
+  };
+
   return (
     <li className={style.itemMenu} onClick={toggle}>
-      {visible && <Modal toggle={toggle}><IngredientDetails item={item}/></Modal>}
+      {visible && (
+        <Modal toggle={toggle}>
+          <IngredientDetails item={item} />
+        </Modal>
+      )}
       {count !== undefined && count.count && (
         <Counter count={count.count} size="default" />
       )}
@@ -26,12 +30,35 @@ export const Food = ({ item, dataOrder }) => {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className="text text_type_main-default">{item.name}</h3>
-      
     </li>
   );
 };
 
 Food.propTypes = {
-  dataOrder: PropTypes.array,
-  item: PropTypes.object,
+  dataOrder: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      image: PropTypes.string,
+      calories: PropTypes.number,
+      type: PropTypes.string,
+      price: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      count: PropTypes.number,
+      fat: PropTypes.number,
+      proteins: PropTypes.number,
+    })
+  ),
+  item: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    calories: PropTypes.number,
+    type: PropTypes.string,
+    price: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    count: PropTypes.number,
+    fat: PropTypes.number,
+    proteins: PropTypes.number,
+  }),
 };

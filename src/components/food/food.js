@@ -1,12 +1,22 @@
+import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./food.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import Modal from "../modal/modal.js";
+import IngredientDetails from "../ingredient-details/ingredient-details.js";
 
 export const Food = ({ item, dataOrder }) => {
   let count = dataOrder.find((el) => el._id === item._id);
+  const [visible, setShown] = React.useState(false);
+  function toggle() {
+    // console.log(item);
+    setShown(!visible);
+  }
+  
   return (
-    <li className={style.itemMenu}>
+    <li className={style.itemMenu} onClick={toggle}>
+      {visible && <Modal toggle={toggle}><IngredientDetails item={item}/></Modal>}
       {count !== undefined && count.count && (
         <Counter count={count.count} size="default" />
       )}
@@ -16,6 +26,7 @@ export const Food = ({ item, dataOrder }) => {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className="text text_type_main-default">{item.name}</h3>
+      
     </li>
   );
 };

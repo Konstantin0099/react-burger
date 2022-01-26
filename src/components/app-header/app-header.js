@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./app-header.module.css";
-import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerIcon, ListIcon, ProfileIcon, Logo } from "@ya.praktikum/react-developer-burger-ui-components";
+// import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+// import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+// import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default class AppHeader extends React.Component {
-  render() {
+const AppHeader = () =>  {
+
     return (
       <header className={styles.header}>
         <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>
@@ -33,7 +33,7 @@ export default class AppHeader extends React.Component {
           <Logo />
         </span>
         <ul className={styles.navigation + " mr-30 ml-30 pl-30"}>
-          <li className={"pt-4 pb-4 " + styles.profile}>
+          <li className={"pt-4 pb-4 " + styles.profile} >
             <ProfileIcon type="primary" />
             <a
               href="#"
@@ -45,5 +45,6 @@ export default class AppHeader extends React.Component {
         </ul>
       </header>
     );
-  }
+
 }
+export default AppHeader;

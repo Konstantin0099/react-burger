@@ -1,28 +1,16 @@
-import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./food.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import Modal from "../modal/modal.js";
-import IngredientDetails from "../ingredient-details/ingredient-details.js";
 
-export const Food = ({ item, dataOrder }) => {
-  let count = dataOrder.find((el) => el._id === item._id);
-  const [visible, setShown] = React.useState(false);
-  function toggle() {
-    setShown(!visible);
-
-  };
-
+export const Food = ({ item, dataOrder, openPopup }) => {
+  const orderItem = dataOrder.find((el) => {
+    return el._id === item._id;
+  });
   return (
-    <li className={style.itemMenu} onClick={toggle}>
-      {visible && (
-        <Modal toggle={toggle}>
-          <IngredientDetails item={item} />
-        </Modal>
-      )}
-      {count !== undefined && count.count && (
-        <Counter count={count.count} size="default" />
+    <li className={style.itemMenu} onClick={() => openPopup(item)}>
+      {orderItem !== undefined && orderItem.count && (
+        <Counter count={orderItem.count} size="default" />
       )}
       <img className={style.img} src={item.image} alt="упсс" />
       <div className={style.price + " pt-2 pb-2"}>
@@ -61,4 +49,5 @@ Food.propTypes = {
     fat: PropTypes.number,
     proteins: PropTypes.number,
   }),
+  openPopup: PropTypes.func,
 };

@@ -2,13 +2,18 @@ import { Food } from "../food/food.js";
 import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
 
-const MenuSection = ({ data, ingredient, dataOrder }) => {
+const MenuSection = ({ openPopup, data, ingredient, dataOrder }) => {
   return (
     <ul className={style.menu + " pt-6 pb-10"}>
       {data.map(
         (item, index) =>
           item.type === ingredient && (
-            <Food item={item} key={item._id} dataOrder={dataOrder} />
+            <Food
+              item={item}
+              key={item._id}
+              dataOrder={dataOrder}
+              openPopup={openPopup}
+            />
           )
       )}
     </ul>
@@ -44,6 +49,7 @@ MenuSection.propTypes = {
     })
   ),
   ingredient: PropTypes.string,
+  openPopup: PropTypes.func,
 };
 
 export default MenuSection;

@@ -6,14 +6,16 @@ import modal from "./modal-overlay.module.css";
 const ModalOverlay = (props) => {
   const modalRoot = document.getElementById("react-modals");
   const closedModal = (e) => {
-    e.stopPropagation();
-    e.target === e.currentTarget && props.toggle();
-    e.key === "Escape" && props.toggle();
+    e.target === e.currentTarget && props.toggleVisible();
   };
+  const closedModalEscape = (e) => {
+    e.key === "Escape" && props.toggleVisible();
+  };
+
   React.useEffect(() => {
-    document.addEventListener("keydown", closedModal);
+    document.addEventListener("keydown", closedModalEscape);
     return () => {
-      document.removeEventListener("keydown", closedModal);
+      document.removeEventListener("keydown", closedModalEscape);
     };
   }, []);
 
@@ -27,7 +29,7 @@ const ModalOverlay = (props) => {
 
 ModalOverlay.propTypes = {
   children: PropTypes.object,
-  toggle: PropTypes.func,
+  toggleVisible: PropTypes.func,
 };
 
 export default ModalOverlay;

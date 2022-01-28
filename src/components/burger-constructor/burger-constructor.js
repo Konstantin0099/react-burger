@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
@@ -13,7 +12,7 @@ const BurgerConstructor = (props) => {
       }
     >
       <Lists data={props.data} dataOrder={props.dataOrder} />
-      <OrderSum />
+      <OrderSum openPopupOrder={props.openPopupOrder} />
     </section>
   );
 };
@@ -47,41 +46,7 @@ BurgerConstructor.propTypes = {
       proteins: PropTypes.number,
     })
   ),
+  openPopupOrder: PropTypes.func,
 };
 
 export default BurgerConstructor;
-
-// _id string
-// name string
-// image string
-// calories number
-// type string
-// price number
-// carbohydrates number
-// count number
-// fat number
-// proteins number
-
-// PeopleArrayProp: PropTypes.arrayOf(
-//   PropTypes.instanceOf(Person)
-// ),    multipleArrayProp: PropTypes.arrayOf(
-//   PropTypes.oneOfType([
-//     PropType.number,
-//     PropType.string
-//   ])
-// )
-
-// Component.propTypes = {  profileProp: PropTypes.shape({  id: PropTypes.number,  fullname: PropTypes.string,  gender: PropTypes.oneOf(['M', 'F']),  birthdate: PropTypes.instanceOf(Date),  isAuthor: PropTypes.bool
-//   })
-// }
-
-// Component.propTypes = { booleanObjectProp: PropTypes.objectOf(
-//   PropTypes.bool
-// ), multipleObjectProp: PropTypes.objectOf(
-//   PropTypes.oneOfType([
-//     PropType.func,
-//     PropType.number,
-//     PropType.string,
-//     PropType.instanceOf(Person)
-//   ])
-// )

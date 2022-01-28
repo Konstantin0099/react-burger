@@ -34,7 +34,7 @@ export const Lists = (props) => {
         )}
 
         <ul className={styleConstructor.ingredients}>
-          {props.data.map(
+          {props.dataOrder.map(
             (item, index) =>
               item.type !== "bun" && (
                 <li

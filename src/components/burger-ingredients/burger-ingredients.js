@@ -13,6 +13,7 @@ const BurgerIngredients = (props) => {
         <li className={style.listBlock + " text text_type_main-medium"}>
           Булки
           <MenuSection
+            openPopup={props.openPopup}
             data={props.data}
             ingredient="bun"
             dataOrder={props.dataOrder}
@@ -21,6 +22,7 @@ const BurgerIngredients = (props) => {
         <li className={style.listBlock + " text text_type_main-medium"}>
           Соусы
           <MenuSection
+            openPopup={props.openPopup}
             data={props.data}
             ingredient="sauce"
             dataOrder={props.dataOrder}
@@ -29,6 +31,7 @@ const BurgerIngredients = (props) => {
         <li className={style.listBlock + " text text_type_main-medium"}>
           Начинки
           <MenuSection
+            openPopup={props.openPopup}
             data={props.data}
             ingredient="main"
             dataOrder={props.dataOrder}
@@ -68,6 +71,7 @@ BurgerIngredients.propTypes = {
       proteins: PropTypes.number,
     })
   ),
+  openPopup: PropTypes.func,
 };
 
 export default BurgerIngredients;

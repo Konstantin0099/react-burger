@@ -5,11 +5,11 @@ import ModalOverlay from "../modal-overlay/modal-overlay.js";
 
 const Modal = (props) => {
   return (
-    <ModalOverlay toggle={props.toggle}>
+    <ModalOverlay toggleVisible={props.toggleVisible}>
       <div className={modal.modal}>
         <div
           className={modal.closeIcon + " mt-15 mr-10"}
-          onClick={props.toggle}
+          onClick={props.toggleVisible}
         >
           <CloseIcon type="primary" />
         </div>
@@ -21,7 +21,7 @@ const Modal = (props) => {
 
 Modal.propTypes = {
   children: PropTypes.object,
-  toggle: PropTypes.func,
+  toggleVisible: PropTypes.func,
 };
 
 export default Modal;

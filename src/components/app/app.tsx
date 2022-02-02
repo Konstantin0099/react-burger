@@ -9,12 +9,9 @@ import IngredientDetails from "../ingredient-details/ingredient-details.js";
 import { IngredientsContext } from "../../services/appContext";
 import OrderDetails from "../order-details/order-details.js";
 
-
-const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients"
-const URL_ORDER = "https://norma.nomoreparties.space/api/orders"
+const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
+const URL_ORDER = "https://norma.nomoreparties.space/api/orders";
 const App = () => {
-
-
   const [state, setState] = React.useState({
     data: [],
     dataOrder: dataOrder,
@@ -42,21 +39,31 @@ const App = () => {
     toggleVisible(<IngredientDetails item={item} />);
   };
   const openPopupOrder = () => {
-  fetch(`URL_ORDER`, {
-    method: "POST",
-    body: JSON.stringify({
-      "ingredients": ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"]
-    }),
-  }) .then((res) => res.json())
-  .then((idOrder) => {
-     console.log("idOrder:", idOrder);
-     toggleVisible(<OrderDetails id={idOrder} />) }
-  )
-  .catch((e) => {
-    console.log("ошибка", e);
-  });
-}
-
+    const arrDataID = state.dataOrder.map((el) => {
+      return el._id;
+    });
+    fetch(`${URL_ORDER}`, {
+      method: "POST",
+      body: JSON.stringify({
+        ingredients: arrDataID,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then((idOrder) => {
+        toggleVisible(<OrderDetails id={idOrder.order.number} />);
+      })
+      .catch((e) => {
+        console.log("catch ошибка ", e);
+      });
+  };
 
   return (
     <div className={style.app}>
@@ -65,18 +72,20 @@ const App = () => {
         <Modal toggleVisible={toggleVisible}>{state.popap}</Modal>
       )}
       <main className={style.main}>
-      <IngredientsContext.Provider value={{ state, setState, openPopupOrder }}>
-        <BurgerIngredients
-          data={state.data}
-          dataOrder={state.dataOrder}
-          openPopup={openPopupInredients}
-        />
-        <BurgerConstructor
-          data={state.data}
-          dataOrder={state.dataOrder}
-          openPopupOrder={openPopupOrder}
-        />
-      </IngredientsContext.Provider>
+        <IngredientsContext.Provider
+          value={{ state, setState, openPopupOrder }}
+        >
+          <BurgerIngredients
+            data={state.data}
+            dataOrder={state.dataOrder}
+            openPopup={openPopupInredients}
+          />
+          <BurgerConstructor
+            data={state.data}
+            dataOrder={state.dataOrder}
+            openPopupOrder={openPopupOrder}
+          />
+        </IngredientsContext.Provider>
       </main>
     </div>
   );

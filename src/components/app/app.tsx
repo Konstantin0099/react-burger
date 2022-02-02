@@ -11,6 +11,7 @@ import OrderDetails from "../order-details/order-details.js";
 
 const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
 const URL_ORDER = "https://norma.nomoreparties.space/api/orders";
+
 const App = () => {
   const [state, setState] = React.useState({
     data: [],
@@ -57,8 +58,8 @@ const App = () => {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .then((idOrder) => {
-        toggleVisible(<OrderDetails id={idOrder.order.number} />);
+      .then((order) => {
+        toggleVisible(<OrderDetails id={order.order.number} />);
       })
       .catch((e) => {
         console.log("catch ошибка ", e);
@@ -73,7 +74,7 @@ const App = () => {
       )}
       <main className={style.main}>
         <IngredientsContext.Provider
-          value={{ state, setState, openPopupOrder }}
+          value={{ state, setState}}
         >
           <BurgerIngredients
             data={state.data}
@@ -81,8 +82,6 @@ const App = () => {
             openPopup={openPopupInredients}
           />
           <BurgerConstructor
-            data={state.data}
-            dataOrder={state.dataOrder}
             openPopupOrder={openPopupOrder}
           />
         </IngredientsContext.Provider>

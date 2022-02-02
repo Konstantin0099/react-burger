@@ -7,22 +7,21 @@ import { IngredientsContext } from "../../services/appContext";
 
 const BurgerConstructor = (props) => {
    const { state, setState} = React.useContext(IngredientsContext);
-  //  const { orderSum, setOrderSum } = React.useState(null);
-  //  calculate the order amount
+   const {
+    data,
+    dataOrder,
+    visible,
+    item,
+    popap
+  } = state;
   function reducer(orderSumState, data) {
-    let sum = data.reduce((sum, ingredients) => sum + ingredients.price, 0);
-    console.log("sum>>", sum);
+    let sum = data.reduce((sum, ingredients) => sum + (ingredients.type === "bun" ? (ingredients.price * 2) : ingredients.price), 0);
     return sum;
   }
   const [orderSumState, orderSumStateDispatcher] = React.useReducer(reducer, null, undefined);
   React.useEffect(() => {
-  orderSumStateDispatcher(props.dataOrder);
+  orderSumStateDispatcher(dataOrder);
   },[]);
-
-  // console.log(
-  // "state>>>", state, 
-  // " setState>>>>", setState, 
-  // "openPopupOrder>>>>", openPopupOrder );
 
   return (
     <section
@@ -31,41 +30,13 @@ const BurgerConstructor = (props) => {
         " pt-20 pl-4 pr-4 ml-5 mr-0 mt-0 mb-0"
       }
     >
-      <Lists data={props.data} dataOrder={props.dataOrder} />
+      <Lists data={data} dataOrder={dataOrder} />
       <OrderSum openPopupOrder={props.openPopupOrder}>{orderSumState}</OrderSum>
     </section>
   );
 };
 
 BurgerConstructor.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
   openPopupOrder: PropTypes.func,
 };
 

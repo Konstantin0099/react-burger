@@ -1,9 +1,29 @@
+import React from "react";
 import PropTypes from "prop-types";
 import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
 import { OrderSum } from "../order-sum/order-sum.js";
+import { IngredientsContext } from "../../services/appContext";
 
 const BurgerConstructor = (props) => {
+   const { state, setState} = React.useContext(IngredientsContext);
+  //  const { orderSum, setOrderSum } = React.useState(null);
+  //  calculate the order amount
+  function reducer(orderSumState, data) {
+    let sum = data.reduce((sum, ingredients) => sum + ingredients.price, 0);
+    console.log("sum>>", sum);
+    return sum;
+  }
+  const [orderSumState, orderSumStateDispatcher] = React.useReducer(reducer, null, undefined);
+  React.useEffect(() => {
+  orderSumStateDispatcher(props.dataOrder);
+  },[]);
+
+  // console.log(
+  // "state>>>", state, 
+  // " setState>>>>", setState, 
+  // "openPopupOrder>>>>", openPopupOrder );
+
   return (
     <section
       className={
@@ -12,7 +32,7 @@ const BurgerConstructor = (props) => {
       }
     >
       <Lists data={props.data} dataOrder={props.dataOrder} />
-      <OrderSum openPopupOrder={props.openPopupOrder} />
+      <OrderSum openPopupOrder={props.openPopupOrder}>{orderSumState}</OrderSum>
     </section>
   );
 };

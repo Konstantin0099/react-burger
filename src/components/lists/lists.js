@@ -4,6 +4,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styleConstructor from "./lists.module.css";
 
 export const Lists = (props) => {
+
   return (
     <div
       style={{
@@ -16,7 +17,7 @@ export const Lists = (props) => {
     >
       <ul className={styleConstructor.order}>
         {props.dataOrder.map(
-          (item, index) =>
+          (item) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
@@ -26,7 +27,7 @@ export const Lists = (props) => {
                   type="top"
                   isLocked={true}
                   text={item.name + " (верх)"}
-                  price={item.price / 2}
+                  price={item.price}
                   thumbnail={item.image}
                 />
               </li>
@@ -35,7 +36,7 @@ export const Lists = (props) => {
 
         <ul className={styleConstructor.ingredients}>
           {props.dataOrder.map(
-            (item, index) =>
+            (item) =>
               item.type !== "bun" && (
                 <li
                   className={styleConstructor.ingredient + " mt-2 mb-2"}
@@ -53,7 +54,7 @@ export const Lists = (props) => {
         </ul>
 
         {props.dataOrder.map(
-          (item, index) =>
+          (item) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
@@ -63,7 +64,7 @@ export const Lists = (props) => {
                   type="bottom"
                   isLocked={true}
                   text={item.name + " (низ)"}
-                  price={item.price / 2}
+                  price={item.price}
                   thumbnail={item.image}
                 />
               </li>

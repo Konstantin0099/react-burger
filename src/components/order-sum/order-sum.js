@@ -7,7 +7,7 @@ export const OrderSum = (props) => {
   return (
     <div className={styleConstructor.placeOrder}>
       <span className={styleConstructor.sumOrder + " mr-15"}>
-        <span className="text text_type_digits-medium">{1313}</span>
+        <span className="text text_type_digits-medium">{props.children}</span>
         <CurrencyIcon type="primary" x="10" />
       </span>
       <Button type="primary" size="large" onClick={props.openPopupOrder}>

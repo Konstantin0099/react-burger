@@ -35,7 +35,7 @@ const BurgerConstructor = (props) => {
         " pt-20 pl-4 pr-4 ml-5 mr-0 mt-0 mb-0"
       }
     >
-      <Lists data={data} dataOrder={dataOrder} />
+      <Lists dataOrder={dataOrder} />
       <OrderSum openPopupOrder={props.openPopupOrder}>{orderSumState}</OrderSum>
     </section>
   );

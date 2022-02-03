@@ -18,5 +18,6 @@ export const OrderSum = (props) => {
 };
 
 OrderSum.propTypes = {
+  children: PropTypes.number,
   openPopupOrder: PropTypes.func,
 };

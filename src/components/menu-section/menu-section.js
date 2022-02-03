@@ -6,7 +6,7 @@ const MenuSection = ({ openPopup, data, ingredient, dataOrder }) => {
   return (
     <ul className={style.menu + " pt-6 pb-10"}>
       {data.map(
-        (item, index) =>
+        (item) =>
           item.type === ingredient && (
             <Food
               item={item}

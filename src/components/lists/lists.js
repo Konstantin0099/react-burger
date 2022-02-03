@@ -3,7 +3,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleConstructor from "./lists.module.css";
 
-export const Lists = (props) => {
+export const Lists = ({dataOrder}) => {
 
   return (
     <div
@@ -16,7 +16,7 @@ export const Lists = (props) => {
       }}
     >
       <ul className={styleConstructor.order}>
-        {props.dataOrder.map(
+        {dataOrder.map(
           (item, index) =>
             item.type === "bun" && (
               <li
@@ -35,7 +35,7 @@ export const Lists = (props) => {
         )}
 
         <ul className={styleConstructor.ingredients}>
-          {props.dataOrder.map(
+          {dataOrder.map(
             (item, index) =>
               item.type !== "bun" && (
                 <li
@@ -53,7 +53,7 @@ export const Lists = (props) => {
           )}
         </ul>
 
-        {props.dataOrder.map(
+        {dataOrder.map(
           (item, index) =>
             item.type === "bun" && (
               <li
@@ -88,19 +88,5 @@ Lists.propTypes = {
       fat: PropTypes.number,
       proteins: PropTypes.number,
     })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
+  )
 };

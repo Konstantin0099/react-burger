@@ -17,11 +17,11 @@ export const Lists = (props) => {
     >
       <ul className={styleConstructor.order}>
         {props.dataOrder.map(
-          (item) =>
+          (item, index) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
-                key={item._id}
+                key={index}
               >
                 <ConstructorElement
                   type="top"
@@ -36,11 +36,11 @@ export const Lists = (props) => {
 
         <ul className={styleConstructor.ingredients}>
           {props.dataOrder.map(
-            (item) =>
+            (item, index) =>
               item.type !== "bun" && (
                 <li
                   className={styleConstructor.ingredient + " mt-2 mb-2"}
-                  key={item._id}
+                  key={index}
                 >
                   <DragIcon />
                   <ConstructorElement
@@ -54,11 +54,11 @@ export const Lists = (props) => {
         </ul>
 
         {props.dataOrder.map(
-          (item) =>
+          (item, index) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
-                key={item._id}
+                key={index}
               >
                 <ConstructorElement
                   type="bottom"

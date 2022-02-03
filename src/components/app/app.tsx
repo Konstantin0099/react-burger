@@ -23,12 +23,17 @@ const App = () => {
 
   React.useEffect(() => {
     fetch(`${URL_INGREDIENTS}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`${res.status}`);
+      })
       .then((productData) =>
         setState((state) => ({ ...state, data: productData.data }))
       )
       .catch((e) => {
-        console.log("ошибка", e);
+        console.log("упс... ошибка :(", e);
       });
   }, []);
 
@@ -74,7 +79,7 @@ const App = () => {
       )}
       <main className={style.main}>
         <IngredientsContext.Provider
-          value={{ state, setState}}
+          value={{ state }}
         >
           <BurgerIngredients
             data={state.data}

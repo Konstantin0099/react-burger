@@ -6,22 +6,27 @@ import { OrderSum } from "../order-sum/order-sum.js";
 import { IngredientsContext } from "../../services/appContext";
 
 const BurgerConstructor = (props) => {
-   const { state, setState} = React.useContext(IngredientsContext);
-   const {
-    data,
-    dataOrder,
-    visible,
-    item,
-    popap
-  } = state;
-  function reducer(orderSumState, data) {
-    let sum = data.reduce((sum, ingredients) => sum + (ingredients.type === "bun" ? (ingredients.price * 2) : ingredients.price), 0);
+  const { state } = React.useContext(IngredientsContext);
+  const { data, dataOrder } = state;
+  function reducer(_, data) {
+    let sum = data.reduce(
+      (sum, ingredients) =>
+        sum +
+        (ingredients.type === "bun"
+          ? ingredients.price * 2
+          : ingredients.price),
+      0
+    );
     return sum;
   }
-  const [orderSumState, orderSumStateDispatcher] = React.useReducer(reducer, null, undefined);
+  const [orderSumState, orderSumStateDispatcher] = React.useReducer(
+    reducer,
+    null,
+    undefined
+  );
   React.useEffect(() => {
-  orderSumStateDispatcher(dataOrder);
-  },[]);
+    orderSumStateDispatcher(dataOrder);
+  }, []);
 
   return (
     <section

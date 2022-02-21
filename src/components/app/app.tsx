@@ -70,7 +70,7 @@ const App = () => {
         console.log("catch ошибка ", e);
       });
   };
-
+  console.log("App", state);
   return (
     <div className={style.app}>
       <AppHeader />

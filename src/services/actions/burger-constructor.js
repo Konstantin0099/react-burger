@@ -1,0 +1,4 @@
+
+export const ORDER_SUM_STATE = 'ORDER_SUM_STATE';
+export const DATA_ORDER_PLUS = 'DATA_ORDER_PLUS';
+export const DATA_ORDER_MINUS = "DATA_ORDER_MINUS";

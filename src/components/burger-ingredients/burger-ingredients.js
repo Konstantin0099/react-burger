@@ -5,6 +5,7 @@ import MenuSection from "../menu-section/menu-section.js";
 import { Tabs } from "../tabs/tabs.js";
 
 const BurgerIngredients = (props) => {
+  
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>

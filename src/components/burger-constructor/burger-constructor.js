@@ -4,29 +4,18 @@ import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
 import { OrderSum } from "../order-sum/order-sum.js";
 import { IngredientsContext } from "../../services/appContext";
+import { useDispatch, useSelector } from 'react-redux';
+import { ORDER_SUM_STATE } from '../../services/actions/burger-constructor';
+
 
 const BurgerConstructor = (props) => {
-  const { state } = React.useContext(IngredientsContext);
-  const { data, dataOrder } = state;
-  function reducer(_, data) {
-    let sum = data.reduce(
-      (sum, ingredients) =>
-        sum +
-        (ingredients.type === "bun"
-          ? ingredients.price * 2
-          : ingredients.price),
-      0
-    );
-    return sum;
-  }
-  const [orderSumState, orderSumStateDispatcher] = React.useReducer(
-    reducer,
-    null,
-    undefined
-  );
+
+  const dispatch = useDispatch();
+  const dataOrder = useSelector(state => state.dataOrder);
+  const orderSumState = useSelector(state => state.orderSumState);
   React.useEffect(() => {
-    orderSumStateDispatcher(dataOrder);
-  }, []);
+    dispatch({ type: ORDER_SUM_STATE, dataOrder})
+  }, [dataOrder]);
 
   return (
     <section

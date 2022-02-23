@@ -6,14 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   TOGGLE_VISIBLE,
   OPEN_POPUP_INGREDIENTS,
-  OPEN_POPUP_ORDER,
 } from "../../services/actions/modal";
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
-  const { data, dataOrder, openPopup } = useSelector((state) => state);
-
-  // console.log("Food item", data, dataOrder, openPopup);
   return (
     <li
       className={style.itemMenu}
@@ -24,7 +20,6 @@ export const Food = ({ item, count }) => {
         }
         }
     >
-      {/* <li className={style.itemMenu} onClick={() => openPopup(item)}> */}
       {count !== 0 && <Counter count={count} size="default" />}
       <img className={style.img} src={item.image} alt="фото ингредиента" />
       <div className={style.price + " pt-2 pb-2"}>
@@ -49,6 +44,5 @@ Food.propTypes = {
     fat: PropTypes.number,
     proteins: PropTypes.number,
   }),
-  openPopup: PropTypes.func,
   count: PropTypes.number,
 };

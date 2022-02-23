@@ -49,6 +49,30 @@ const dataOrder = [
         // "count":1
     },
     {
+        "_id":"60d3b41abdacab0026a733cc",
+        "name":"Соус Spicy-X",
+        "type":"sauce",
+        "proteins":30,
+        "fat":20,
+        "carbohydrates":40,
+        "calories":30,
+        "price":90,
+        "image":"https://code.s3.yandex.net/react/code/sauce-02.png",
+        // "count":1
+    },
+    {
+        "_id":"60d3b41abdacab0026a733cc",
+        "name":"Соус Spicy-X",
+        "type":"sauce",
+        "proteins":30,
+        "fat":20,
+        "carbohydrates":40,
+        "calories":30,
+        "price":90,
+        "image":"https://code.s3.yandex.net/react/code/sauce-02.png",
+        // "count":1
+    },
+    {
         "_id":"60d3b41abdacab0026a733d1",
      "name":"Плоды Фалленианского дерева",
      "type":"main",

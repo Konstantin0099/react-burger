@@ -1,10 +1,10 @@
-
 import { dataOrder } from "../../utils/data";
 import {
   ORDER_SUM,
   GET_NUMBER,
   GET_NUMBER_SUCCES,
   GET_NUMBER_FAILED,
+  NUMBER_REMOVE,
 } from "../actions/burger-constructor";
 
 const initialOrderState = {
@@ -17,18 +17,18 @@ const initialOrderState = {
 export const orderReducer = (state = initialOrderState, action) => {
   switch (action.type) {
     case ORDER_SUM: {
-        let sum = action.dataOrder.reduce(
-            (sum, ingredients) =>
-              sum +
-              (ingredients.type === "bun"
-                ? ingredients.price * 2
-                : ingredients.price),
-            0
-          );
+      let sum = action.dataOrder.reduce(
+        (sum, ingredients) =>
+          sum +
+          (ingredients.type === "bun"
+            ? ingredients.price * 2
+            : ingredients.price),
+        0
+      );
       return {
         ...state,
-         sum: sum,
-      }
+        sum: sum,
+      };
     }
     case GET_NUMBER: {
       return {
@@ -51,15 +51,19 @@ export const orderReducer = (state = initialOrderState, action) => {
         numberFailed: true,
       };
     }
+    case NUMBER_REMOVE: {
+      return {
+        ...state,
+        number: null,
+      };
+    }
     default: {
       return state;
     }
   }
-}
+};
 
 const initalDataOrder = dataOrder;
 export const dataOrderReducer = (state = initalDataOrder, action) => {
-      return state;
-    }
-  
-
+  return state;
+};

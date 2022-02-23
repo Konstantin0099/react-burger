@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import {useEffect} from "react";
 import style from "./burger-ingredients.module.css";
 import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../services/thunk/get-data";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const { data , dataOrder, openPopup  } = useSelector((state) => state);
-  // const { dataOrder } = useSelector((state) => state);
-  // console.log("data", data, "dataOrder", dataOrder);
+  const { data, dataOrder } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getData());
   }, []);
@@ -31,7 +28,6 @@ const BurgerIngredients = (props) => {
         >
           {tabsName[index]}
           <MenuSection
-            openPopup={props.openPopup}
             data={data.data}
             ingredient={tab}
             dataOrder={dataOrder}
@@ -50,8 +46,5 @@ const BurgerIngredients = (props) => {
   );
 };
 
-BurgerIngredients.propTypes = {
-  openPopup: PropTypes.func,
-};
 
 export default BurgerIngredients;

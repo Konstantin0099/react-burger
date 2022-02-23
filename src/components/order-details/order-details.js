@@ -1,13 +1,21 @@
-import PropTypes from "prop-types";
+import React from "react";
 import style from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  NUMBER_REMOVE
+} from "../../services/actions/burger-constructor";
+import { getNumber } from "../../services/thunk/get-number-order";
 
 
-const OrderDetails = ({id}) => {
-  // const dispatch = useDispatch();
+const OrderDetails = () => {
+  const dispatch = useDispatch();
+  const  dataOrder = useSelector(state => state.dataOrder);
   const { number} = useSelector((state) => state.orderState);
-// console.log("OrderDetails", number);
+  React.useEffect(() => {
+    dispatch(getNumber(dataOrder));
+  return () => dispatch({ type: NUMBER_REMOVE})
+}, []);
   return (
     <div className={style.order}>
       <p className="text text_type_digits-large pt-30">{number}</p>
@@ -23,10 +31,6 @@ const OrderDetails = ({id}) => {
       </p>
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  id: PropTypes.number
 };
 
 export default OrderDetails;

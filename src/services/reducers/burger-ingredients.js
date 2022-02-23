@@ -10,7 +10,6 @@ const initialData = {
   data: [],
 };
 export const dataReducer = (state = initialData, action) => {
-//   console.log("dataReducer", action.type, state);
   switch (action.type) {
     case GET_DATA: {
       return {

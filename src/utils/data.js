@@ -10,7 +10,7 @@ const dataOrder = [
         "calories":420,
         "price":1255,
         "image":"https://code.s3.yandex.net/react/code/bun-02.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733ca",
@@ -22,7 +22,7 @@ const dataOrder = [
         "calories":2674,
         "price":3000,
         "image":"https://code.s3.yandex.net/react/code/meat-04.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733cb",
@@ -34,7 +34,7 @@ const dataOrder = [
         "calories":4242,
         "price":424,
         "image":"https://code.s3.yandex.net/react/code/meat-01.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733cc",
@@ -46,7 +46,7 @@ const dataOrder = [
         "calories":30,
         "price":90,
         "image":"https://code.s3.yandex.net/react/code/sauce-02.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733d1",
@@ -58,7 +58,7 @@ const dataOrder = [
      "calories":77,
      "price":874,
      "image":"https://code.s3.yandex.net/react/code/sp_1.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733cf",
@@ -70,7 +70,7 @@ const dataOrder = [
      "calories":100,
      "price":88,
      "image":"https://code.s3.yandex.net/react/code/sauce-01.png",
-        "count":1
+        // "count":1
     },
     {
         "_id":"60d3b41abdacab0026a733cd",
@@ -82,7 +82,7 @@ const dataOrder = [
         "calories":14,
         "price":80,
         "image":"https://code.s3.yandex.net/react/code/sauce-04.png",
-        "count":1
+        // "count":1
     }
 
 ]

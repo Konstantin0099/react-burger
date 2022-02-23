@@ -4,17 +4,17 @@ import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
 import { OrderSum } from "../order-sum/order-sum.js";
 import { IngredientsContext } from "../../services/appContext";
-import { useDispatch, useSelector } from 'react-redux';
-import { ORDER_SUM_STATE } from '../../services/actions/burger-constructor';
-
+import { useDispatch, useSelector } from "react-redux";
+import { ORDER_SUM } from "../../services/actions/burger-constructor";
+import { getNumber } from "../../services/thunk/get-number-order";
 
 const BurgerConstructor = (props) => {
-
   const dispatch = useDispatch();
-  const dataOrder = useSelector(state => state.dataOrder);
-  const orderSumState = useSelector(state => state.orderSumState);
+  const dataOrder = useSelector((state) => state.dataOrder);
+  // const {sum} = useSelector(state => state.orderState);
   React.useEffect(() => {
-    dispatch({ type: ORDER_SUM_STATE, dataOrder})
+    dispatch(getNumber(dataOrder));
+    dispatch({ type: ORDER_SUM, dataOrder });
   }, [dataOrder]);
 
   return (
@@ -25,7 +25,7 @@ const BurgerConstructor = (props) => {
       }
     >
       <Lists dataOrder={dataOrder} />
-      <OrderSum openPopupOrder={props.openPopupOrder}>{orderSumState}</OrderSum>
+      <OrderSum />
     </section>
   );
 };

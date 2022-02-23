@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 import style from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
 
-const OrderDetails = (props) => {
+
+const OrderDetails = ({id}) => {
+  // const dispatch = useDispatch();
+  const { number} = useSelector((state) => state.orderState);
+// console.log("OrderDetails", number);
   return (
     <div className={style.order}>
-      <p className="text text_type_digits-large pt-30">{props.id}</p>
+      <p className="text text_type_digits-large pt-30">{number}</p>
       <p className="text text_type_digits-default pt-8 pb-15">
         идентификатор заказа
       </p>

@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from "./components/app/app";
-import { rootReducer } from './services/reducers';
+import rootReducer from './services/reducers';
 import "./index.css";
 
 const composeEnhancers = compose;
@@ -16,7 +16,7 @@ const composeEnhancers = compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, enhancer);
-console.log("store",);
+//console.log("store",);
 
 ReactDOM.render(
   <React.StrictMode>

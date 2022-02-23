@@ -1,4 +1,5 @@
 
-export const ORDER_SUM_STATE = 'ORDER_SUM_STATE';
-export const DATA_ORDER_PLUS = 'DATA_ORDER_PLUS';
-export const DATA_ORDER_MINUS = "DATA_ORDER_MINUS";
+export const ORDER_SUM = 'ORDER_SUM';
+export const GET_NUMBER = "GET_NUMBER";
+export const GET_NUMBER_SUCCES = "GET_NUMBER_SUCCES";
+export const GET_NUMBER_FAILED = "GET_NUMBER_FAILED";

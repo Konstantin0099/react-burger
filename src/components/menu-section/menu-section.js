@@ -3,18 +3,24 @@ import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
 
 const MenuSection = ({ openPopup, data, ingredient, dataOrder }) => {
+ 
   return (
     <ul className={style.menu + " pt-6 pb-10"}>
       {data.map(
-        (item) =>
-          item.type === ingredient && (
+        (item) => {
+let countOrder = 0;
+dataOrder.forEach((element) => {
+  if (element._id === item._id) { countOrder++ } 
+});
+         return  (item.type === ingredient) && (
             <Food
               item={item}
               key={item._id}
+              count={countOrder}
               dataOrder={dataOrder}
               openPopup={openPopup}
             />
-          )
+          )}
       )}
     </ul>
   );
@@ -52,4 +58,4 @@ MenuSection.propTypes = {
   openPopup: PropTypes.func,
 };
 
-export default MenuSection;
+export {MenuSection};

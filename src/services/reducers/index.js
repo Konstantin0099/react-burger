@@ -1,12 +1,24 @@
 
 import { combineReducers } from 'redux';
 import { tabReducer } from './tabs';
-import { orderSumReducer, dataOrderReducer } from './burger-constructor';
+import { orderReducer, dataOrderReducer } from './burger-constructor';
+import { dataReducer } from './burger-ingredients';
+import { toggleVisibleReducer, openPopupReducer } from './modal';
 
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
     currentTab: tabReducer,
-    orderSumState: orderSumReducer,
+    orderState: orderReducer,
     dataOrder: dataOrderReducer,
+    data: dataReducer,
+    visible: toggleVisibleReducer,
+    openPopup: openPopupReducer,
   });
-console.log("rootReducer",);
+
+
+
+
+
+export default rootReducer;
+
+// console.log("rootReducer",);

@@ -2,17 +2,31 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import style from "./food.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  TOGGLE_VISIBLE,
+  OPEN_POPUP_INGREDIENTS,
+  OPEN_POPUP_ORDER,
+} from "../../services/actions/modal";
 
-export const Food = ({ item, dataOrder, openPopup }) => {
-  const orderItem = dataOrder.find((el) => {
-    return el._id === item._id;
-  });
+export const Food = ({ item, count }) => {
+  const dispatch = useDispatch();
+  const { data, dataOrder, openPopup } = useSelector((state) => state);
+
+  // console.log("Food item", data, dataOrder, openPopup);
   return (
-    <li className={style.itemMenu} onClick={() => openPopup(item)}>
-      {orderItem !== undefined && orderItem.count && (
-        <Counter count={orderItem.count} size="default" />
-      )}
-      <img className={style.img} src={item.image} alt="упсс" />
+    <li
+      className={style.itemMenu}
+      onClick={() =>
+        {
+          dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
+          dispatch({ type: TOGGLE_VISIBLE});
+        }
+        }
+    >
+      {/* <li className={style.itemMenu} onClick={() => openPopup(item)}> */}
+      {count !== 0 && <Counter count={count} size="default" />}
+      <img className={style.img} src={item.image} alt="фото ингредиента" />
       <div className={style.price + " pt-2 pb-2"}>
         <span className="text text_type_digits-default mr-2">{item.price}</span>
         <CurrencyIcon type="primary" />
@@ -23,20 +37,6 @@ export const Food = ({ item, dataOrder, openPopup }) => {
 };
 
 Food.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
   item: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
@@ -50,4 +50,5 @@ Food.propTypes = {
     proteins: PropTypes.number,
   }),
   openPopup: PropTypes.func,
+  count: PropTypes.number,
 };

@@ -1,77 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import style from "./burger-ingredients.module.css";
-import MenuSection from "../menu-section/menu-section.js";
+import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../../services/thunk/get-data";
 
 const BurgerIngredients = (props) => {
-  
+  const dispatch = useDispatch();
+  const { data , dataOrder, openPopup  } = useSelector((state) => state);
+  // const { dataOrder } = useSelector((state) => state);
+  // console.log("data", data, "dataOrder", dataOrder);
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+
+  const tabsName = ["Булки", "Начинки", "Соусы"];
+  let arrTabs = [];
+  data.data.forEach((tab) => {
+    if (!arrTabs.includes(tab.type)) {
+      arrTabs = [...arrTabs, tab.type];
+    }
+  });
+  const setIngredients = () => {
+    return arrTabs.map((tab, index) => {
+      return (
+        <li
+          key={index}
+          className={style.listBlock + " text text_type_main-medium"}
+        >
+          {tabsName[index]}
+          <MenuSection
+            openPopup={props.openPopup}
+            data={data.data}
+            ingredient={tab}
+            dataOrder={dataOrder}
+          />
+        </li>
+      );
+    });
+  };
+
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>
       <Tabs />
-      <ul className={style.list + " pt-10"}>
-        <li className={style.listBlock + " text text_type_main-medium"}>
-          Булки
-          <MenuSection
-            openPopup={props.openPopup}
-            data={props.data}
-            ingredient="bun"
-            dataOrder={props.dataOrder}
-          />
-        </li>
-        <li className={style.listBlock + " text text_type_main-medium"}>
-          Соусы
-          <MenuSection
-            openPopup={props.openPopup}
-            data={props.data}
-            ingredient="sauce"
-            dataOrder={props.dataOrder}
-          />
-        </li>
-        <li className={style.listBlock + " text text_type_main-medium"}>
-          Начинки
-          <MenuSection
-            openPopup={props.openPopup}
-            data={props.data}
-            ingredient="main"
-            dataOrder={props.dataOrder}
-          />
-        </li>
-      </ul>
+      <ul className={style.list + " pt-10"}>{setIngredients()}</ul>
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
   openPopup: PropTypes.func,
 };
 

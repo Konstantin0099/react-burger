@@ -2,6 +2,127 @@ import PropTypes from "prop-types";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleConstructor from "./lists.module.css";
+import { useDrag, useDrop } from 'react-dnd';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { TOGGLE_ITEM_CONSTRUCTOR  } from "../../services/actions/burger-constructor";
+
+
+const ItemOrder = ({item, index, length}) => {
+
+    const dispatch = useDispatch();
+
+  // const type = item.type;
+  //  const moveCard = (dragIndex, hoverIndex) => {
+  //  }
+  // const moveBun = (itemId) => {
+  //   console.log("сработал moveBun",  type, itemId);
+  // }; 
+  // const moveIngredient = (itemId) => {
+  //   console.log("сработал moveIngredient",  type, itemId);
+  // };
+
+ const [, drop] = useDrop({
+    accept: 'items',
+    // drop(itemId) { type === "bun" ? moveBun(itemId) : moveIngredient(itemId) },
+    hover(item, monitor) {
+            if (!ref.current) {
+                return;
+            }
+              // console.log("hover", "item.index", item.index, "index", index);
+            const dragIndex = item.index;
+            const hoverIndex = index;
+              console.log("dragIndex2", dragIndex, "hoverIndex", hoverIndex, "index", index, "item.index", item.index);
+            if (hoverIndex === 0 || hoverIndex === length - 1) {
+              // console.log("hover bun");
+                return;
+            }
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+              // console.log("hoverClientY", hoverClientY, "hoverMiddleY", hoverMiddleY);
+                return;
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+            // console.log(">>>", hoverBoundingRect, hoverMiddleY, clientOffset, hoverClientY);
+            // moveCard(dragIndex, hoverIndex);
+             dispatch({type: TOGGLE_ITEM_CONSTRUCTOR, dragIndex: dragIndex, hoverIndex:  hoverIndex })
+             item.index = hoverIndex;
+             console.log("moveCard_ item.index, index", item.index, index);
+            // hoverIndex = dragIndex;
+        },
+    
+  }, []);
+
+  const [{ opacity, getItem }, drag] = useDrag({
+    type: 'items',
+    item: { id: item.idInOrder, index: index },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.3 : 1,
+      getItem:  monitor.didDrop()
+    })
+  }, []);
+
+   const ref = useRef(null);
+  drag(drop(ref));
+
+      return (
+      
+        index === 0 ? (
+              <li
+                ref={ref}
+                className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
+                style={{opacity: `${opacity}`}}
+              >
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={item.name + " (верх)" + item.idInOrder + " >" + index}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>) : (index === (length - 1)) ? (
+              <li
+                ref={ref}
+                className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
+                style={{opacity: `${opacity}`}}
+              >
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={item.name + " (низ)" + item.idInOrder + " >" + index}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+              ) : (
+                <li
+                  ref={ref}
+                  className={styleConstructor.ingredient + " mt-2 mb-2"}
+                  style={{opacity: `${opacity}`}}
+                >
+                  <DragIcon />
+                  <ConstructorElement
+                    text={item.name + "_" + item.idInOrder + " >" + index}
+                    price={item.price}
+                    thumbnail={item.image}
+                  />
+                </li>
+              )
+     
+             
+             )
+             }
+     
+
+
 
 export const Lists = ({dataOrder}) => {
 
@@ -16,60 +137,12 @@ export const Lists = ({dataOrder}) => {
       }}
     >
       <ul className={styleConstructor.order}>
-        {dataOrder.map(
-          (item, index) =>
-            item.type === "bun" && (
-              <li
-                className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
-                key={index}
-              >
-                <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text={item.name + " (верх)"}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </li>
-            )
-        )}
-
-        <ul className={styleConstructor.ingredients}>
-          {dataOrder.map(
-            (item, index) =>
-              item.type !== "bun" && (
-                <li
-                  className={styleConstructor.ingredient + " mt-2 mb-2"}
-                  key={index}
-                >
-                  <DragIcon />
-                  <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                  />
-                </li>
-              )
-          )}
-        </ul>
-
-        {dataOrder.map(
-          (item, index) =>
-            item.type === "bun" && (
-              <li
-                className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
-                key={index}
-              >
-                <ConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text={item.name + " (низ)"}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </li>
-            )
-        )}
+        { 
+       dataOrder.map((item, index) => index < (dataOrder.length - 1) 
+       ? <ItemOrder  key={item.idInOrder} item={item} index={index} length={dataOrder.length}/>
+       : <ItemOrder  key={item.idInOrder + 0.5} item={item} index={index} length={dataOrder.length}/>
+       )
+          }
       </ul>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import { dataOrder } from "../../utils/data";
 import {
   ORDER_SUM,
@@ -5,6 +6,7 @@ import {
   GET_NUMBER_SUCCES,
   GET_NUMBER_FAILED,
   NUMBER_REMOVE,
+  TOGGLE_ITEM_CONSTRUCTOR,
 } from "../actions/burger-constructor";
 
 const initialOrderState = {
@@ -62,8 +64,21 @@ export const orderReducer = (state = initialOrderState, action) => {
     }
   }
 };
-
-const initalDataOrder = dataOrder;
+const dataOrderConstructor = [...dataOrder, dataOrder[0]];
+// console.log(initalDataOrder);
+const initalDataOrder = dataOrderConstructor.map((el) =>  { return {...el, idInOrder: (Math.ceil(Math.random() * 1000000))}} );
+// console.log(initalDataOrder);
 export const dataOrderReducer = (state = initalDataOrder, action) => {
-  return state;
+   switch (action.type) {
+    case TOGGLE_ITEM_CONSTRUCTOR: {
+      const next = state.slice();
+      next.splice(action.hoverIndex, 1);
+      next.splice(action.dragIndex, 0, state[action.hoverIndex]);
+      console.log("TOGGLE_ITEM_CONSTRUCTOR", action);
+      return [...next];
+    }
+   default: {
+      return state;
+    }
 };
+}

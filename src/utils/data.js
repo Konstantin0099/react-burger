@@ -13,18 +13,6 @@ const dataOrder = [
         // "count":1
     },
     {
-        "_id":"60d3b41abdacab0026a733ca",
-        "name":"Говяжий метеорит (отбивная)",
-        "type":"main",
-        "proteins":800,
-        "fat":800,
-        "carbohydrates":300,
-        "calories":2674,
-        "price":3000,
-        "image":"https://code.s3.yandex.net/react/code/meat-04.png",
-        // "count":1
-    },
-    {
         "_id":"60d3b41abdacab0026a733cb",
         "name":"Биокотлета из марсианской Магнолии",
         "type":"main",
@@ -72,42 +60,7 @@ const dataOrder = [
         "image":"https://code.s3.yandex.net/react/code/sauce-02.png",
         // "count":1
     },
-    {
-        "_id":"60d3b41abdacab0026a733d1",
-     "name":"Плоды Фалленианского дерева",
-     "type":"main",
-     "proteins":20,
-     "fat":5,
-     "carbohydrates":55,
-     "calories":77,
-     "price":874,
-     "image":"https://code.s3.yandex.net/react/code/sp_1.png",
-        // "count":1
-    },
-    {
-        "_id":"60d3b41abdacab0026a733cf",
-     "name":"Соус с шипами Антарианского плоскоходца",
-     "type":"sauce",
-     "proteins":101,
-     "fat":99,
-     "carbohydrates":100,
-     "calories":100,
-     "price":88,
-     "image":"https://code.s3.yandex.net/react/code/sauce-01.png",
-        // "count":1
-    },
-    {
-        "_id":"60d3b41abdacab0026a733cd",
-        "name":"Соус фирменный Space Sauce",
-        "type":"sauce",
-        "proteins":50,
-        "fat":22,
-        "carbohydrates":11,
-        "calories":14,
-        "price":80,
-        "image":"https://code.s3.yandex.net/react/code/sauce-04.png",
-        // "count":1
-    }
+   
 
 ]
 

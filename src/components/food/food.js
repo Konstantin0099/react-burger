@@ -7,11 +7,29 @@ import {
   TOGGLE_VISIBLE,
   OPEN_POPUP_INGREDIENTS,
 } from "../../services/actions/modal";
+import { useDrag, useDrop } from 'react-dnd';
+import { useRef } from 'react';
+
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
+  const [{ opacity, getItem }, drop] = useDrag({
+    type: 'items',
+    item: { id: item._id },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+      getItem:  monitor.didDrop()
+    })
+  }, );
+  
+  // console.log("food", opacity, getItem );
+
+  drop(ref);
+
   return (
     <li
+      ref={ref}
       className={style.itemMenu}
       onClick={() =>
         {

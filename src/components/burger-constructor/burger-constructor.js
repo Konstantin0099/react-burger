@@ -10,7 +10,7 @@ const BurgerConstructor = () => {
   const dataOrder = useSelector((state) => state.dataOrder);
   React.useEffect(() => {
     dispatch({ type: ORDER_SUM, dataOrder });
-  }, [dataOrder]);
+  }, []);
   return (
     <section
       className={
@@ -23,5 +23,4 @@ const BurgerConstructor = () => {
     </section>
   );
 };
-
 export default BurgerConstructor;

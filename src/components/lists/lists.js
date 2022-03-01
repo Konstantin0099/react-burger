@@ -12,29 +12,19 @@ const ItemOrder = ({item, index, length}) => {
 
     const dispatch = useDispatch();
 
-  // const type = item.type;
-  //  const moveCard = (dragIndex, hoverIndex) => {
-  //  }
-  // const moveBun = (itemId) => {
-  //   console.log("сработал moveBun",  type, itemId);
-  // }; 
-  // const moveIngredient = (itemId) => {
-  //   console.log("сработал moveIngredient",  type, itemId);
-  // };
-
  const [, drop] = useDrop({
     accept: 'items',
-    // drop(itemId) { type === "bun" ? moveBun(itemId) : moveIngredient(itemId) },
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
     hover(item, monitor) {
             if (!ref.current) {
                 return;
             }
-              // console.log("hover", "item.index", item.index, "index", index);
             const dragIndex = item.index;
             const hoverIndex = index;
-              console.log("dragIndex2", dragIndex, "hoverIndex", hoverIndex, "index", index, "item.index", item.index);
+              console.log("dragIndex2", dragIndex, "hoverIndex", hoverIndex, "index", index, "item.index", item.index, "item.idInOrder", item.id);
             if (hoverIndex === 0 || hoverIndex === length - 1) {
-              // console.log("hover bun");
                 return;
             }
             if (dragIndex === hoverIndex) {
@@ -45,28 +35,23 @@ const ItemOrder = ({item, index, length}) => {
             const clientOffset = monitor.getClientOffset();
             const hoverClientY = clientOffset.y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-              // console.log("hoverClientY", hoverClientY, "hoverMiddleY", hoverMiddleY);
                 return;
             }
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-            // console.log(">>>", hoverBoundingRect, hoverMiddleY, clientOffset, hoverClientY);
-            // moveCard(dragIndex, hoverIndex);
              dispatch({type: TOGGLE_ITEM_CONSTRUCTOR, dragIndex: dragIndex, hoverIndex:  hoverIndex })
              item.index = hoverIndex;
              console.log("moveCard_ item.index, index", item.index, index);
-            // hoverIndex = dragIndex;
         },
     
   }, []);
 
-  const [{ opacity, getItem }, drag] = useDrag({
+  const [{ opacity }, drag] = useDrag({
     type: 'items',
     item: { id: item.idInOrder, index: index },
     collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.3 : 1,
-      getItem:  monitor.didDrop()
+      opacity: monitor.isDragging() ? 0.5 : 1,
     })
   }, []);
 

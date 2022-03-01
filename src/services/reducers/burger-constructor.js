@@ -72,8 +72,8 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
    switch (action.type) {
     case TOGGLE_ITEM_CONSTRUCTOR: {
       const next = state.slice();
-      next.splice(action.hoverIndex, 1);
-      next.splice(action.dragIndex, 0, state[action.hoverIndex]);
+      next.splice(action.dragIndex, 1);
+      next.splice(action.hoverIndex, 0, state[action.dragIndex]);
       console.log("TOGGLE_ITEM_CONSTRUCTOR", action);
       return [...next];
     }
@@ -82,3 +82,4 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
     }
 };
 }
+// action.dragIndex

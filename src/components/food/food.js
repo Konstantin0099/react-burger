@@ -13,24 +13,22 @@ import { useRef } from 'react';
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
-  const [{ opacity, getItem }, drop] = useDrag({
+  // const ref = useRef(null);
+  const [{ opacity, getItem }, ref] = useDrag({
     type: 'items',
-    item: { id: item._id },
+    item: { el: item, drag: "food"  },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
-      getItem:  monitor.didDrop()
+      // getItem:  monitor.didDrop()
     })
-  }, );
+  }, []);
   
-  // console.log("food", opacity, getItem );
-
-  drop(ref);
-
   return (
     <li
       ref={ref}
       className={style.itemMenu}
+      style={{opacity: `${opacity}`}}
+      // onScroll={(e) => {console.log("e=", e.terget)}}
       onClick={() =>
         {
           dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });

@@ -7,7 +7,13 @@ import {
   GET_NUMBER_FAILED,
   NUMBER_REMOVE,
   TOGGLE_ITEM_CONSTRUCTOR,
+  ADD_ITEM_CONSTRUCTOR,
+  ADD_BUN_CONSTRUCTOR,
+  DELETE_ITEM_CONSTRUCTOR,
 } from "../actions/burger-constructor";
+
+const dataOrderConstructor = [...dataOrder, dataOrder[0]];
+const initalDataOrder = dataOrderConstructor.map((el) =>  { return {...el, idInOrder: (Math.ceil(Math.random() * 1000000))}} );
 
 const initialOrderState = {
   numberRequest: false,
@@ -21,12 +27,7 @@ export const orderReducer = (state = initialOrderState, action) => {
     case ORDER_SUM: {
       let sum = action.dataOrder.reduce(
         (sum, ingredients) =>
-          sum +
-          (ingredients.type === "bun"
-            ? ingredients.price * 2
-            : ingredients.price),
-        0
-      );
+          sum += ingredients.price, 0 );
       return {
         ...state,
         sum: sum,
@@ -64,17 +65,33 @@ export const orderReducer = (state = initialOrderState, action) => {
     }
   }
 };
-const dataOrderConstructor = [...dataOrder, dataOrder[0]];
-// console.log(initalDataOrder);
-const initalDataOrder = dataOrderConstructor.map((el) =>  { return {...el, idInOrder: (Math.ceil(Math.random() * 1000000))}} );
-// console.log(initalDataOrder);
 export const dataOrderReducer = (state = initalDataOrder, action) => {
    switch (action.type) {
+        case DELETE_ITEM_CONSTRUCTOR: {
+      const next = state.slice();
+      next.splice(action.index, 1);
+      return [...next];
+    }
+        case ADD_BUN_CONSTRUCTOR: {
+      const next = state.slice();
+      next.splice(0, 1, action.dragItem );
+      next.splice(next.length - 1, 1, action.dragItem);
+      next[0].idInOrder = (Math.ceil(Math.random() * 1000000));
+      next[next.length - 1] = {...next[next.length - 1], idInOrder: (Math.ceil(Math.random() * 1000000)) };
+      // console.log("next", next);
+      return [...next];
+    }
+        case ADD_ITEM_CONSTRUCTOR: {
+      const next = state.slice();
+      next.splice(action.dragIndex, 0, action.dragItem );
+      next[action.dragIndex] = {...next[action.dragIndex], idInOrder: (Math.ceil(Math.random() * 1000000)) };
+      // action.dragItem.idInOrder = (Math.ceil(Math.random() * 1000000));
+      return [...next];
+    }
     case TOGGLE_ITEM_CONSTRUCTOR: {
       const next = state.slice();
       next.splice(action.dragIndex, 1);
       next.splice(action.hoverIndex, 0, state[action.dragIndex]);
-      console.log("TOGGLE_ITEM_CONSTRUCTOR", action);
       return [...next];
     }
    default: {
@@ -82,4 +99,4 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
     }
 };
 }
-// action.dragIndex
+

@@ -5,25 +5,33 @@ import styleConstructor from "./lists.module.css";
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { TOGGLE_ITEM_CONSTRUCTOR  } from "../../services/actions/burger-constructor";
+import { TOGGLE_ITEM_CONSTRUCTOR, ADD_ITEM_CONSTRUCTOR, ADD_BUN_CONSTRUCTOR, DELETE_ITEM_CONSTRUCTOR } from "../../services/actions/burger-constructor";
 
 
 const ItemOrder = ({item, index, length}) => {
-
     const dispatch = useDispatch();
-
  const [, drop] = useDrop({
     accept: 'items',
     collect: monitor => ({
-      isHover: monitor.isOver()
+      // isHover: monitor.isOver()
     }),
-    hover(item, monitor) {
+    drop (el) {
+  if (el.drag === "food") {
+             el.el.type === "bun" 
+             ? dispatch({type: ADD_BUN_CONSTRUCTOR, dragItem: el.el })
+             : dispatch({type: ADD_ITEM_CONSTRUCTOR, dragIndex: index, dragItem: el.el })
+            }
+    },
+    hover(el, monitor) {
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.index;
+            // console.log("el", el);
+            const dragIndex = el.index;
+             if (dragIndex === 0 || dragIndex === length - 1) {
+                return;
+            }
             const hoverIndex = index;
-              console.log("dragIndex2", dragIndex, "hoverIndex", hoverIndex, "index", index, "item.index", item.index, "item.idInOrder", item.id);
             if (hoverIndex === 0 || hoverIndex === length - 1) {
                 return;
             }
@@ -40,12 +48,13 @@ const ItemOrder = ({item, index, length}) => {
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return;
             }
-             dispatch({type: TOGGLE_ITEM_CONSTRUCTOR, dragIndex: dragIndex, hoverIndex:  hoverIndex })
-             item.index = hoverIndex;
-             console.log("moveCard_ item.index, index", item.index, index);
+            if (el.drag !== "food") {dispatch({type: TOGGLE_ITEM_CONSTRUCTOR, dragIndex: dragIndex, hoverIndex:  hoverIndex })}
+             index = hoverIndex;
+             el.index = hoverIndex;
+            //  console.log("moveCard_ item.index, index", el.index, index);
         },
     
-  }, []);
+  }, [index, length]);
 
   const [{ opacity }, drag] = useDrag({
     type: 'items',
@@ -53,10 +62,19 @@ const ItemOrder = ({item, index, length}) => {
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     })
-  }, []);
+  }, [index]);
 
    const ref = useRef(null);
   drag(drop(ref));
+
+const deleteConstructorElement = (e) => {
+  // console.log("++++", e.nativeEvent.path[2].classList[0]);
+  e.nativeEvent.path[2].classList[0] === "constructor-element__action" 
+  ? dispatch({type: DELETE_ITEM_CONSTRUCTOR, index })
+  : console.log(":", e.nativeEvent.path[2].classList[0])
+}
+
+
 
       return (
       
@@ -92,21 +110,19 @@ const ItemOrder = ({item, index, length}) => {
                   ref={ref}
                   className={styleConstructor.ingredient + " mt-2 mb-2"}
                   style={{opacity: `${opacity}`}}
+                  onClickCapture={deleteConstructorElement}
                 >
                   <DragIcon />
                   <ConstructorElement
                     text={item.name + "_" + item.idInOrder + " >" + index}
                     price={item.price}
                     thumbnail={item.image}
+                  
                   />
                 </li>
               )
-     
-             
              )
              }
-     
-
 
 
 export const Lists = ({dataOrder}) => {
@@ -123,9 +139,8 @@ export const Lists = ({dataOrder}) => {
     >
       <ul className={styleConstructor.order}>
         { 
-       dataOrder.map((item, index) => index < (dataOrder.length - 1) 
-       ? <ItemOrder  key={item.idInOrder} item={item} index={index} length={dataOrder.length}/>
-       : <ItemOrder  key={item.idInOrder + 0.5} item={item} index={index} length={dataOrder.length}/>
+       dataOrder.map((item, index) => 
+        <ItemOrder  key={item.idInOrder} item={item} index={index} length={dataOrder.length}/>
        )
           }
       </ul>

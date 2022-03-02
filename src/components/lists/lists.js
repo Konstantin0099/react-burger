@@ -3,7 +3,8 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleConstructor from "./lists.module.css";
 
-export const Lists = (props) => {
+export const Lists = ({dataOrder}) => {
+
   return (
     <div
       style={{
@@ -15,18 +16,18 @@ export const Lists = (props) => {
       }}
     >
       <ul className={styleConstructor.order}>
-        {props.dataOrder.map(
+        {dataOrder.map(
           (item, index) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
-                key={item._id}
+                key={index}
               >
                 <ConstructorElement
                   type="top"
                   isLocked={true}
                   text={item.name + " (верх)"}
-                  price={item.price / 2}
+                  price={item.price}
                   thumbnail={item.image}
                 />
               </li>
@@ -34,12 +35,12 @@ export const Lists = (props) => {
         )}
 
         <ul className={styleConstructor.ingredients}>
-          {props.dataOrder.map(
+          {dataOrder.map(
             (item, index) =>
               item.type !== "bun" && (
                 <li
                   className={styleConstructor.ingredient + " mt-2 mb-2"}
-                  key={item._id}
+                  key={index}
                 >
                   <DragIcon />
                   <ConstructorElement
@@ -52,18 +53,18 @@ export const Lists = (props) => {
           )}
         </ul>
 
-        {props.dataOrder.map(
+        {dataOrder.map(
           (item, index) =>
             item.type === "bun" && (
               <li
                 className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
-                key={item._id}
+                key={index}
               >
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
                   text={item.name + " (низ)"}
-                  price={item.price / 2}
+                  price={item.price}
                   thumbnail={item.image}
                 />
               </li>
@@ -87,19 +88,5 @@ Lists.propTypes = {
       fat: PropTypes.number,
       proteins: PropTypes.number,
     })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
+  )
 };

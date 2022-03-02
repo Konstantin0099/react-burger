@@ -1,9 +1,16 @@
-import PropTypes from "prop-types";
+import React from "react";
 import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
 import { OrderSum } from "../order-sum/order-sum.js";
+import { useDispatch, useSelector } from "react-redux";
+import { ORDER_SUM } from "../../services/actions/burger-constructor";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const dataOrder = useSelector((state) => state.dataOrder);
+  React.useEffect(() => {
+    dispatch({ type: ORDER_SUM, dataOrder });
+  }, [dataOrder]);
   return (
     <section
       className={
@@ -11,42 +18,10 @@ const BurgerConstructor = (props) => {
         " pt-20 pl-4 pr-4 ml-5 mr-0 mt-0 mb-0"
       }
     >
-      <Lists data={props.data} dataOrder={props.dataOrder} />
-      <OrderSum openPopupOrder={props.openPopupOrder} />
+      <Lists dataOrder={dataOrder} />
+      <OrderSum />
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
-  openPopupOrder: PropTypes.func,
 };
 
 export default BurgerConstructor;

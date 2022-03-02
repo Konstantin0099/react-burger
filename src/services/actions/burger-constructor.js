@@ -1,0 +1,6 @@
+
+export const ORDER_SUM = 'ORDER_SUM';
+export const GET_NUMBER = "GET_NUMBER";
+export const GET_NUMBER_SUCCES = "GET_NUMBER_SUCCES";
+export const GET_NUMBER_FAILED = "GET_NUMBER_FAILED";
+export const NUMBER_REMOVE = "NUMBER_REMOVE";

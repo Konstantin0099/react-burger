@@ -2,20 +2,29 @@ import { Food } from "../food/food.js";
 import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
 
-const MenuSection = ({ openPopup, data, ingredient, dataOrder }) => {
+const MenuSection = ({ data, ingredient, dataOrder }) => {
+  const recountOrder = (item) => {
+    let countOrder = 0;
+    dataOrder.forEach(element => 
+      element._id === item._id && countOrder++
+    );
+    return countOrder;
+  };
+
   return (
     <ul className={style.menu + " pt-6 pb-10"}>
-      {data.map(
-        (item, index) =>
+      {data.map((item) => {
+        const countOrder = recountOrder(item);
+        return (
           item.type === ingredient && (
             <Food
               item={item}
               key={item._id}
-              dataOrder={dataOrder}
-              openPopup={openPopup}
+              count={countOrder}
             />
           )
-      )}
+        );
+      })}
     </ul>
   );
 };
@@ -49,7 +58,6 @@ MenuSection.propTypes = {
     })
   ),
   ingredient: PropTypes.string,
-  openPopup: PropTypes.func,
 };
 
-export default MenuSection;
+export { MenuSection };

@@ -1,20 +1,15 @@
 import { Food } from "../food/food.js";
 import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-// const MenuSection = ({ data, ingredient, dataOrder }) => {
-const MenuSection = ({ingredient}) => {
+const MenuSection = ({ ingredient }) => {
   const state = useSelector((state) => state);
-  // console.log("state", state);
- const { data, dataOrder } = state;
-  //  const dataOrder = useSelector((state) => state.dataOrder);
+  const { data, dataOrder } = state;
 
   const recountOrder = (item) => {
     let countOrder = 0;
-    dataOrder.forEach(element => 
-      element._id === item._id && countOrder++
-    );
+    dataOrder.forEach((element) => element._id === item._id && countOrder++);
     return countOrder;
   };
 
@@ -24,11 +19,7 @@ const MenuSection = ({ingredient}) => {
         const countOrder = recountOrder(item);
         return (
           item.type === ingredient && (
-            <Food
-              item={item}
-              key={item._id}
-              count={countOrder}
-            />
+            <Food item={item} key={item._id} count={countOrder} />
           )
         );
       })}

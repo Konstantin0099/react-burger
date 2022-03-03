@@ -10,7 +10,7 @@ const BurgerConstructor = () => {
   const dataOrder = useSelector((state) => state.dataOrder);
   React.useEffect(() => {
     dispatch({ type: ORDER_SUM, dataOrder });
-  }, []);
+  }, [dataOrder]);
   return (
     <section
       className={
@@ -18,7 +18,9 @@ const BurgerConstructor = () => {
         " pt-20 pl-4 pr-4 ml-5 mr-0 mt-0 mb-0"
       }
     >
-      <Lists dataOrder={dataOrder} />
+      <Lists
+        dataOrder={dataOrder}
+      />
       <OrderSum />
     </section>
   );

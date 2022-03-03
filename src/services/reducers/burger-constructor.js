@@ -76,22 +76,41 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
     }
     case ADD_BUN_CONSTRUCTOR: {
       const next = state.slice();
-      next.splice(0, 1, action.dragItem);
-      next.splice(next.length - 1, 1, action.dragItem);
-      next[0].idInOrder = Math.ceil(Math.random() * 1000000);
-      next[next.length - 1] = {
-        ...next[next.length - 1],
-        idInOrder: Math.ceil(Math.random() * 1000000),
-      };
+      if (state.length < 2) {
+        console.log("ADD_BUN_CONSTRUCTOR");
+        next.splice(0, 1, action.dragItem, action.dragItem);
+        next[0].idInOrder = Math.ceil(Math.random() * 1000000);
+        next[next.length - 1] = {
+          ...next[next.length - 1],
+          idInOrder: Math.ceil(Math.random() * 1000000),
+        };
+      } else {
+        next.splice(0, 1, action.dragItem);
+        next.splice(next.length - 1, 1, action.dragItem);
+        next[0].idInOrder = Math.ceil(Math.random() * 1000000);
+        next[next.length - 1] = {
+          ...next[next.length - 1],
+          idInOrder: Math.ceil(Math.random() * 1000000),
+        };
+      }
       return [...next];
     }
     case ADD_ITEM_CONSTRUCTOR: {
       const next = state.slice();
-      next.splice(action.dragIndex, 0, action.dragItem);
-      next[action.dragIndex] = {
-        ...next[action.dragIndex],
-        idInOrder: Math.ceil(Math.random() * 1000000),
-      };
+      if (state.length <= 2) {
+        next.splice(1, 0, action.dragItem);
+        next[1] = {
+          ...next[1],
+          idInOrder: Math.ceil(Math.random() * 1000000),
+        };
+      } else {
+        action.dragIndex === 0 && (action.dragIndex = 1);
+        next.splice(action.dragIndex, 0, action.dragItem);
+        next[action.dragIndex] = {
+          ...next[action.dragIndex],
+          idInOrder: Math.ceil(Math.random() * 1000000),
+        };
+      }
       return [...next];
     }
     case TOGGLE_ITEM_CONSTRUCTOR: {

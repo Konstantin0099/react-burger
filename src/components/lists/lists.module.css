@@ -34,3 +34,15 @@
   margin: 0;
   padding: 0;
 }
+
+.lists {
+  font-size: 30px;
+  line-height: 4;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 40px;
+  color: red;
+  background-color: rgb(51, 19, 19);
+}

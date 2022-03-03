@@ -11,6 +11,7 @@ import {
   ADD_BUN_CONSTRUCTOR,
   DELETE_ITEM_CONSTRUCTOR,
 } from "../../services/actions/burger-constructor";
+// import { formatDiagnosticsWithColorAndContext, reduceEachLeadingCommentRange } from "typescript";
 
 const ItemOrder = ({ item, index, length }) => {
   const dispatch = useDispatch();
@@ -89,54 +90,79 @@ const ItemOrder = ({ item, index, length }) => {
       : console.log(":", e.nativeEvent.path[2].classList[0]);
   };
 
-  return index === 0 ? (
-    <li
-      ref={ref}
-      className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
-      style={{ opacity: `${opacity}` }}
-    >
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={item.name + " (верх)" + item.idInOrder + " >" + index}
-        price={item.price}
-        thumbnail={item.image}
-      />
-    </li>
-  ) : index === length - 1 ? (
-    <li
-      ref={ref}
-      className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
-      style={{ opacity: `${opacity}` }}
-    >
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={item.name + " (низ)" + item.idInOrder + " >" + index}
-        price={item.price}
-        thumbnail={item.image}
-      />
-    </li>
+  return length !== 0 ? (
+    index === 0 ? (
+      <li
+        ref={ref}
+        className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
+        style={{ opacity: `${opacity}` }}
+      >
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={item.name + " (верх)"}
+          price={item.price}
+          thumbnail={item.image}
+        />
+      </li>
+    ) : index === length - 1 ? (
+      <li
+        ref={ref}
+        className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
+        style={{ opacity: `${opacity}` }}
+      >
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={item.name + " (низ)"}
+          price={item.price}
+          thumbnail={item.image}
+        />
+      </li>
+    ) : (
+      <li
+        ref={ref}
+        className={styleConstructor.ingredient + " mt-2 mb-2"}
+        style={{ opacity: `${opacity}` }}
+        onClickCapture={deleteConstructorElement}
+      >
+        <DragIcon />
+        <ConstructorElement
+          text={item.name}
+          price={item.price}
+          thumbnail={item.image}
+        />
+      </li>
+    )
   ) : (
-    <li
-      ref={ref}
-      className={styleConstructor.ingredient + " mt-2 mb-2"}
-      style={{ opacity: `${opacity}` }}
-      onClickCapture={deleteConstructorElement}
-    >
-      <DragIcon />
-      <ConstructorElement
-        text={item.name + "_" + item.idInOrder + " >" + index}
-        price={item.price}
-        thumbnail={item.image}
-      />
-    </li>
+    <p>GHBDTY</p>
   );
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////
 export const Lists = ({ dataOrder }) => {
+  const dispatch = useDispatch();
+  const [, refLists] = useDrop(
+    {
+      accept: "items",
+      collect: (monitor) => ({}),
+      drop(el) {
+        if (el.el.type !== "bun" && dataOrder.length < 2) { 
+          console.log("положите булку");
+          return }
+         if (el.el.type === "bun") {
+            dispatch({ type: ADD_BUN_CONSTRUCTOR, dragItem: el.el })
+         };
+      },
+      hover(el, monitor) {
+
+      }
+
+    })
+// console.log("dataOrder.length", dataOrder);
   return (
     <div
+    ref={refLists}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -145,16 +171,53 @@ export const Lists = ({ dataOrder }) => {
         marginBottom: "40px",
       }}
     >
-      <ul className={styleConstructor.order}>
-        {dataOrder.map((item, index) => (
-          <ItemOrder
-            key={item.idInOrder}
-            item={item}
-            index={index}
-            length={dataOrder.length}
-          />
-        ))}
-      </ul>
+      {dataOrder.length > 1 ? (
+        <ul className={styleConstructor.order}>
+          {dataOrder.map((item, index) => (
+            <ItemOrder
+              key={item.idInOrder}
+              item={item}
+              index={index}
+              length={dataOrder.length}
+            />
+          ))}
+        </ul>
+      ) : (
+      <>
+        <h4
+        className={styleConstructor.lists}>
+          {/* style={{
+            fontSize: 30,
+            lineHeight: 4,
+            height: 300,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center", 
+            margin: "40px",
+            border: 1,
+            color: "red",
+            backgroundColor: "CaptionText",
+          }} */}
+        >
+          "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , НАКИДАЙ СЮДА ИНГРЕДИЕНТОВ"
+        </h4>
+        <h4
+          style={{
+            lineHeight: 4,
+            height: 300,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center", 
+            margin: "40px",
+            border: 1,
+            color: "red",
+            backgroundColor: "CaptionText",
+          }}
+        >
+          "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , НАКИДАЙ СЮДА ИНГРЕДИЕНТОВ"
+        </h4>
+      </>
+      )}
     </div>
   );
 };

@@ -3,18 +3,19 @@ import {
   GET_DATA_SUCCES,
   GET_DATA_FAILED,
 } from "../actions/burger-ingredients";
-const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
+import { baseUrl } from "../../utils/data"
+import {checkResponse} from "./checkResponse"
+
+
+
+
+const URL_INGREDIENTS = `${baseUrl}/ingredients`;
 
 export function getData() {
   return function (dispatch) {
     dispatch({ type: GET_DATA });
     fetch(`${URL_INGREDIENTS}`)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`${res.status}`);
-      })
+      .then(checkResponse)
       .then((productData) => {
         dispatch({ type: GET_DATA_SUCCES, data: productData.data });
       })
@@ -24,3 +25,4 @@ export function getData() {
       });
   };
 }
+

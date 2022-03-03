@@ -12,7 +12,7 @@ export const OrderSum = () => {
   return (
     <div className={styleConstructor.placeOrder}>
       <span className={styleConstructor.sumOrder + " mr-15"}>
-        <span className="text text_type_digits-medium">{sum}</span>
+        {sum ? <span className="text text_type_digits-medium">{sum}</span> : ""}
         <CurrencyIcon type="primary" x="10" />
       </span>
       <Button

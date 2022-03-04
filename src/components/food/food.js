@@ -8,6 +8,7 @@ import {
   OPEN_POPUP_INGREDIENTS,
 } from "../../services/actions/modal";
 import { useDrag} from "react-dnd";
+import { ingredientType } from "../../utils/types";
 
 
 export const Food = ({ item, count }) => {
@@ -45,17 +46,6 @@ export const Food = ({ item, count }) => {
 };
 
 Food.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    calories: PropTypes.number,
-    type: PropTypes.string,
-    price: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    count: PropTypes.number,
-    fat: PropTypes.number,
-    proteins: PropTypes.number,
-  }),
+  item: ingredientType.isRequired,
   count: PropTypes.number,
 };

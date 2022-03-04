@@ -2,6 +2,7 @@ import { Food } from "../food/food.js";
 import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
 import { useSelector } from "react-redux";
+import { ingredientType } from "../../utils/types";
 
 const MenuSection = ({ ingredient }) => {
   const state = useSelector((state) => state);
@@ -27,34 +28,8 @@ const MenuSection = ({ ingredient }) => {
   );
 };
 MenuSection.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
+  dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
+  data: PropTypes.arrayOf(ingredientType.isRequired),
   ingredient: PropTypes.string,
 };
 

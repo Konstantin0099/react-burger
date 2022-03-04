@@ -1,21 +1,17 @@
-
+import PropTypes from "prop-types";
 import modal from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay.js";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  TOGGLE_VISIBLE,
-} from "../../services/actions/modal";
+import { useSelector } from "react-redux";
 
-const Modal = () => {
-  const dispatch = useDispatch();
-  const { data, dataOrder, openPopup } = useSelector((state) => state);
+const Modal = ({ toggleVisible, onClose }) => {
+  const { openPopup } = useSelector((state) => state);
   return (
-    <ModalOverlay toggleVisible={() => dispatch({ type: TOGGLE_VISIBLE })}>
+    <ModalOverlay toggleVisible={toggleVisible} onClose={onClose}>
       <div className={modal.modal}>
         <div
           className={modal.closeIcon + " mt-15 mr-10"}
-          onClick={() => dispatch({ type: TOGGLE_VISIBLE })}
+          onClick={toggleVisible}
         >
           <CloseIcon type="primary" />
         </div>
@@ -23,6 +19,10 @@ const Modal = () => {
       </div>
     </ModalOverlay>
   );
+};
+ModalOverlay.propTypes = {
+  toggleVisible: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

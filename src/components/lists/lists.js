@@ -4,14 +4,14 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styleConstructor from "./lists.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { ingredientType } from "../../utils/types";
 import {
   TOGGLE_ITEM_CONSTRUCTOR,
   ADD_ITEM_CONSTRUCTOR,
   ADD_BUN_CONSTRUCTOR,
   DELETE_ITEM_CONSTRUCTOR,
 } from "../../services/actions/burger-constructor";
-// import { formatDiagnosticsWithColorAndContext, reduceEachLeadingCommentRange } from "typescript";
 
 const ItemOrder = ({ item, index, length }) => {
   const dispatch = useDispatch();
@@ -85,9 +85,8 @@ const ItemOrder = ({ item, index, length }) => {
   drag(drop(ref));
 
   const deleteConstructorElement = (e) => {
-    e.nativeEvent.path[2].classList[0] === "constructor-element__action"
-      ? dispatch({ type: DELETE_ITEM_CONSTRUCTOR, index })
-      : console.log(":", e.nativeEvent.path[2].classList[0]);
+    e.nativeEvent.path[2].classList[0] === "constructor-element__action" &&
+      dispatch({ type: DELETE_ITEM_CONSTRUCTOR, index });
   };
 
   return length !== 0 ? (
@@ -138,31 +137,24 @@ const ItemOrder = ({ item, index, length }) => {
     <p>GHBDTY</p>
   );
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////
 export const Lists = ({ dataOrder }) => {
   const dispatch = useDispatch();
-  const [, refLists] = useDrop(
-    {
-      accept: "items",
-      collect: (monitor) => ({}),
-      drop(el) {
-        if (el.el.type !== "bun" && dataOrder.length < 2) { 
-          console.log("положите булку");
-          return }
-         if (el.el.type === "bun") {
-            dispatch({ type: ADD_BUN_CONSTRUCTOR, dragItem: el.el })
-         };
-      },
-      hover(el, monitor) {
-
+  const [, refLists] = useDrop({
+    accept: "items",
+    collect: (monitor) => ({}),
+    drop(el) {
+      if (el.el.type !== "bun" && dataOrder.length < 2) {
+        return;
       }
-
-    })
-// console.log("dataOrder.length", dataOrder);
+      if (el.el.type === "bun") {
+        dispatch({ type: ADD_BUN_CONSTRUCTOR, dragItem: el.el });
+      }
+    },
+    hover(el, monitor) {},
+  });
   return (
     <div
-    ref={refLists}
+      ref={refLists}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -183,57 +175,20 @@ export const Lists = ({ dataOrder }) => {
           ))}
         </ul>
       ) : (
-      <>
-        <h4
-        className={styleConstructor.lists}>
-          {/* style={{
-            fontSize: 30,
-            lineHeight: 4,
-            height: 300,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center", 
-            margin: "40px",
-            border: 1,
-            color: "red",
-            backgroundColor: "CaptionText",
-          }} */}
-        >
-          "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , НАКИДАЙ СЮДА ИНГРЕДИЕНТОВ"
-        </h4>
-        <h4
-          style={{
-            lineHeight: 4,
-            height: 300,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center", 
-            margin: "40px",
-            border: 1,
-            color: "red",
-            backgroundColor: "CaptionText",
-          }}
-        >
-          "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , НАКИДАЙ СЮДА ИНГРЕДИЕНТОВ"
-        </h4>
-      </>
+        <>
+          <h4 className={styleConstructor.lists}>
+            "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , ПЕРЕТАЩИ СЮДА БУЛКУ, а потом остальные ингредиенты"
+          </h4>
+        </>
       )}
     </div>
   );
 };
 Lists.propTypes = {
-  dataOrder: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      calories: PropTypes.number,
-      type: PropTypes.string,
-      price: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      count: PropTypes.number,
-      fat: PropTypes.number,
-      proteins: PropTypes.number,
-    })
-  ),
+  dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
+};
+ItemOrder.propTypes = {
+  item: ingredientType.isRequired,
+  index: PropTypes.number,
+  length: PropTypes.number,
 };

@@ -5,6 +5,29 @@
   align-items: center;
 }
 .content {
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
   color: #8585ad;
   text-align: center;
+}
+
+.title {
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+}
+.message {
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+.id {
+  font-family: "Iceland", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 144px;
+  line-height: 120px;
 }

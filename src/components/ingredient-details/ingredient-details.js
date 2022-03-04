@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import style from "./ingredient-details.module.css";
+import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = (props) => {
   const { name, proteins, calories, carbohydrates, fat, image } = props.item;
@@ -11,42 +11,35 @@ const IngredientDetails = (props) => {
       </p>
       <div className={style.content}>
         <img className={style.img} src={image} alt="булка" />
-        <p className="text text_type_digits-default pt-4">{name}</p>
+        <p className={style.name + " text text_type_digits-default pt-4"}>{name}</p>
         <div className={style.nutritionalProperties + " pt-8 pb-15"}>
           <p className={style.property + " text text_type_digits-small"}>
             <span>Калории,ккал</span>
-            <span>{calories}</span>
+            <span className={style.value}>{calories}</span>
           </p>
           <p className={style.property + " text text_type_digits-small"}>
             <span>Белки, г</span>
-            <span>{proteins}</span>
+            <span className={style.value}>{proteins}</span>
           </p>
           <p className={style.property + " text text_type_digits-small"}>
             <span>Жиры, г</span>
-            <span>{fat}</span>
+            <span className={style.value}>{fat}</span>
           </p>
           <p className={style.property + " text text_type_digits-small"}>
             <span> Углеводы, г</span>
-            <span>{carbohydrates}</span>
+            <span className={style.value}>{carbohydrates}</span>
           </p>
         </div>
       </div>
     </div>
   );
 };
+
+
+
+
 IngredientDetails.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    calories: PropTypes.number,
-    type: PropTypes.string,
-    price: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    count: PropTypes.number,
-    fat: PropTypes.number,
-    proteins: PropTypes.number,
-  }),
+  item: ingredientType.isRequired,
 };
 
 export default IngredientDetails;

@@ -77,7 +77,6 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
     case ADD_BUN_CONSTRUCTOR: {
       const next = state.slice();
       if (state.length < 2) {
-        console.log("ADD_BUN_CONSTRUCTOR");
         next.splice(0, 1, action.dragItem, action.dragItem);
         next[0].idInOrder = Math.ceil(Math.random() * 1000000);
         next[next.length - 1] = {

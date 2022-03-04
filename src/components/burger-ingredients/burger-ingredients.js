@@ -4,8 +4,9 @@ import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../services/thunk/get-data";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
+import PropTypes from "prop-types";
 
 const SetIngredients = ({ tab, index }) => {
   const tabsName = ["Булки", "Начинки", "Соусы"];
@@ -24,7 +25,7 @@ const SetIngredients = ({ tab, index }) => {
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const { data, dataOrder, currentTab } = useSelector((state) => state);
+  const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
   useEffect(() => {
     dispatch(getData());
@@ -60,11 +61,16 @@ const BurgerIngredients = () => {
         ref={inputRef}
       >
         {arrTabs.map((tab, index) => {
-          return <SetIngredients key={index} tab={tab} index={index} />;
+          return <SetIngredients key={tab[index]} tab={tab} index={index} />;
         })}
       </ul>
     </section>
   );
+};
+
+SetIngredients.propTypes = {
+  tab: PropTypes.string,
+  index: PropTypes.number,
 };
 
 export default BurgerIngredients;

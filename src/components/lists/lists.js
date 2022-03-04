@@ -143,6 +143,9 @@ export const Lists = ({ dataOrder }) => {
     accept: "items",
     collect: (monitor) => ({}),
     drop(el) {
+      if (el.el === undefined) {
+        return;
+      }
       if (el.el.type !== "bun" && dataOrder.length < 2) {
         return;
       }
@@ -155,13 +158,7 @@ export const Lists = ({ dataOrder }) => {
   return (
     <div
       ref={refLists}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        alignItems: "flex-end",
-        marginBottom: "40px",
-      }}
+      className={styleConstructor.lists}
     >
       {dataOrder.length > 1 ? (
         <ul className={styleConstructor.order}>
@@ -176,7 +173,7 @@ export const Lists = ({ dataOrder }) => {
         </ul>
       ) : (
         <>
-          <h4 className={styleConstructor.lists}>
+          <h4 className={styleConstructor.emptyLists}>
             "ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , ПЕРЕТАЩИ СЮДА БУЛКУ, а потом остальные ингредиенты"
           </h4>
         </>

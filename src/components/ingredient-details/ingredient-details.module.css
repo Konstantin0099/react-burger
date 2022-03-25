@@ -5,6 +5,10 @@
   align-items: center;
 }
 .property {
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,9 +22,13 @@
   justify-content: space-between;
 }
 .title {
-  line-height: 64px;
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
   text-align: left;
   width: 640px;
+  /* font-family: ; */
 }
 .content {
   display: flex;
@@ -31,4 +39,16 @@
 .img {
   width: 440px;
   height: 240px;
+}
+.name{
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+}
+.value{
+  font-family: "Iceland", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
 }

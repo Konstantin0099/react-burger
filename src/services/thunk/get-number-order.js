@@ -3,9 +3,11 @@ import {
   GET_NUMBER_SUCCES,
   GET_NUMBER_FAILED,
 } from "../actions/burger-constructor";
+import { baseUrl } from "../../utils/data";
+import {checkResponse} from "./checkResponse"
 
-const URL_ORDER = "https://norma.nomoreparties.space/api/orders";
 
+const URL_ORDER = `${baseUrl}/orders`;
 export function getNumber(dataOrder) {
   const arrDataID = dataOrder.map((el) => {
     return el._id;
@@ -22,12 +24,7 @@ export function getNumber(dataOrder) {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(checkResponse)
       .then((order) => {
         dispatch({ type: GET_NUMBER_SUCCES, number: order.order.number });
       })

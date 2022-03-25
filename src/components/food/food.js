@@ -2,23 +2,37 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import style from "./food.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   TOGGLE_VISIBLE,
   OPEN_POPUP_INGREDIENTS,
 } from "../../services/actions/modal";
+import { useDrag} from "react-dnd";
+import { ingredientType } from "../../utils/types";
+
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
+  const [{ opacity, getItem }, ref] = useDrag(
+    {
+      type: "items",
+      item: { el: item, drag: "food" },
+      collect: (monitor) => ({
+        opacity: monitor.isDragging() ? 0.5 : 1,
+      }),
+    },
+    []
+  );
+
   return (
     <li
+      ref={ref}
       className={style.itemMenu}
-      onClick={() =>
-        {
-          dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
-          dispatch({ type: TOGGLE_VISIBLE});
-        }
-        }
+      style={{ opacity: `${opacity}` }}
+      onClick={() => {
+        dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
+        dispatch({ type: TOGGLE_VISIBLE });
+      }}
     >
       {count !== 0 && <Counter count={count} size="default" />}
       <img className={style.img} src={item.image} alt="фото ингредиента" />
@@ -32,17 +46,6 @@ export const Food = ({ item, count }) => {
 };
 
 Food.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    calories: PropTypes.number,
-    type: PropTypes.string,
-    price: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    count: PropTypes.number,
-    fat: PropTypes.number,
-    proteins: PropTypes.number,
-  }),
+  item: ingredientType.isRequired,
   count: PropTypes.number,
 };

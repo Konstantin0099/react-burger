@@ -1,6 +1,6 @@
 import style from "./app.module.css";
 import AppHeader from "../app-header/app-header.js";
-import { Login, Overlay } from "../../pages/index";
+import { Login, Overlay, RegisterPage } from "../../pages/index";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.js";
 import BurgerConstructor from "../burger-constructor/burger-constructor.js";
 import Modal from "../modal/modal.js";
@@ -31,7 +31,11 @@ const App = () => {
                   <Login />
                 </Overlay>
             </Route>
-            <Route path="/register" exact></Route>
+            <Route path="/register" exact>
+                <Overlay>
+                  <RegisterPage />
+                </Overlay>
+            </Route>
             <Route path="/forgot-password" exact></Route>
             <Route path="/reset-password" exact></Route>
             <Route path="/profile" exact></Route>

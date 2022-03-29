@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 // import ReactDOM from "react-dom";
 import overlay from "./overlay.module.css";
 
-export const Overlay = ({ children }) => {
-    console.log(overlay);
+const Overlay = ({children}) => {
   return (
     <div className={overlay.overlay}>
       {children}
@@ -14,5 +13,6 @@ export const Overlay = ({ children }) => {
 
 Overlay.propTypes = {
   children: PropTypes.object,
-};
+}
 
+export { Overlay }

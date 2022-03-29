@@ -1,5 +1,6 @@
-import { Login } from './login/login.js';
-import { Overlay } from './overlay/overlay.js';
+import { Login } from './login.js';
+import { Overlay } from './overlay.js';
+import { RegisterPage } from './register.js';
 
 
-export { Login, Overlay };
+export { Login, Overlay, RegisterPage };

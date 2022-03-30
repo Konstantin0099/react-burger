@@ -1,6 +1,13 @@
 import style from "./app.module.css";
 import AppHeader from "../app-header/app-header.js";
-import { Login, Overlay, RegisterPage } from "../../pages/index";
+import {
+  Login,
+  Overlay,
+  RegisterPage,
+  ForgotPassword,
+  ResetPassword,
+  ProfilePage,
+} from "../../pages/index";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.js";
 import BurgerConstructor from "../burger-constructor/burger-constructor.js";
 import Modal from "../modal/modal.js";
@@ -20,25 +27,35 @@ const App = () => {
         <AppHeader />
         {visible && (
           <Modal
-          toggleVisible={() => dispatch({ type: TOGGLE_VISIBLE })}
-          onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}
+            toggleVisible={() => dispatch({ type: TOGGLE_VISIBLE })}
+            onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}
           ></Modal>
         )}
-          <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={HTML5Backend}>
           <Switch>
             <Route path="/login" exact>
-                <Overlay>
-                  <Login />
-                </Overlay>
+              {/* <Overlay> */}
+              <Login />
+              {/* </Overlay> */}
             </Route>
             <Route path="/register" exact>
-                <Overlay>
-                  <RegisterPage />
-                </Overlay>
+              {/* <Overlay> */}
+              <RegisterPage />
+              {/* </Overlay> */}
             </Route>
-            <Route path="/forgot-password" exact></Route>
-            <Route path="/reset-password" exact></Route>
-            <Route path="/profile" exact></Route>
+            <Route path="/forgot-password" exact>
+              {/* <Overlay> */}
+              <ForgotPassword />
+              {/* </Overlay> */}
+            </Route>
+            <Route path="/reset-password" exact>
+              {/* <Overlay> */}
+              <ResetPassword />
+              {/* </Overlay> */}
+            </Route>
+            <Route path="/profile" exact>
+              <ProfilePage />
+            </Route>
             <Route path="/ingredients/:id" exact></Route>
             <Route path="/" exact>
               <main className={style.main}>
@@ -47,8 +64,8 @@ const App = () => {
               </main>
             </Route>
             <Route>404</Route>
-        </Switch>
-          </DndProvider>
+          </Switch>
+        </DndProvider>
       </div>
     </Router>
   );

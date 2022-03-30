@@ -1,6 +1,9 @@
-import { Login } from './login.js';
-import { Overlay } from './overlay.js';
-import { RegisterPage } from './register.js';
+import { Login } from './login';
+import { Overlay } from './overlay';
+import { RegisterPage } from './register';
+import { ForgotPassword } from './forgot-password';
+import { ResetPassword } from './reset-password';
+import { ProfilePage } from './profile';
 
 
-export { Login, Overlay, RegisterPage };
+export { Login, Overlay, RegisterPage, ForgotPassword, ResetPassword, ProfilePage };

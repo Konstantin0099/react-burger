@@ -34,36 +34,50 @@ const App = () => {
         <DndProvider backend={HTML5Backend}>
           <Switch>
             <Route path="/login" exact>
-              {/* <Overlay> */}
               <Login />
-              {/* </Overlay> */}
             </Route>
             <Route path="/register" exact>
-              {/* <Overlay> */}
               <RegisterPage />
-              {/* </Overlay> */}
             </Route>
             <Route path="/forgot-password" exact>
-              {/* <Overlay> */}
               <ForgotPassword />
-              {/* </Overlay> */}
             </Route>
             <Route path="/reset-password" exact>
-              {/* <Overlay> */}
               <ResetPassword />
-              {/* </Overlay> */}
             </Route>
             <Route path="/profile" exact>
               <ProfilePage />
             </Route>
-            <Route path="/ingredients/:id" exact></Route>
+            <Route path="/profile/orders" exact>
+              {/* <OrderHistory></OrderHistory> */}
+            </Route>
+            <Route path="/profile/orders/:id" exact>
+              {/* <OrderInfo></OrderInfo> */}
+            </Route>
+
+            <Route path="/ingredients/:id" exact>
+              {/* <IngredientsInfo></IngredientsInfo> */}
+            </Route>
+            
+            <Route path="/order-feed" exact>
+              <h2>Лента заказов</h2>
+              {/* <OrderFeed></OrderFeed> */}
+              {/* <TotalOrder></TotalOrder> */}
+            </Route>
+            <Route path="/order-feed/:id" exact>
+              {/* <OrderInfo></OrderInfo> */}
+            </Route>
             <Route path="/" exact>
               <main className={style.main}>
                 <BurgerIngredients />
                 <BurgerConstructor />
               </main>
             </Route>
-            <Route>404</Route>
+            <Route>
+            <Overlay> 
+              Упсс....404
+            </Overlay>
+              </Route>
           </Switch>
         </DndProvider>
       </div>

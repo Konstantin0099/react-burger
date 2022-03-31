@@ -36,7 +36,7 @@ const AppHeader = () => {
         <li className={"pt-4 pb-4 " + styles.profile}>
           <ProfileIcon type="primary" />
           <a
-            href="#"
+            href="/profile"
             className="text text_type_main-default text_color_inactive ml-2"
           >
             Личный кабинет

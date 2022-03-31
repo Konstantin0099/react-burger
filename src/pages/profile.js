@@ -6,23 +6,31 @@ import { Password } from "../components/password/password";
 import { EMail } from "../components/email/email";
 import { InputName } from "../components/input-name/input-name";
 import { MenuField } from "../components/menu-field/menu-field";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const ProfilePage = () => {
   return (
     <div className={style.profile}>
       <ul className={style.menu + " pr-15"}>
         <li className={style.field__profile}>
-        <Link className={style.link_profile}>Профиль</Link>
+          <NavLink
+            className={style.link_profile}
+            activeClassName={style.link_active}
+            to={{ pathname: `/profile` }}
+          >
+            Профиль
+          </NavLink>
         </li>
         <li className={style.field__profile}>
-        <Link className={style.link_profile}>История заказов</Link>
+          <NavLink className={style.link_profile} to={{ pathname: `/profile` }}>История заказов</NavLink>
         </li>
         <li className={style.field__profile}>
-        <Link className={style.link_profile} >Выход</Link>
+          <NavLink className={style.link_profile} to={{ pathname: `/profile` }}>Выход</NavLink>
         </li>
         <li className={style.field__profile_reshape}>
-        <Link className={style.link_profile}>В этом разделе вы можете изменить свои персональные данные</Link>
+          <NavLink className={style.link_profile} to={{ pathname: `/profile` }}>
+            В этом разделе вы можете изменить свои персональные данные
+          </NavLink>
         </li>
       </ul>
       <ul className={style.list}>

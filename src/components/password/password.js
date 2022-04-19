@@ -2,10 +2,11 @@ import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-component
 //   import { useSelector } from "react-redux";
 import * as React from "react";
 
-export const Password = () => {
+export const Password = ({setData}) => {
   const [value, setValue] = React.useState("password");
   const onChange = (e) => {
     setValue(e.target.value);
+    setData(e.target.value, e.target.name);
   };
   React.useEffect(() => {
     setValue("");

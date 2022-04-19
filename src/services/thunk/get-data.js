@@ -20,7 +20,7 @@ export function getData() {
         dispatch({ type: GET_DATA_SUCCES, data: productData.data });
       })
       .catch((e) => {
-        console.log("упс... ошибка :(", e);
+        console.log("упс... ошибка function getData:(", e);
         dispatch({ type: GET_DATA_FAILED });
       });
   };

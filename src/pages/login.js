@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
+// import { useRef } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import * as React from "react";
+// import { useSelector } from "react-redux";
+// import * as React from "react";
 import {
   useParams,
   useRouteMatch,
@@ -11,22 +15,42 @@ import style from "./style.module.css";
 import { Password } from "../components/password/password";
 import { EMail } from "../components/email/email";
 import { MenuField } from "../components/menu-field/menu-field";
+import { userAuthLogin } from "../services/thunk/auth-user";
+import { logout } from "../services/thunk/logout";
 
 export const Login = () => {
   const history = useHistory();
+  // const [data, useData] = useState({})
+  const params = useParams();
+  const match = useRouteMatch();
+  const location = useLocation();
+  const { user } = useSelector((state) => state);
+  const dispatch = useDispatch();
   // console.log(history);
+  let newData = {};
+  const setData = (data, name) => {
+        newData = {...newData, [name]: data};
+        console.log("newData", newData); 
+  }
+  /** */
+  const getUser = () => {
+   const inputError = document.getElementsByClassName("input__error")
+  !inputError.length && dispatch(userAuthLogin(history, newData));
+  };
+  useEffect(() => {
+  }, [])
   return (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
-          <EMail />
+          <EMail setData={setData}/>
         </li>
         <li className={style.field + " mb-4"}>
-          <Password />
+          <Password setData={setData}/>
         </li>
       </ul>
-      <Button type="primary" size="medium">
+      <Button type="primary" size="medium" onClick={getUser}>
         Войти
       </Button>
       <ul className={style.list}>

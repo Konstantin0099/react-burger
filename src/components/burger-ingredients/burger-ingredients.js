@@ -1,12 +1,12 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useRef } from "react";
 import style from "./burger-ingredients.module.css";
 import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs.js";
-import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../services/thunk/get-data";
-import { useRef } from "react";
 import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
-import PropTypes from "prop-types";
 
 const SetIngredients = ({ tab, index }) => {
   const tabsName = ["Булки", "Начинки", "Соусы"];
@@ -25,11 +25,13 @@ const SetIngredients = ({ tab, index }) => {
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
+  const { user, pass } = useSelector((state) => state);
+  // console.log("BurgerIngredients user=", user);
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
   useEffect(() => {
     dispatch(getData());
-  }, []);
+  },[]);
   let arrTabs = [];
   data.data.forEach((tab) => {
     if (!arrTabs.includes(tab.type)) {

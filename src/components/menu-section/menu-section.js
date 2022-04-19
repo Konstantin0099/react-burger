@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { ingredientType } from "../../utils/types";
 
 const MenuSection = ({ ingredient }) => {
-  const state = useSelector((state) => state);
-  const { data, dataOrder } = state;
+  const { data, dataOrder } = useSelector((state) => state);
+  // const { data, dataOrder } = state;
 
   const recountOrder = (item) => {
     let countOrder = 0;

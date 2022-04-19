@@ -1,9 +1,9 @@
 .list {
   height: 700px;
   margin: 0;
-  padding-left: 0;
+  /* padding-left: 0;
   padding-right: 0;
-  padding-bottom: 0;
+  padding-bottom: 0; */
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

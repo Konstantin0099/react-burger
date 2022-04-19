@@ -5,6 +5,7 @@ import {
   ProfileIcon,
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 
 const AppHeader = () => {
   return (
@@ -12,21 +13,11 @@ const AppHeader = () => {
       <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>
         <li className={"pt-4 pb-4 m-l12 " + styles.constructor}>
           <BurgerIcon />
-          <a
-            href="#"
-            className={"text text_type_main-default ml-2 mr-5 " + styles.link}
-          >
-            Конструктор
-          </a>
+          <NavLink className={styles.link} activeClassName={styles.link_active} to='/' exact> Конструктор</NavLink>
         </li>
         <li className={"pt-4 pb-4 ml-2 ml-12 " + styles.orderList}>
           <ListIcon />
-          <a
-            href="#"
-            className="text text_type_main-default text_color_inactive ml-2"
-          >
-            Лента заказов
-          </a>
+          <NavLink exact className={styles.link} activeClassName={styles.link_active} to={{ pathname: `/order-feed` }}>Лента заказов</NavLink>
         </li>
       </ul>
       <span className={styles.logo}>
@@ -35,12 +26,7 @@ const AppHeader = () => {
       <ul className={styles.navigation + " mr-30 ml-30 pl-30"}>
         <li className={"pt-4 pb-4 " + styles.profile}>
           <ProfileIcon type="primary" />
-          <a
-            href="/profile"
-            className="text text_type_main-default text_color_inactive ml-2"
-          >
-            Личный кабинет
-          </a>
+          <NavLink exact className={styles.link} activeClassName={styles.link_active} to={{ pathname: `/profile` }}>Личный кабинет</NavLink>
         </li>
       </ul>
     </header>

@@ -1,40 +1,23 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import style from "./style.module.css";
-// import { Password } from "../components/password/password";
-// import { EMail } from "../components/email/email";
 import { MenuField } from "../components/menu-field/menu-field";
 import { InputName } from "../components/input-name/input-name";
+import { forgotPassword } from "../services/thunk/forgot-reset-password";
 
 export const ForgotPassword = () => {
   const history = useHistory();
- const emailUser = JSON.stringify({
-  "email": "sh-tov@ya.ru"
-})
-  const recreate = async () => {
-    const data = await fetch('https://norma.nomoreparties.space/api/password-reset', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      
-      body: emailUser
-    })
-    .then(res => res.json())
-      .then(data => data);
-      console.log(data);
-      return data
-  };
-
-
-
+  const dispatch = useDispatch();
+  let location = useLocation();
+  const recreate = () => {
+    dispatch(forgotPassword(history));
+    // history.replace({ pathname: '/reset-password' });
+  }
+  React.useEffect(() => {
+    console.log("ForgotPassword location", location );
+  }, [history]);
   return (
     <div className={style.modal }>
       <h2 className={"text text_type_main-medium " + style.title}> Востановление пароля </h2>
@@ -51,6 +34,7 @@ export const ForgotPassword = () => {
           <MenuField
             title={"Вспомнили?"}
             linkName={"Войти"}
+            link={"login"}
           />
         </li>
       </ul>

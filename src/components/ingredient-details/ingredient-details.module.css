@@ -21,14 +21,24 @@
   display: flex;
   justify-content: space-between;
 }
-.title {
+.titleModal {
   font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 36px;
   line-height: 40px;
   text-align: left;
   width: 640px;
+  margin: 0;
   /* font-family: ; */
+}
+.title {
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
+  text-align: center;
+  width: 640px;
+  margin: 0;
 }
 .content {
   display: flex;

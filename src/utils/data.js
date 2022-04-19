@@ -1,4 +1,71 @@
-const baseUrl = 'https://norma.nomoreparties.space/api';
+export const baseUrl = 'https://norma.nomoreparties.space/api';
+export const URL_USER_AUTH = `${baseUrl}/auth`;
+export const URL_USER_PASS = `${baseUrl}/password-reset`;
+
+export const bodyLogin =  {
+    "email": "sh-tov@ya.ru", 
+    "password": "mas12345678", 
+  };
+export const bodyPass =  {
+    "email": "sh-tov@ya.ru", 
+  };
+// export const bodyToken =  {
+//         "token": localStorage.getItem("refreshToken"),
+//   };
+export const bodyResPass =  {
+    "password": "mas12345678",
+    "token": "a2d32c7e-8366-4d7e-a0c0-f58715316c09", // из почты, должен быть актуальный
+  };
+
+export const DATA_FETCH = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: ""
+}
+export const DATA_GET = {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+}
+export const DATA_SET = {
+    method: 'PATCH',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: "Павка",
+      email: "sh-tov@yandex.ru",
+      "password": "mas12345678",
+    }),
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+}
+
+
+//   GET https://norma.nomoreparties.space/api/auth/user - эндпоинт получения данных о пользователе.
+// PATCH https://norma.nomoreparties.space/api/auth/user - эндпоинт обновления данных о пользователе. 
+
+
+
+
+
+
 const dataOrder = [
     // {
     //     "_id":"60d3b41abdacab0026a733c6",
@@ -60,5 +127,5 @@ const dataOrder = [
 ]
 
 
-export { dataOrder, baseUrl }
+export { dataOrder}
 

@@ -26,16 +26,17 @@ export const Login = () => {
   const location = useLocation();
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
-  // console.log(history);
   let newData = {};
   const setData = (data, name) => {
-        newData = {...newData, [name]: data};
-        console.log("newData", newData); 
+    newData = {...newData, [name]: data};
+    // console.log("newData", newData); 
   }
   /** */
   const getUser = () => {
-   const inputError = document.getElementsByClassName("input__error")
-  !inputError.length && dispatch(userAuthLogin(history, newData));
+    history.replace({ state: {revert: '/'}});
+    const inputError = document.getElementsByClassName("input__error");
+      // console.log(" Login location", location, history.replace({ state: {revert: '/'}}));
+dispatch(userAuthLogin(history, newData, location.state.revert))
   };
   useEffect(() => {
   }, [])

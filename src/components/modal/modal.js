@@ -9,7 +9,7 @@ const Modal = ({ toggleVisible, onClose }) => {
   const history = useHistory();
   const { openPopup } = useSelector((state) => state);
   const closeModal =()=> {
-    toggleVisible();
+    toggleVisible(history);
     history.replace({ pathname: '/'});
   }
   return (

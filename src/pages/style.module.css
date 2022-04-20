@@ -76,9 +76,9 @@
 .link_profile:hover {
   background-color: transparent;
   border-radius: 10%;
-  box-shadow: 0px 0px 30px red;
+  box-shadow: 0px 0px 30px rgb(55, 69, 170);
 }
 
 .link_active {
-  color: red;
+  color: rgb(244, 249, 250);
 }

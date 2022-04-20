@@ -23,30 +23,29 @@ import { TOGGLE_VISIBLE } from "../../services/actions/modal";
 import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
 import { getDataUser } from "../../services/thunk/data-user";
 import { getData } from "../../services/thunk/get-data";
+import { getToken } from "../../services/thunk/get-token";
 
 const App = () => {
   const { visible, user, data } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
-  // console.log("App user", user);
   React.useEffect(() => {
-    // dispatch(getToken());
-    dispatch(getDataUser());
-    // dispatch(getData());
-    console.log("App useEffect", data);
+    // console.log("App токенs>>", user, localStorage.getItem("accessToken"),  localStorage.getItem("refreshToken"));
+    // localStorage.getItem("accessToken");
+    // localStorage.getItem("refreshToken");
+    dispatch(getToken(), getDataUser())
   },[]);
-  //   const docu = document.querySelector('#root');
-  //  const inputError = docu.querySelectorAll("input__error");
-  //     console.log(docu, inputError);
-  // dispatch(getData());
-  // console.log("App", data);
+  const toggleVisible = (history) => {
+    visible && history.replace({ pathname: '/'});
+    dispatch({ type: TOGGLE_VISIBLE })
+  }
   return (
     <Router>
       <div className={style.app}>
         <AppHeader />
         {visible && (
           <Modal
-            toggleVisible={() => dispatch({ type: TOGGLE_VISIBLE })}
+            toggleVisible={toggleVisible}
             onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}
           ></Modal>
         )}

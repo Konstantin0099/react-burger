@@ -3,9 +3,7 @@ import { DATA_FETCH, URL_USER_AUTH } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getToken() {
-  // const bodyToken = {
-  //   token: localStorage.getItem("refreshToken"),
-  // };
+  // console.log("getToken refreshToken>>", localStorage.getItem("refreshToken"));
   return function (dispatch) {
     // console.log("getToken start refreshToken=", bodyToken);
     fetch(`${URL_USER_AUTH}/token`, {
@@ -21,12 +19,7 @@ export function getToken() {
         //   history.replace({ pathname: '/'});
       })
       .catch((e) => {
-        console.log(
-          "упс... ошибка в function getToken():(",
-          e,
-          // "bodyToken=",
-          // bodyToken
-        );
+        console.log("упс... ошибка в function getToken():(", e);
         dispatch({ type: AUTH_FAILED });
       });
   };

@@ -5,7 +5,7 @@ import { checkResponse } from "./checkResponse";
 //   const baseUrl = 'https://norma.nomoreparties.space/api';  JSON.stringify
 // POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
 
-export function logout(history) {
+export function logout(history, direction) {
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/logout`, {
       ...DATA_FETCH,
@@ -16,7 +16,7 @@ export function logout(history) {
       .then(checkResponse)
       .then((user) => {
         dispatch({ type: AUTH_LOGOUT, token: user });
-        history.replace({ pathname: "/login" });
+        history.replace(direction);
       })
       .catch((e) => {
         console.log("упс... ошибка function logout :(", e);

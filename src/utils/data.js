@@ -29,7 +29,7 @@ export const DATA_FETCH = {
     referrerPolicy: 'no-referrer',
     body: ""
 }
-export const DATA_GET = {
+export const GET_DATA = {
     method: 'GET',
     mode: 'cors',
     cache: 'no-cache',
@@ -40,7 +40,7 @@ export const DATA_GET = {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
 }
-export const DATA_SET = {
+export const SET_DATA = {
     method: 'PATCH',
     mode: 'cors',
     cache: 'no-cache',

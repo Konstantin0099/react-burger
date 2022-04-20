@@ -1,4 +1,5 @@
 import styles from "./app-header.module.css";
+import * as React from "react";
 import {
   BurgerIcon,
   ListIcon,
@@ -7,7 +8,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
 
-const AppHeader = () => {
+const AppHeader = () => { 
+  React.useEffect(() => {
+  },[]);
   return (
     <header className={styles.header}>
       <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>

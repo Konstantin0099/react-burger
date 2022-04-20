@@ -21,7 +21,7 @@ const initaUser = {
         name: "",
   };
   export const userAuthReducer = (state = initaUser, action) => {
-    console.log("action.type:",action.type);
+    // console.log("action.type:",action.type);
     // console.log("Reducer:", "name", state.name, "email", state.email, "localStorage=", localStorage.getItem("accessToken"));
     switch (action.type) {
       case AUTH_LOGIN: {
@@ -32,10 +32,11 @@ const initaUser = {
           authFailed: false,
         };
       }
+      /**сохраняет полученные токены в localStorage , записывает в стейт name, email*/
       case AUTH_SUCCESS: {
+        localStorage.setItem("timeAccessToken", new Date().getTime());
         localStorage.setItem("accessToken", action.user.accessToken);
         localStorage.setItem("refreshToken", action.user.refreshToken);
-        // localStorage.getItem("accessToken") && console.log("AUTH_SUCCESS localStorage.getItem(accessToken):", localStorage.getItem("accessToken"));
         return {
             ...state,
             name: action.user.user.name,
@@ -47,6 +48,7 @@ const initaUser = {
       }
       case AUTH_REGISTER: {
         // console.log("AUTH_REGISTER:", action);
+        localStorage.setItem("timeAccessToken", new Date().getTime());
         localStorage.setItem("accessToken", action.user.accessToken);
         localStorage.setItem("refreshToken", action.user.refreshToken);
         // localStorage.getItem("accessToken") && console.log("AUTH_REGISTER localStorage.getItem(accessToken):", localStorage.getItem("accessToken"));
@@ -60,6 +62,7 @@ const initaUser = {
         };
       }
       case AUTH_LOGOUT: {
+        localStorage.setItem("timeAccessToken", 0);
         localStorage.setItem("accessToken", "");
         localStorage.setItem("refreshToken", "");
         return {
@@ -73,7 +76,9 @@ const initaUser = {
       }
       case AUTH_TOKEN: {
         // console.log("AUTH_TOKEN action=",  action);
+        localStorage.setItem("timeAccessToken", new Date().getTime());
         localStorage.setItem("accessToken", action.token.accessToken);
+        localStorage.setItem("refreshToken", action.token.refreshToken);
         // localStorage.getItem("accessToken") && console.log("AUTH_TOKEN localStorage.getItem(accessToken):", localStorage.getItem("accessToken"));
         // console.log("AUTH_TOKEN  action:", action);
         return {

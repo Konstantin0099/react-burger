@@ -2,31 +2,37 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 //   import { useSelector } from "react-redux";
 import * as React from "react";
 
-export const InputName = ({type, placeholder, icon, value}) => {
-  const [valueRegisterPage, setValueName] = React.useState("value");
+export const InputName = ({
+  type,
+  name,
+  placeholder,
+  icon,
+  value,
+  setData,
+  disabled = false,
+}) => {
+  const [valueRegisterPage, setValueName] = React.useState(value);
   const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+  const setValue = (e) => {
+    setValueName(e.target.value);
+    setData(e.target.value, e.target.name);
   };
   React.useEffect(() => {
     setValueName(value);
-    // inputRef.current.setAttribute("autocomplete", "off");
-  }, []);
+  },);
 
   return (
     <Input
+      disabled={disabled}
       type={type}
       placeholder={placeholder}
       icon={icon}
-      onChange={(e) => setValueName(e.target.value)}
+      onChange={setValue}
       value={valueRegisterPage}
-      name={"name"}
+      name={name}
       error={false}
       ref={inputRef}
-      onIconClick={onIconClick}
       errorText={"Ошибка"}
-    //   size={"default"}
     />
   );
 };

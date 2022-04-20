@@ -1,41 +1,88 @@
 import PropTypes from "prop-types";
+import * as React from "react";
+import {
+  useParams,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import style from "./profile-form.module.css";
 import { InputName } from "../input-name/input-name";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataUser, setDataUser } from "../../services/thunk/data-user";
 
-export const ProfileForm = ({user, pass}) => {
-  console.log("ProfileForm",user, pass);
-  // const [form, setValue] = useState({ name: "", email: '', password: '' });
+export const ProfileForm = ({ user, pass }) => {
+  const history = useHistory();
+  const params = useParams();
+  const match = useRouteMatch();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [newData, setNewData] = React.useState({name: user.name, password: pass.password});
+  const [fix, setFix] = React.useState(false);
 
-  // const onChange = e => {
-  //   setValue({ ...form, [e.target.name]: e.target.value });
-  // };
+  React.useEffect(() => {
+  }, );
+
+  const setData = (data, name) => {
+    setNewData({...newData, [name]: data});
+    setFix(true);
+  }
+const setUser =()=>{
+ history.replace({ state: {revert: '/'}});
+ dispatch(setDataUser(history, newData));
+}
+const cancelInput =()=>{
+  setNewData({name: user.name, password: pass.password});
+  console.log("cancelInput", newData); 
+  setFix(false);
+}
+
+// console.log("ProfileForm newData", newData);
 
   return (
     <ul className={style.list}>
-    <li className={style.field + " mb-4"}>
-      <InputName
-        type={"text"}
-        placeholder={"Имя"}
-        icon={"EditIcon"}
-        value={user.name}
-      />
-    </li>
-    <li className={style.field + " mb-4"}>
-      <InputName
-        type={"text"}
-        placeholder={"Логин"}
-        icon={"EditIcon"}
-        value={user.email}
-      />
-    </li>
-    <li className={style.field + " mb-4"}>
-      <InputName
-        type={"password"}
-        placeholder={"Пароль"}
-        icon={"EditIcon"}
-        value={pass.password}
-      />
-    </li>
-  </ul>
-  )
+      <li className={style.field + " mb-4"}>
+        <InputName
+          type={"text"}
+          placeholder={"Имя"}
+          icon={"EditIcon"}
+          name={"name"}
+          value={newData.name}
+          setData={setData}
+        />
+      </li>
+      <li className={style.field + " mb-4"}>
+        <InputName
+          disabled={true}
+          type={"email"}
+          name={"email"}
+          placeholder={"Логин"}
+          // icon={"EditIcon"}
+          value={user.email}
+          // setData={setData}
+        />
+      </li>
+      <li className={style.field + " mb-4"}>
+        <InputName
+          type={"password"}
+          name={"password"}
+          placeholder={"Пароль"}
+          icon={"EditIcon"}
+          value={newData.password}
+          setData={setData}
+        />
+      </li>
+      {fix && 
+      <div className={style.btn__block + " mb-4"}>
+        <Button type="primary" size="small" onClick={setUser}>
+            Сохранить
+        </Button>
+        <Button type="primary" size="small" onClick={cancelInput}>
+            &nbsp;&nbsp;Отмена&#160;
+        </Button>
+      </div>
+      }
+    </ul>
+  );
 };

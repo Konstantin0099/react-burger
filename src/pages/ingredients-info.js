@@ -15,7 +15,7 @@ const IngredientsInfo = ({match, location}) => {
   React.useEffect(() => {
     dispatch(getData());
   }, [] );
-  console.log("IngredientsInfo", data, data.data.length);
+  // console.log("IngredientsInfo", data, data.data.length);
   const {
     params: { id }
   } = match;

@@ -4,7 +4,7 @@
     width: 50%;
     max-width: 80%;
     height: 100%;
-    min-height: 400px;
+    min-height: 600px;
     box-shadow: 0 -50px 100px rgb(94, 104, 46) inset;
     border-radius: 20%;
     animation: background 4s linear infinite;

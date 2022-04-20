@@ -1,15 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory } from "react-router-dom";
 import modal from "./modal-overlay.module.css";
 
 const ModalOverlay = ({ onClose, toggleVisible, children }) => {
+  const history = useHistory();
   const modalRoot = document.getElementById("react-modals");
   const closedModal = (e) => {
-    e.target === e.currentTarget && toggleVisible();
+    e.target === e.currentTarget && toggleVisible(history);
+    // history.replace({ pathname: '/'});
   };
   const closedModalEscape = (e) => {
-    e.key === "Escape" && toggleVisible();
+    e.key === "Escape" && toggleVisible(history);
+    // history.replace({ pathname: '/'});
   };
 
   React.useEffect(() => {

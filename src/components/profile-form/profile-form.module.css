@@ -8,3 +8,13 @@
     padding: 0;
     margin: 0;
   }
+  .btn__block{
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+  }
+
+  .btn{
+    min-width: 80px;
+  }
+  

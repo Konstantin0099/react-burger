@@ -3,16 +3,17 @@ import {
   AUTH_FAILED,
   GET_USER
 } from "../actions/user-auth";
-import { DATA_SET, DATA_GET, URL_USER_AUTH, bodyToken } from "../../utils/data";
+import { SET_DATA, GET_DATA, URL_USER_AUTH, bodyToken } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getDataUser() {
+  let timeToken = ((new Date().getTime()- localStorage.getItem("timeAccessToken"))>1140000);
+  // console.log("timeToken", timeToken);
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/user`, {
-      ...DATA_GET,
+      ...GET_DATA,
       headers: {
-        // 'Content-Type': 'application/json',
-        ...DATA_GET.headers,
+        ...GET_DATA.headers,
         Authorization: localStorage.getItem("accessToken"),
       },
     })

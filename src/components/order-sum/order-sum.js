@@ -13,12 +13,16 @@ export const OrderSum = () => {
   const { sum } = useSelector((state) => state.orderState);
   const token = localStorage.getItem("refreshToken")
 const setOrder = () => {
+  let direction = {
+    pathname: "/login",
+    state: { revert: `/` },
+  };
   // c(!!token);
   if (!!token) {
   dispatch({ type: OPEN_POPUP_ORDER });
   dispatch({ type: TOGGLE_VISIBLE })
    } else {
-    history.replace({ pathname: `/login`})
+    history.replace(direction)
    }
 
 }

@@ -11,7 +11,7 @@ import { checkResponse } from "./checkResponse";
 // POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
 // POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
 
-export function userAuthLogin(history, newData) {
+export function userAuthLogin(history, newData, revert = "/") {
   // console.log("newData", newData);
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });
@@ -24,7 +24,7 @@ export function userAuthLogin(history, newData) {
       .then((user) => {
         // console.log("изменение токена");
         dispatch({ type: AUTH_SUCCESS, user: user });
-        history.replace({ pathname: '/'});
+        history.replace({ pathname: revert});
       })
       .catch((e) => {
         console.log("упс... ошибка function userAuthLogin :(", e);
@@ -43,7 +43,7 @@ export function userAuthRegister(history) {
     })
       .then(checkResponse)
       .then((user) => {
-        console.log("изменение токена");
+        // console.log("изменение токена");
         dispatch({ type: AUTH_REGISTER, user: user });
         history.replace({ pathname: '/'});
       })

@@ -10,7 +10,7 @@ export  const MenuField = ({ title, linkName, link }) => {
         <h3 className={"text text_type_main-default"}>
           {title && (title + "  ")}
           <NavLink
-            to={{ pathname: `/${link}` }}
+            to={{ pathname: `/${link}`, state: {revert: "/"} }}
             className={"text text_type_main-default " + style.link}
             activeClassName={style.link_active}
           >

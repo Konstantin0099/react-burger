@@ -10,6 +10,7 @@ import {
   useRouteMatch,
   useLocation,
   useHistory,
+  Redirect,
 } from "react-router-dom";
 import style from "./style.module.css";
 import { Password } from "../components/password/password";
@@ -20,35 +21,34 @@ import { logout } from "../services/thunk/logout";
 
 export const Login = () => {
   const history = useHistory();
-  // const [data, useData] = useState({})
-  const params = useParams();
-  const match = useRouteMatch();
   const location = useLocation();
-  const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
+  console.log(
+    "!localStorage",
+    !!localStorage.getItem("refreshToken"),
+    localStorage.getItem("refreshToken")
+  );
   let newData = {};
   const setData = (data, name) => {
-    newData = {...newData, [name]: data};
-    // console.log("newData", newData); 
-  }
+    newData = { ...newData, [name]: data };
+    console.log(newData);
+  };
   /** */
   const getUser = () => {
-    history.replace({ state: {revert: '/'}});
-    const inputError = document.getElementsByClassName("input__error");
-      // console.log(" Login location", location, history.replace({ state: {revert: '/'}}));
-dispatch(userAuthLogin(history, newData, location.state.revert))
+    // const inputError = document.getElementsByClassName("input__error");
+    history.replace({ state: { revert: "/" } });
+    dispatch(userAuthLogin(history, newData, location.state.revert));
   };
-  useEffect(() => {
-  }, [])
-  return (
+  useEffect(() => {}, []);
+  return localStorage.getItem("refreshToken") ? <Redirect to="/" /> : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
-          <EMail setData={setData}/>
+          <EMail setData={setData} />
         </li>
         <li className={style.field + " mb-4"}>
-          <Password setData={setData}/>
+          <Password setData={setData} />
         </li>
       </ul>
       <Button type="primary" size="medium" onClick={getUser}>

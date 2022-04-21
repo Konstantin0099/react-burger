@@ -12,13 +12,13 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
 
-export const ProfileForm = ({ user, pass }) => {
+export const ProfileForm = ({name , email, pass }) => {
   const history = useHistory();
   const params = useParams();
   const match = useRouteMatch();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState({name: user.name, password: pass.password});
+  const [newData, setNewData] = React.useState({name: name, password: pass});
   const [fix, setFix] = React.useState(false);
 
   React.useEffect(() => {
@@ -33,12 +33,10 @@ const setUser =()=>{
  dispatch(setDataUser(history, newData));
 }
 const cancelInput =()=>{
-  setNewData({name: user.name, password: pass.password});
+  setNewData({name: name, password: pass});
   console.log("cancelInput", newData); 
   setFix(false);
 }
-
-// console.log("ProfileForm newData", newData);
 
   return (
     <ul className={style.list}>
@@ -59,7 +57,7 @@ const cancelInput =()=>{
           name={"email"}
           placeholder={"Логин"}
           // icon={"EditIcon"}
-          value={user.email}
+          value={email}
           // setData={setData}
         />
       </li>
@@ -85,4 +83,10 @@ const cancelInput =()=>{
       }
     </ul>
   );
+};
+
+ProfileForm.propTypes = {
+  email: PropTypes.string,
+  user: PropTypes.string,
+  pass: PropTypes.string,
 };

@@ -11,16 +11,21 @@ export const ResetPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   let location = useLocation();
+  const [newData, setNewData] = React.useState({});
   const resetPass = () => {
-    dispatch(resetPassword(history));
+    history.replace({ state: {revert: '/'}});
+    dispatch(resetPassword(history, newData));
   };
-  // console.log("ResetPassword", history, !location.hasOwnProperty('state'), !location.state, "location=", location);
+  const setData = (data, name) => {
+    console.log(newData, data, name)
+    setNewData({...newData, [name]: data});
+  }
+
   React.useEffect(() => {
     !location.hasOwnProperty("state")
       ? history.replace({ pathname: "/forgot-password" })
       : !location.state && history.replace({ pathname: "/forgot-password" });
   }, [history]);
-
   return (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}>
@@ -30,16 +35,22 @@ export const ResetPassword = () => {
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
+            icon={"EditIcon"}
             placeholder={"введите новый пароль"}
-            type="text"
-            value=""
+            type={"password"}
+            name={"password"}
+            value={newData.password}
+            setData={setData}
           />
         </li>
         <li className={style.field + " mb-4"}>
           <InputName
+            icon={"EditIcon"}
             placeholder={"введите код из письма"}
             type="text"
-            value=""
+            name={"token"}
+            value={newData.token}
+            setData={setData}
           />
         </li>
       </ul>
@@ -48,7 +59,7 @@ export const ResetPassword = () => {
       </Button>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>
-          <MenuField title={"Вспомнили?"} linkName={"Войти"} />
+          <MenuField title={"Вспомнили?"} linkName={"Войти"} link={"login"} />
         </li>
       </ul>
     </div>

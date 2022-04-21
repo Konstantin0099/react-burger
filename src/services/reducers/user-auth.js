@@ -62,7 +62,6 @@ const initaUser = {
         };
       }
       case AUTH_LOGOUT: {
-        localStorage.setItem("timeAccessToken", 0);
         localStorage.setItem("accessToken", "");
         localStorage.setItem("refreshToken", "");
         return {
@@ -76,7 +75,6 @@ const initaUser = {
       }
       case AUTH_TOKEN: {
         // console.log("AUTH_TOKEN action=",  action);
-        localStorage.setItem("timeAccessToken", new Date().getTime());
         localStorage.setItem("accessToken", action.token.accessToken);
         localStorage.setItem("refreshToken", action.token.refreshToken);
         // localStorage.getItem("accessToken") && console.log("AUTH_TOKEN localStorage.getItem(accessToken):", localStorage.getItem("accessToken"));

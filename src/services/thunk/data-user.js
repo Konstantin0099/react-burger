@@ -1,14 +1,11 @@
 import {
-  AUTH_TOKEN,
   AUTH_FAILED,
   GET_USER
 } from "../actions/user-auth";
-import { SET_DATA, GET_DATA, URL_USER_AUTH, bodyToken } from "../../utils/data";
+import {GET_DATA, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getDataUser() {
-  let timeToken = ((new Date().getTime()- localStorage.getItem("timeAccessToken"))>1140000);
-  // console.log("timeToken", timeToken);
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/user`, {
       ...GET_DATA,
@@ -28,7 +25,7 @@ export function getDataUser() {
       });
   };
 }
-export function setDataUser(history) {
+export function setDataUser(history, newData) {
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/user`, {
       method: 'PATCH',
@@ -39,10 +36,7 @@ export function setDataUser(history) {
         "authorization": localStorage.getItem("accessToken"),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name: "Вова",
-        password: "mas12345678",
-      }),
+      body: JSON.stringify(newData),
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
   })

@@ -8,15 +8,30 @@ import { EMail } from "../components/email/email";
 import { InputName } from "../components/input-name/input-name";
 import { MenuField } from "../components/menu-field/menu-field";
 import { userAuthRegister } from "../services/thunk/auth-user";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 export const RegisterPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [newData, setNewData] = React.useState({});
+
   const register = () => {
-    dispatch(userAuthRegister(history));
+    history.replace({ state: {revert: '/'}});
+    dispatch(userAuthRegister(history, newData));
   };
-  return (
+
+  const setData = (data, name) => {
+    setNewData({...newData, [name]: data});
+  }
+
+// const cancelInput =()=>{
+//   setNewData({name: name, password: pass});
+//   console.log("cancelInput", newData); 
+//   setFix(false);
+// }
+  return localStorage.getItem("refreshToken") ? (
+    <Redirect to="/" />
+  ) : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}>
         {" "}
@@ -24,13 +39,20 @@ export const RegisterPage = () => {
       </h2>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
-          <InputName type="text" placeholder={"Имя"} value="" />
+          <InputName
+            type="text"
+            placeholder={"Имя"}
+            value={newData.name}
+            name={"name"}
+            setData={setData}
+            icon={"EditIcon"}
+          />
         </li>
         <li className={style.field + " mb-4"}>
-          <EMail />
+          <EMail setData={setData} />
         </li>
         <li className={style.field + " mb-4"}>
-          <Password />
+          <Password setData={setData} />
         </li>
       </ul>
       <Button type="primary" size="medium" onClick={register}>

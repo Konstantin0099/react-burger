@@ -10,6 +10,7 @@
   background: transparent;
 }
 .profile {
+  /* font-family: "JetBrainsMono", Arial, Helvetica, sans-serif; */
   position: relative;
   display: flex;
   margin: 120px 0 0 0;
@@ -38,33 +39,27 @@
   text-align: left;
 }
 .link {
-  color: #4c4cff;
+  color: #8585AD;
 }
 .email {
   width: 480px !important;
 }
-/* .list {
-  padding: 0;
+.list {
+  padding: 0 0 5px 0;
   margin: 0;
 }
-.menu {
-  padding-right: 60px;
-  margin: 0;
-} */
 .field__profile {
   composes: field;
+  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 95%;
   width: 320px;
   height: 64px;
-  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 125%;
 }
 .field__profile_reshape {
   composes: field__profile;
   padding-top: 80px;
   height: 48px;
-  font-family: "JetBrainsMono", Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
@@ -72,13 +67,21 @@
 .link_profile {
   composes: link;
   text-decoration: none;
+  /* font-family: "JetBrainsMono", Arial, Helvetica, sans-serif; */
+  color: #8585AD;
 }
 .link_profile:hover {
   background-color: transparent;
   border-radius: 10%;
-  box-shadow: 0px 0px 30px rgb(55, 69, 170);
+  box-shadow: 0px 0px 30px rgb(104, 104, 110);
 }
 
 .link_active {
   color: rgb(244, 249, 250);
+}
+.question_text{
+    color: #8585AD;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 114%;
 }

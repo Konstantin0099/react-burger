@@ -9,6 +9,6 @@ export const Overlay = ({children}) => {
   )
 };
 
-// Overlay.propTypes = {
-//   children: PropTypes.object,
-// }
+Overlay.propTypes = {
+  children: PropTypes.object,
+}

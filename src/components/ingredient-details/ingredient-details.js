@@ -1,11 +1,9 @@
 import style from "./ingredient-details.module.css";
 import { ingredientType } from "../../utils/types";
-import { c } from "../../utils/console";
 
 const IngredientDetails = (props) => {
   const { item, modal } = props;
   const { name, proteins, calories, carbohydrates, fat, image } = item;
-  c("props", props, !modal, modal);
   return (
     <div className={style.order}>
       {/* <p className={style.title + " text text_type_digits-medium pt-10 "}> */}

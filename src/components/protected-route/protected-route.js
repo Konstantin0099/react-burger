@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Route, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -27,3 +28,7 @@ export function ProtectedRoute({ children, ...rest }) {
     />
   );
 }
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.object,
+};

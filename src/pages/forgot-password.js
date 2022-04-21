@@ -1,30 +1,29 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as React from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import style from "./style.module.css";
 import { MenuField } from "../components/menu-field/menu-field";
-import { InputName } from "../components/input-name/input-name";
 import { forgotPassword } from "../services/thunk/forgot-reset-password";
 import { EMail } from "../components/email/email";
 
 export const ForgotPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  // let location = useLocation();
   const recreate = () => {
-    dispatch(forgotPassword(history));
+    dispatch(forgotPassword(history, email));
   };
-  React.useEffect(() => {
-  }, [history]);
+  React.useEffect(() => {}, [history]);
 
   const [email, setEmail] = React.useState("");
-
   const setData = (email) => {
     setEmail(email);
-  }
+    console.log(email);
+  };
 
-  return (
+  return localStorage.getItem("refreshToken") ? (
+    <Redirect to="/" />
+  ) : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}>
         {" "}
@@ -32,14 +31,7 @@ export const ForgotPassword = () => {
       </h2>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
-        <EMail setData={setData}/>
-          {/* <InputName
-            placeholder={"укажите e-mail"}
-            type={"email"}
-            value=""
-            name={"email"}
-            setData={setData}
-          /> */}
+          <EMail setData={setData} />
         </li>
       </ul>
       <Button type="primary" size="medium" onClick={recreate}>

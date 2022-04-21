@@ -10,7 +10,6 @@ import {
 import { useDrag} from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
-import { c } from "../../utils/console";
 import { Link, useHistory,  useLocation } from "react-router-dom";
 
 export const Food = ({ item, count }) => {
@@ -29,7 +28,6 @@ export const Food = ({ item, count }) => {
 const onClick = () =>{
   dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
   dispatch({ type: TOGGLE_VISIBLE });
-  // c("onClick",item);
   history.replace({ pathname: `/ingredients/${item._id}`, state: {visibleModal: true}});
 }
   return (

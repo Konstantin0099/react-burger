@@ -1,5 +1,5 @@
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-//   import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import * as React from "react";
 
 export const InputName = ({
@@ -7,7 +7,7 @@ export const InputName = ({
   name,
   placeholder,
   icon,
-  value,
+  value = "",
   setData,
   disabled = false,
 }) => {
@@ -35,4 +35,18 @@ export const InputName = ({
       errorText={"Ошибка"}
     />
   );
+};
+
+
+// Lists.propTypes = {
+//   dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
+// };
+InputName.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  icon: PropTypes.string,
+  value: PropTypes.string,
+  setData: PropTypes.func,
+  disabled: PropTypes.bool,
 };

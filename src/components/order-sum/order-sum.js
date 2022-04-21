@@ -6,7 +6,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import styleConstructor from "./order-sum.module.css";
 import { OPEN_POPUP_ORDER, TOGGLE_VISIBLE } from "../../services/actions/modal";
-import { c } from "../../utils/console";
+
 export const OrderSum = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -17,14 +17,12 @@ const setOrder = () => {
     pathname: "/login",
     state: { revert: `/` },
   };
-  // c(!!token);
   if (!!token) {
   dispatch({ type: OPEN_POPUP_ORDER });
   dispatch({ type: TOGGLE_VISIBLE })
    } else {
     history.replace(direction)
    }
-
 }
 
   return (

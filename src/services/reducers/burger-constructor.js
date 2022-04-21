@@ -1,5 +1,4 @@
 import { dataOrder } from "../../utils/data";
-import { c } from "../../utils/console";
 import {
   ORDER_SUM,
   GET_NUMBER,

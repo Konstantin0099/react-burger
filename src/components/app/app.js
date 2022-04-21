@@ -5,7 +5,6 @@ import AppHeader from "../app-header/app-header.js";
 import {ProtectedRoute} from "../../components/protected-route/protected-route";
 import {
   Login,
-  Overlay,
   RegisterPage,
   ForgotPassword,
   ResetPassword,
@@ -30,10 +29,6 @@ const App = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   React.useEffect(() => {
-    // console.log("App токенs>>", user, localStorage.getItem("accessToken"),  localStorage.getItem("refreshToken"));
-    // localStorage.getItem("accessToken");
-    // localStorage.getItem("refreshToken");
-    dispatch(getToken(), getDataUser())
   },[]);
   const toggleVisible = (history) => {
     visible && history.replace({ pathname: '/'});
@@ -66,10 +61,10 @@ const App = () => {
             <ProtectedRoute path="/profile" exact>
               <ProfilePage />
             </ProtectedRoute>
-            <Route path="/profile/orders" exact>
+            <ProtectedRoute path="/profile/orders" exact>
               <ProfilePage orderHistory={true}/>
               {/* <OrderHistory></OrderHistory> */}
-            </Route>
+            </ProtectedRoute>
             <ProtectedRoute path="/profile/orders/:id" exact>
               {/* <OrderInfo></OrderInfo> */}
             </ProtectedRoute>
@@ -92,7 +87,7 @@ const App = () => {
               </main>
             </Route>
             <Route>
-              <Overlay>Упсс....404</Overlay>
+              <h1>Упсс....404</h1>
             </Route>
           </Switch>
         </DndProvider>

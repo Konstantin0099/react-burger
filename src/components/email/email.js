@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import * as React from "react";
 
@@ -19,4 +20,8 @@ export const EMail = ({ setData, data = "bob@example.com" }) => {
       name={"email"}
     />
   );
+};
+EMail.propTypes = {
+  setData: PropTypes.func,
+  data: PropTypes.string,
 };

@@ -1,5 +1,4 @@
-
-//   import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import style from "../../pages/style.module.css";
 
@@ -7,7 +6,7 @@ import style from "../../pages/style.module.css";
 export  const MenuField = ({ title, linkName, link }) => {
     return (
       <>
-        <h3 className={"text text_type_main-default"}>
+        <h3 className={style.question_text + " text text_type_main-default"}>
           {title && (title + "  ")}
           <NavLink
             to={{ pathname: `/${link}`, state: {revert: "/"} }}
@@ -19,4 +18,10 @@ export  const MenuField = ({ title, linkName, link }) => {
         </h3>
       </>
     );
+  };
+
+  MenuField.propTypes = {
+    title: PropTypes.string,
+     linkName: PropTypes.string,
+      link: PropTypes.string,
   };

@@ -4,7 +4,7 @@ import {
   AUTH_FAILED,
   AUTH_SUCCESS,
 } from "../actions/user-auth";
-import { DATA_FETCH, URL_USER_AUTH, bodyLogin } from "../../utils/data";
+import { DATA_FETCH, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 //   const baseUrl = 'https://norma.nomoreparties.space/api';  JSON.stringify
@@ -12,17 +12,14 @@ import { checkResponse } from "./checkResponse";
 // POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
 
 export function userAuthLogin(history, newData, revert = "/") {
-  // console.log("newData", newData);
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });
-
     fetch(`${URL_USER_AUTH}/login`, {
       ...DATA_FETCH,
-      body: JSON.stringify(bodyLogin),
+      body: JSON.stringify(newData),
     })
       .then(checkResponse)
       .then((user) => {
-        // console.log("изменение токена");
         dispatch({ type: AUTH_SUCCESS, user: user });
         history.replace({ pathname: revert});
       })
@@ -33,17 +30,15 @@ export function userAuthLogin(history, newData, revert = "/") {
   };
 }
 
-export function userAuthRegister(history) {
-    // console.log("body",{ ...bodyLogin, name: "Павка" });
+export function userAuthRegister(history, newData) {
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });
     fetch(`${URL_USER_AUTH}/register`, {
       ...DATA_FETCH,
-      body: JSON.stringify({ ...bodyLogin, name: "Павка" }),
+      body: JSON.stringify(newData),
     })
       .then(checkResponse)
       .then((user) => {
-        // console.log("изменение токена");
         dispatch({ type: AUTH_REGISTER, user: user });
         history.replace({ pathname: '/'});
       })

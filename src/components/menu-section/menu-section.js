@@ -28,8 +28,6 @@ const MenuSection = ({ ingredient }) => {
   );
 };
 MenuSection.propTypes = {
-  dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
-  data: PropTypes.arrayOf(ingredientType.isRequired),
   ingredient: PropTypes.string,
 };
 

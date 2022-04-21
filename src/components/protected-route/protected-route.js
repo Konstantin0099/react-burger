@@ -13,7 +13,6 @@ export function ProtectedRoute({ children, ...rest }) {
     pathname: "/login",
     state: {revert: `${history.location.pathname}`}
   };
-  // console.log(" ProtectedRoute", history.location.pathname);
   return (
     <Route
       {...rest}
@@ -21,7 +20,6 @@ export function ProtectedRoute({ children, ...rest }) {
         localStorage.getItem("refreshToken") ? (
           children
         ) : (
-          // Если пользователя нет в хранилище, происходит переадресация на роут /login
           <Redirect to={location}/>
         )
       }

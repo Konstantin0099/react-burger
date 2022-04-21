@@ -37,10 +37,6 @@ export const InputName = ({
   );
 };
 
-
-// Lists.propTypes = {
-//   dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
-// };
 InputName.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,

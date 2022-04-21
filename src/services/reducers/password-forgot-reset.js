@@ -13,7 +13,6 @@ import {
 };
 
 export const userPassReducer = (state = initPass, action) => {
-  // console.log("R userPassReducer", state);
 switch (action.type) {
   case PASS_FORGOT: {
     return {
@@ -23,7 +22,6 @@ switch (action.type) {
     };
   }
   case PASS_SUCCESS: {
-      // console.log("PASS_SUCCESS:", action);
     return {
         ...state,
         password: "",
@@ -32,7 +30,6 @@ switch (action.type) {
     };
   }
   case PASS_RESET: {
-    // console.log("PASS_RESET:", action);
     return {
         ...state,
         password: action.user.password,

@@ -13,20 +13,11 @@ import { logout } from "../services/thunk/logout";
 
 export const ProfilePage = ({ orderHistory }) => {
   const { user, pass } = useSelector((state) => state);
-  // console.log("ProfilePage", !!user.name, user.name);
   const history = useHistory();
-  // console.log("ProfilePage", user, pass);
   const dispatch = useDispatch();
-  // const setUser = () => {
-  //   dispatch(setDataUser(history));
-  // };
   React.useEffect(() => {
     user.name && dispatch(getDataUser(), getToken());
   }, [history]);
-  // let direction = {
-  //   pathname: "/login",
-  //   state: { revert: `/profile` },
-  // };
   const onClick = () => {
   const direction = {
       pathname: "/login",

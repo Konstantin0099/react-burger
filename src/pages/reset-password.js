@@ -17,7 +17,6 @@ export const ResetPassword = () => {
     dispatch(resetPassword(history, newData));
   };
   const setData = (data, name) => {
-    console.log(newData, data, name)
     setNewData({...newData, [name]: data});
   }
 

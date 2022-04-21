@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-//   import { useSelector } from "react-redux";
 import * as React from "react";
 
 export const Password = ({setData}) => {

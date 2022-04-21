@@ -18,7 +18,6 @@ export const ForgotPassword = () => {
   const [email, setEmail] = React.useState("");
   const setData = (email) => {
     setEmail(email);
-    console.log(email);
   };
 
   return localStorage.getItem("refreshToken") ? (

@@ -9,11 +9,9 @@ const ModalOverlay = ({ onClose, toggleVisible, children }) => {
   const modalRoot = document.getElementById("react-modals");
   const closedModal = (e) => {
     e.target === e.currentTarget && toggleVisible(history);
-    // history.replace({ pathname: '/'});
   };
   const closedModalEscape = (e) => {
     e.key === "Escape" && toggleVisible(history);
-    // history.replace({ pathname: '/'});
   };
 
   React.useEffect(() => {

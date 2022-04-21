@@ -1,6 +1,5 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-//   import { useSelector } from "react-redux";
 import * as React from "react";
 import style from "./style.module.css";
 import { Password } from "../components/password/password";
@@ -23,12 +22,6 @@ export const RegisterPage = () => {
   const setData = (data, name) => {
     setNewData({...newData, [name]: data});
   }
-
-// const cancelInput =()=>{
-//   setNewData({name: name, password: pass});
-//   console.log("cancelInput", newData); 
-//   setFix(false);
-// }
   return localStorage.getItem("refreshToken") ? (
     <Redirect to="/" />
   ) : (

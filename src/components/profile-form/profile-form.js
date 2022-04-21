@@ -34,7 +34,6 @@ const setUser =()=>{
 }
 const cancelInput =()=>{
   setNewData({name: name, password: pass});
-  console.log("cancelInput", newData); 
   setFix(false);
 }
 
@@ -56,9 +55,7 @@ const cancelInput =()=>{
           type={"email"}
           name={"email"}
           placeholder={"Логин"}
-          // icon={"EditIcon"}
           value={email}
-          // setData={setData}
         />
       </li>
       <li className={style.field + " mb-4"}>

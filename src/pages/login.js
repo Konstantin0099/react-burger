@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import PropTypes from "prop-types";
-// import { useRef } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { useSelector } from "react-redux";
-// import * as React from "react";
 import {
   useParams,
   useRouteMatch,
@@ -23,19 +19,12 @@ export const Login = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log(
-    "!localStorage",
-    !!localStorage.getItem("refreshToken"),
-    localStorage.getItem("refreshToken")
-  );
   let newData = {};
   const setData = (data, name) => {
     newData = { ...newData, [name]: data };
-    console.log(newData);
   };
   /** */
   const getUser = () => {
-    // const inputError = document.getElementsByClassName("input__error");
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };

@@ -26,7 +26,6 @@ const SetIngredients = ({ tab, index }) => {
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const { user, pass } = useSelector((state) => state);
-  // console.log("BurgerIngredients user=", user);
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
   useEffect(() => {

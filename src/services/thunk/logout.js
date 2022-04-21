@@ -2,9 +2,6 @@ import { AUTH_TOKEN, AUTH_FAILED, AUTH_LOGOUT } from "../actions/user-auth";
 import { DATA_FETCH, URL_USER_AUTH, bodyToken } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
-//   const baseUrl = 'https://norma.nomoreparties.space/api';  JSON.stringify
-// POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
-
 export function logout(history, direction) {
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/logout`, {

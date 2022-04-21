@@ -17,7 +17,6 @@ export function getDataUser() {
       .then(checkResponse)
       .then((user) => {
         dispatch({ type: GET_USER, user: user });
-        // console.log("getDataUser user.name=", user.user.name);
       })
       .catch((e) => {
         console.log("упс... ошибка в function getDataUser:(", e);

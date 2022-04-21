@@ -7,10 +7,6 @@ import {
 import { DATA_FETCH, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
-//   const baseUrl = 'https://norma.nomoreparties.space/api';  JSON.stringify
-// POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
-// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
-
 export function userAuthLogin(history, newData, revert = "/") {
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });

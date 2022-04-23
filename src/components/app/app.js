@@ -9,7 +9,8 @@ import {
   ForgotPassword,
   ResetPassword,
   ProfilePage,
-  OrderFeed
+  OrderFeed,
+  OrderId
 } from "../../pages/index";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.js";
 import BurgerConstructor from "../burger-constructor/burger-constructor.js";
@@ -34,6 +35,7 @@ const App = () => {
     visible && history.replace({ pathname: '/'});
     dispatch({ type: TOGGLE_VISIBLE })
   }
+
   return (
     <Router>
       <div className={style.app}>
@@ -72,12 +74,12 @@ const App = () => {
             <Route path="/ingredients/:id" exact component={IngredientsInfo}>
             </Route>
 
-            <Route path="/order-feed" exact>
+            <Route path="/feed" exact>
               <OrderFeed></OrderFeed>
               {/* <TotalOrder></TotalOrder> */}
             </Route>
-            <Route path="/order-feed/:id" exact>
-              {/* <OrderInfo></OrderInfo> */}
+            <Route path="/feed/:id" exact>
+              <OrderId></OrderId>
             </Route>
 
             <Route path="/" exact>

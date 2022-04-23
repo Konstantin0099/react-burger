@@ -1,0 +1,215 @@
+.feed__container{
+    display: flex;
+    flex-direction: column;
+    width: 1240px;
+    background-color: rgb(59, 55, 55);
+    margin-left: 0;
+    margin-right: 0;
+}
+.feed__title{
+    display: flex;
+    justify-content: left;
+    height: 40px;
+    width: 100%;
+    background-color: rgb(151, 98, 98);
+}
+.feed__block{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;  
+    display: flex;
+}
+.feed__orders{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 608px;
+    height: 852px;
+    overflow: auto;
+    background-color: rgb(68, 95, 85);
+}
+.feed__orders::-webkit-scrollbar {
+    width: 8px;
+  }
+  .feed__orders::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+  .feed__orders::-webkit-scrollbar-thumb {
+    background: #8585ad;
+  }
+.feed__info{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 366px;
+}
+.feed__ready{
+    width: 272px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(73, 68, 118);
+}
+.feed__status{
+    margin: 0 0 24px 0;
+    align-self: start;
+
+}
+.feed__status_list{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    flex-wrap: wrap;
+    list-style-type: none;
+    height: 250px;
+    /* overflow: auto; */
+}
+.feed__status_number{
+    padding: 0 48px 0 0;
+}
+.feed__total{
+    /* height: 366px; */
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(124, 121, 50);
+}
+.feed__total_text{
+    margin: 0;
+    height: 30px;
+    align-self: start;
+}
+.feed__total_sum{
+    height: 120px;
+    align-self: start;
+}
+/* <section className={styles.feed__container}> */
+    /* <h2 className={styles.feed__title}>Лента заказов</h2>
+    <div className={styles.feed__block}>
+      <div className={styles.feed__orders}>
+        <OrderFeedItem/>
+        <OrderFeedItem/>
+        <OrderFeedItem/>
+        <OrderFeedItem/>
+      </div>
+      <div className={styles.feed__orders}>
+        <div className={styles.feed__info}>
+          <div className={styles.feed__ready}>
+             <p className={styles.feed__status}> готовы</p>
+               <ul className={styles.feed__status_list}>
+                  <li className={styles.feed__status_number}>#034567</li>
+                  <li>#034567</li>
+                ................
+              </ul>
+          </div>
+          <div className={styles.feed__ready}> 
+             <p className={styles.feed__status}>в работе</p>
+               <ul className={styles.feed__status_list}>
+                  <li className={styles.feed__status_number}>#034567</li>
+                  <li>#034000</li>
+                ................
+              </ul>
+          </div>
+        </div>
+        <div className={styles.feed__total}>
+          <h4 className={styles.feed__total_text}>Всего изготовлено за все время</h4>
+          <p className={styles.feed__total_sum}>КОЛИЧЕСТВО</p>
+        </div>
+        <div className={styles.feed__total}>
+          <h4 className={styles.feed__total_text}>Всего изготовлено за все время</h4>
+          <p className={styles.feed__total_sum}>КОЛИЧЕСТВО</p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+}; */
+
+/* OrderFeedItem */
+.feed__box{
+    background-color: rgb(13, 124, 132);
+    /* height: 214px; */
+    width: 584px;
+    box-sizing: border-box;
+    border-radius: 40px;
+}
+.feed__box_info{
+    display: flex;
+    justify-content: space-between;
+    width: 536px;
+    margin: 0;
+    border: 1px dashed rgb(3, 244, 43)
+}
+.feed__number{
+    align-items: center;
+    display: flex;
+    margin: 0;
+    height: 24px;
+    width: auto;
+    border: 1px dashed red
+}
+.feed__date{
+    align-items: center;
+    display: flex;
+    margin: 0;
+    height: 24px;
+    /* width: max-content; */
+    border: 1px dashed red
+}
+.burger__name{
+    justify-content: left;
+    display: flex;
+    height: 30px;
+    border: 1px dashed red
+}
+.feed__images{
+    margin: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 64px;
+    max-width: 300px;
+    border: 1px dashed red
+}
+.feed__image_box{
+    width: 50px;
+    height: 64px;
+    border-radius: 50%;
+    /* border: 2px red solid; */
+}
+.feed__image{
+    /* min-width: 64px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px red solid;
+}
+.feed__sum{
+    margin: 0;
+    align-items: center;
+    display: flex;
+    height: 64px;
+    border: 1px dashed red
+}
+
+/* export const OrderFeedItem = () => {
+  <div className={styles.feed__box}>
+   <div className={styles.feed__box_info}>
+      <p className={styles.feed__number}>номер заказа </p>
+      <p className={styles.feed__date}>дата изготовления</p>
+   </div>
+      <h2 className={styles.burger__name}>название космического бургера</h2>
+   <div className={styles.feed__box_info}>
+      <div className={styles.feed__images}>
+         <div className={styles.feed__image}></div>
+         <div className={styles.feed__image}></div>
+         <div className={styles.feed__image}></div>
+      </div>
+      <p className={styles.feed__sum}> СТОИМОСТЬ</p>
+   </div>
+  </div> */
+
+  

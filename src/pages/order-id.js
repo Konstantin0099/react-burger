@@ -57,6 +57,16 @@ export const OrderId = () => {
           <p className={styles.order__ingredient_name + " text text_type_main-medium"}>Флюоресцентная булка R2-D3</p>
           <p className={styles.order__ingredient_sum + " text text_type_main-medium"}>2 x 20</p>
         </div>
+        <div className={styles.order__ingredient + " mb-4"}>
+          <div className={styles.order__image}></div>
+          <p className={styles.order__ingredient_name + " text text_type_main-medium"}>Флюоресцентная булка R2-D3</p>
+          <p className={styles.order__ingredient_sum + " text text_type_main-medium"}>2 x 20</p>
+        </div>
+        <div className={styles.order__ingredient + " mb-4"}>
+          <div className={styles.order__image}></div>
+          <p className={styles.order__ingredient_name + " text text_type_main-medium"}>Флюоресцентная булка R2-D3</p>
+          <p className={styles.order__ingredient_sum + " text text_type_main-medium"}>2 x 20</p>
+        </div>
        
       </div>
       <div className={styles.order__total + " mt-10"}>

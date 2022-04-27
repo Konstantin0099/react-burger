@@ -1,10 +1,27 @@
-import styles from "./inDevelopmentPage.module.css"
+
+import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory } from "react-router-dom";
+import * as React from "react";
+import styles from "./feed.module.css";
+import { OrderFeedItem } from "./order-feed";
+
 
 export const OrderHistory = () => {
+    React.useEffect(() => {
+    },[]);
+    const history = useHistory();
+    
     return (
-      <div className={styles.boxInDev}>
-         <h2 className={styles.titleInDev}>История заказов</h2>
-         <p className={styles.informationInDev}> страница находится в разработке</p>
-      </div>
-    )
+      <section className={styles.history__container + " mt-10"}>
+          <div className={styles.history__orders}>
+            <OrderFeedItem statusVisible={true}/>
+            <OrderFeedItem statusVisible={true}/>
+            <OrderFeedItem statusVisible={true}/>
+            <OrderFeedItem statusVisible={true}/>
+            <OrderFeedItem statusVisible={true}/>
+            <OrderFeedItem statusVisible={true}/>
+          </div>
+      </section>
+    );
+  
+    // end OrderFeed
   };

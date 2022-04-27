@@ -13,10 +13,10 @@
   /* font-family: "JetBrainsMono", Arial, Helvetica, sans-serif; */
   position: relative;
   display: flex;
-  margin: 120px 0 0 0;
+  margin: 0;
   padding: 0;
   width: 1240px;
-  height: 420px;
+  /* height: 420px; */
   background: transparent;
 }
 .closeIcon {
@@ -84,4 +84,7 @@
     font-style: Regular;
     font-size: 16px;
     line-height: 114%;
+}
+.menu{
+  margin: 120px 0 0;
 }

@@ -2,6 +2,7 @@ import style from "./app.module.css";
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory } from "react-router-dom";
 import AppHeader from "../app-header/app-header.js";
+// import { Dev } from "../dev/dev.js";
 import {ProtectedRoute} from "../../components/protected-route/protected-route";
 import {
   Login,
@@ -40,6 +41,7 @@ const App = () => {
     <Router>
       <div className={style.app}>
         <AppHeader />
+        {/* <Dev /> */}
         {visible && (
           <Modal
             toggleVisible={toggleVisible}
@@ -63,13 +65,12 @@ const App = () => {
             <ProtectedRoute path="/profile" exact>
               <ProfilePage />
             </ProtectedRoute>
-            <ProtectedRoute path="/profile/orders" exact>
-              <ProfilePage orderHistory={true}/>
-              {/* <OrderHistory></OrderHistory> */}
-            </ProtectedRoute>
-            <ProtectedRoute path="/profile/orders/:id" exact>
+            {/* <ProtectedRoute path="/profile/orders" exact>
+              <ProfilePage/>
+            </ProtectedRoute> */}
+            {/* <ProtectedRoute path="/profile/orders/:id" exact> */}
               {/* <OrderInfo></OrderInfo> */}
-            </ProtectedRoute>
+            {/* </ProtectedRoute> */}
 
             <Route path="/ingredients/:id" exact component={IngredientsInfo}>
             </Route>

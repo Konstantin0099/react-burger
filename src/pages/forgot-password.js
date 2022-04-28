@@ -1,5 +1,5 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as React from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import style from "./style.module.css";
@@ -9,6 +9,7 @@ import { EMail } from "../components/email/email";
 
 export const ForgotPassword = () => {
   const history = useHistory();
+  const { authSuccess} = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const recreate = () => {
     dispatch(forgotPassword(history, email));
@@ -20,7 +21,7 @@ export const ForgotPassword = () => {
     setEmail(email);
   };
 
-  return localStorage.getItem("refreshToken") ? (
+  return  authSuccess ? (
     <Redirect to="/" />
   ) : (
     <div className={style.modal}>
@@ -28,6 +29,7 @@ export const ForgotPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
+      <form onsubmit={recreate}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />
@@ -36,6 +38,7 @@ export const ForgotPassword = () => {
       <Button type="primary" size="medium" onClick={recreate}>
         Восстановить
       </Button>
+      </form>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>
           <MenuField title={"Вспомнили?"} linkName={"Войти"} link={"login"} />

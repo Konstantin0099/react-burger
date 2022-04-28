@@ -10,6 +10,7 @@ import { userAuthRegister } from "../services/thunk/auth-user";
 import { useHistory, Redirect } from "react-router-dom";
 
 export const RegisterPage = () => {
+  const { authSuccess} = useSelector((state) => state.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [newData, setNewData] = React.useState({});
@@ -22,7 +23,7 @@ export const RegisterPage = () => {
   const setData = (data, name) => {
     setNewData({...newData, [name]: data});
   }
-  return localStorage.getItem("refreshToken") ? (
+  return authSuccess ? (
     <Redirect to="/" />
   ) : (
     <div className={style.modal}>
@@ -30,6 +31,7 @@ export const RegisterPage = () => {
         {" "}
         Регистрация{" "}
       </h2>
+      <form onsubmit={register}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -51,6 +53,7 @@ export const RegisterPage = () => {
       <Button type="primary" size="medium" onClick={register}>
         Зарегистрироваться
       </Button>
+      </form>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>
           <MenuField

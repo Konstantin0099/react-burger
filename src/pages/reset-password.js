@@ -31,6 +31,7 @@ export const ResetPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
+      <form onsubmit={resetPass}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -56,6 +57,7 @@ export const ResetPassword = () => {
       <Button type="primary" size="medium" onClick={resetPass}>
         Сохранить
       </Button>
+      </form>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>
           <MenuField title={"Вспомнили?"} linkName={"Войти"} link={"login"} />

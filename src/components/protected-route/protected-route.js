@@ -4,7 +4,7 @@ import { useHistory, Route, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function ProtectedRoute({ children, ...rest }) {
-  const { user } = useSelector((state) => state);
+  const { authSuccess} = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,7 +17,7 @@ export function ProtectedRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() =>
-        localStorage.getItem("refreshToken") ? (
+        authSuccess ? (
           children
         ) : (
           <Redirect to={location}/>

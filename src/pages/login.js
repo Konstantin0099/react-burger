@@ -17,6 +17,7 @@ import { logout } from "../services/thunk/logout";
 
 export const Login = () => {
   const history = useHistory();
+  const { authSuccess} = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
   let newData = {};
@@ -24,14 +25,17 @@ export const Login = () => {
     newData = { ...newData, [name]: data };
   };
   /** */
-  const getUser = () => {
+  const getUser = (event) => {
+    console.log(event);
+    event.preventDefault();
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };
   useEffect(() => {}, []);
-  return localStorage.getItem("refreshToken") ? <Redirect to="/" /> : (
+  return authSuccess ? <Redirect to="/" /> : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
+      <form onsubmit={getUser}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />
@@ -43,6 +47,7 @@ export const Login = () => {
       <Button type="primary" size="medium" onClick={getUser}>
         Войти
       </Button>
+      </form>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>
           <MenuField

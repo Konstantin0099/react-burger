@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 0;
+  /* align-items: center; */
+  margin: 0 0 120px 0;
   padding: 0;
   padding-right: 0;
   width: 720px;

@@ -22,6 +22,7 @@ export const ProfilePage = () => {
   const { user, pass } = useSelector((state) => state);
   const history = useHistory();
   const dispatch = useDispatch();
+  console.log("ProfilePage", user.name, !!user.name)
   React.useEffect(() => {
     user.name && dispatch(getDataUser(), getToken());
   }, [history]);

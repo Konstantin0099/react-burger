@@ -151,6 +151,7 @@
 }
 .feed__image{
     object-fit: cover;
+    box-sizing: border-box;
     /* min-width: 64px; */
     display: flex;
     justify-content: center;
@@ -160,6 +161,18 @@
     background-color: black;
     border: 2px #48309f solid;
     border-radius: 50%;
+}
+.feed__image__plus{
+    composes: feed__image;
+    opacity: 0.3
+}
+
+.feed__image__plus__box{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px #48309f solid;
+    /* opacity: 0.3; */
 }
 .feed__sum{
     margin: 0;

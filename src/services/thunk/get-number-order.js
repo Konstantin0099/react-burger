@@ -13,20 +13,21 @@ export function getNumber(dataOrder) {
   const arrDataID = dataOrder.map((el) => {
     return el._id;
   });
-
   return function (dispatch) {
     dispatch({ type: GET_NUMBER });
     fetch(`${URL_ORDER}`, {
       method: "POST",
       body: JSON.stringify({
-        ingredients: arrDataID,
+        ingredients: arrDataID
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        authorization: localStorage.getItem("accessToken"),
       },
     })
       .then(checkResponse)
       .then((order) => {
+        console.log("order", order);
         dispatch({ type: GET_NUMBER_SUCCES, number: order.order.number });
       })
       .catch((e) => {

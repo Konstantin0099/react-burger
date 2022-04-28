@@ -2,6 +2,16 @@ import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from "re
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./feed.module.css";
+import {
+  WS_CONNECTION_START,
+} from "../wsRedux/action-types";
+
+export const getListOrders = (orders, statusVisible) =>
+orders.map((element) => {
+  let { number, createdAt, name, ingredients, _id } = element;
+  return <OrderFeedItem key={_id} statusVisible={statusVisible} number={number} date={createdAt} name={name} ingredients={ingredients} />;
+});
+
 
 export const OrderFeed = () => {
   const history = useHistory();
@@ -9,7 +19,7 @@ export const OrderFeed = () => {
   const { orders, total, totalToday } = useSelector((state) => state.feed);
 
   React.useEffect(() => {
-    dispatch({ type: "WS_CONNECTION_START" });
+    dispatch({ type: WS_CONNECTION_START });
     // console.log("OrderFeed", orders, total, totalToday, getListOrders);
     // getListOrders()
   }, []);
@@ -26,36 +36,14 @@ export const OrderFeed = () => {
         )
     );
   const listDoneOrder = getListNumbersOrders("done");
-  const listWorkOrder = getListNumbersOrders("work");
-
-  // const getListOrders = () => orders.map(
-  //   (element) => {
-  //     let { number, createdAt, name, ingredients, _id} = element;
-  // console.log("getListOrders>>>>>>", element);
-  //   console.log("getListOrders>>>>>>", _id);
-  //   return <OrderFeedItem key={_id} number={number} date={createdAt} name={name} ingredients={ingredients}/>
-  // }
-  // );
-  // const feedOrders = getListOrders();
-  // console.log("getListOrders>>>feedOrders>>>", feedOrders);
-
-  const getListOrders = () =>
-    orders.map((element) => {
-      let { number, createdAt, name, ingredients, _id } = element;
-      return <OrderFeedItem key={_id} number={number} date={createdAt} name={name} ingredients={ingredients} />;
-    });
-  React.useEffect(() => {
-    // console.log("getListOrders>>>feedOrders>>>", feedOrders);
-  }, []);
-  const listFeedOrders = getListOrders();
+  const listWorkOrder = getListNumbersOrders("created");
+  const listFeedOrders = getListOrders(orders);
 
   return (
     <section className={styles.feed__container}>
       <h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
       <div className={styles.feed__block}>
         <div className={styles.feed__orders}>
-          {/* <OrderFeedItem /> */}
-
           {listFeedOrders}
         </div>
         <div className={styles.feed__orders + " pl-6"}>
@@ -84,7 +72,7 @@ export const OrderFeed = () => {
 
   // end OrderFeed
 };
-const n = 3;
+
 export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingredients }) => {
   const { data } = useSelector((state) => state.data);
   const history = useHistory();
@@ -94,22 +82,20 @@ export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingre
   const listIcon = (ingredients) => {
     let sum = 0;
     let countListIcon = 0;
-    // console.log("data=", data);
     const list = ingredients.map((ingredient, index, ingredients) => {
       countListIcon++;
       const el = data.find((item) => {
-        // console.log("data.find((item)", item._id, ingredient, item._id === ingredient);
         return item._id === ingredient;
       });
-      // console.log("countListIco", countListIcon, el);
       if (el) {
         let image = el.image;
         sum = sum + el.price;
-        // console.log("countListIcon <= 6",image );
         return (
           countListIcon <= 6 && (
             <div key={index} className={styles.feed__image_box}>
-              <img className={styles.feed__image} src={image} alt="фото ингредиента" />
+              {countListIcon === 1 && ingredients.length > 6 
+              ? <div className={styles.feed__image__plus__box}><img className={styles.feed__image__plus} src={image} alt="фото ингредиента" /></div>
+              : <img className={styles.feed__image} src={image} alt="фото ингредиента" />}
               <p className={styles.count__plus + " text text_type_digits-default"}>
                 {countListIcon === 1 && ingredients.length > 6 && `+${ingredients.length - 5}`}
               </p>
@@ -126,11 +112,10 @@ export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingre
         <p className={styles.feed__sum + " text text_type_digits-default"}>{sum}</p>
       </div>
     );
-    // list;
   };
 
   const domElementListIcon = listIcon(ingredients);
-  console.log("domElementListIcon", domElementListIcon);
+  // console.log("domElementListIcon", domElementListIcon);
   React.useEffect(() => {}, []);
   return (
     <div className={styles.feed__box + " p-6 mb-4"} onClick={onClick}>
@@ -141,11 +126,6 @@ export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingre
       <h2 className={styles.burger__name + " text text_type_main-medium mt-6 mb-6"}>{name}</h2>
       {statusVisible && <p className={styles.feed__date + " text text_type_main-small"}>Выполнено</p>}
       {domElementListIcon}
-      {/* <div className={styles.feed__box_info}>
-        <div className={styles.feed__images}>
-        </div>
-        <p className={styles.feed__sum + " text text_type_digits-default"}>12342</p>
-      </div> */}
     </div>
   );
 };

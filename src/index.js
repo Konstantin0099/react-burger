@@ -15,17 +15,27 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_GET_FEED,
-  WS_SEND_ORDER,
+  WS_CONNECTION_START_HISTORY,
+  WS_CONNECTION_SUCCESS_HISTORY,
+  WS_CONNECTION_CLOSED_HISTORY,
+  WS_CONNECTION_ERROR_HISTORY,
+  WS_GET_HISTORY,
 } from "./wsRedux/action-types";
-const wsUrl = "wss://norma.nomoreparties.space/orders/all";
-// const wsUrl = 'wss://norma.nomoreparties.space/chat';
-const wsActions = {
+const wsUrl = "wss://norma.nomoreparties.space/orders";
+
+const wsActionsFeed = {
   wsInit: WS_CONNECTION_START,
-  wsSendMessage: WS_SEND_ORDER,
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_FEED,
+};
+const wsActionsHistory = {
+  wsInit: WS_CONNECTION_START_HISTORY,
+  onOpen: WS_CONNECTION_SUCCESS_HISTORY,
+  onClose: WS_CONNECTION_CLOSED_HISTORY,
+  onError: WS_CONNECTION_ERROR_HISTORY,
+  onMessage: WS_GET_HISTORY,
 };
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -33,11 +43,14 @@ const composeEnhancers =
     : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk , socketMiddleware(wsUrl, wsActions)),
+  applyMiddleware(
+    thunk,
+     socketMiddleware(wsUrl, wsActionsFeed, wsActionsHistory))
+    //  socketMiddleware(wsUrl, wsActionsHistory))
 );
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
-const store = initStore()
+const store = initStore();
 
 ReactDOM.render(
   <React.StrictMode>

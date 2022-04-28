@@ -1,48 +1,48 @@
 
 
 import {
-    WS_CONNECTION_SUCCESS,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_CLOSED,
-    WS_GET_FEED
+    WS_CONNECTION_SUCCESS_HISTORY,
+    WS_CONNECTION_ERROR_HISTORY,
+    WS_CONNECTION_CLOSED_HISTORY,
+    WS_GET_HISTORY
   } from '../action-types';
   
   const initialState = {
     wsConnected: false,
     // feed: []
-    orders: [],
+    historyOrders: [],
     total: 0,
     totalToday: 0,
   };
   
-  export const wsReducerAllOrders = (state = initialState, action) => {
-      // console.log("wsReducer");
+  export const wsReducerOrdersHistory = (state = initialState, action) => {
+      // console.log("wsReducerOrdersHistory", action);
     switch (action.type) {
-      case WS_CONNECTION_SUCCESS:
+      case WS_CONNECTION_SUCCESS_HISTORY:
         return {
           ...state,
           wsConnected: true
         };
   
-      case WS_CONNECTION_ERROR:
+      case WS_CONNECTION_ERROR_HISTORY:
         return {
           ...state,
           wsConnected: false
         };
   
-      case WS_CONNECTION_CLOSED:
+      case WS_CONNECTION_CLOSED_HISTORY:
         return {
           ...state,
           wsConnected: false
         };
   
-      case WS_GET_FEED:
+      case WS_GET_HISTORY:
 // console.log("case>>WS_GET_FEED:");
 let  { orders, total, totalToday } = action.payload;
-// console.log({ orders, total, totalToday } );
+console.log("wsReducerOrdersHistory",{ orders, total, totalToday } );
         return {
           ...state,
-          orders: orders,
+          historyOrders: orders,
           total: total,
           totalToday: totalToday
         };

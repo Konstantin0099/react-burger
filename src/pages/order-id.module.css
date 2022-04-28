@@ -57,7 +57,7 @@
     justify-content: space-between;
     width: 100%;
 }
-.order__image{
+.order__image__box{
     display: flex;
     align-items: baseline;
     width: 64px;
@@ -93,4 +93,17 @@
 .order__total_sum{
     width: fit-content;
     background-color: rgb(59, 18, 52);
+}
+.order__image{
+    object-fit: cover;
+    box-sizing: border-box;
+    /* min-width: 64px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background-color: black;
+    border: 2px #48309f solid;
+    border-radius: 50%;
 }

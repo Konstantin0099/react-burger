@@ -136,7 +136,7 @@
 .burger__name{
     justify-content: left;
     display: flex;
-    height: 30px;
+    min-height: 30px;
 }
 .feed__images{
     margin: 0;

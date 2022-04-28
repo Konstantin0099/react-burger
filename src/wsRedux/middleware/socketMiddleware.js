@@ -29,12 +29,12 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
         const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = actions;
         if (socket) {
           socket.onopen = (event) => {
-            console.log("socket.onopen", event);
+            // console.log("socket.onopen", event);
             dispatch({ type: onOpen, payload: event });
           };
           
           socket.onerror = (event) => {
-            console.log("socket.onerror", event);
+            // console.log("socket.onerror", event);
             dispatch({ type: onError, payload: event });
           };
           
@@ -44,11 +44,11 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
             const { success, ...restParsedData } = parsedData;
             
             dispatch({ type: onMessage, payload: restParsedData });
-            console.log("..........ПИСЬМО С СЕРВЕРА", { type: onMessage, payload: restParsedData });
+            // console.log("..........ПИСЬМО С СЕРВЕРА", { type: onMessage, payload: restParsedData });
           };
           
           socket.onclose = (event) => {
-            console.log("socket.onclose", event);
+            // console.log("socket.onclose", event);
             dispatch({ type: onClose, payload: event });
           };
           

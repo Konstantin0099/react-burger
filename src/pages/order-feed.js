@@ -12,7 +12,6 @@ orders.map((element) => {
   return <OrderFeedItem key={_id} statusVisible={statusVisible} number={number} date={createdAt} name={name} ingredients={ingredients} />;
 });
 
-
 export const OrderFeed = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -20,12 +19,7 @@ export const OrderFeed = () => {
 
   React.useEffect(() => {
     dispatch({ type: WS_CONNECTION_START });
-    // console.log("OrderFeed", orders, total, totalToday, getListOrders);
-    // getListOrders()
   }, []);
-
-  // <Food item={item} key={item._id} count={countOrder} />
-
   const getListNumbersOrders = (status) =>
     orders.map(
       (element) =>
@@ -69,8 +63,6 @@ export const OrderFeed = () => {
       </div>
     </section>
   );
-
-  // end OrderFeed
 };
 
 export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingredients }) => {
@@ -104,8 +96,6 @@ export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingre
         );
       }
     });
-
-    // console.log("list",list);
     return (
       <div className={styles.feed__box_info}>
         <div className={styles.feed__images}>{list}</div>
@@ -115,8 +105,6 @@ export const OrderFeedItem = ({ statusVisible = false, number, date, name, ingre
   };
 
   const domElementListIcon = listIcon(ingredients);
-  // console.log("domElementListIcon", domElementListIcon);
-  React.useEffect(() => {}, []);
   return (
     <div className={styles.feed__box + " p-6 mb-4"} onClick={onClick}>
       <div className={styles.feed__box_info}>

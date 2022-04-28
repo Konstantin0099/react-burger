@@ -85,6 +85,11 @@
     width: 252px;
     overflow-x: hidden;
 }
+.feed__status_list{
+    composes: feed__status_list;
+    color: #00CCCC;
+}
+
 .feed__status_number{
     padding: 0 58px 0 0;
     width: fit-content;
@@ -134,9 +139,9 @@
     height: 24px;
 }
 .burger__name{
-    justify-content: left;
+    /* justify-content: left; */
     display: flex;
-    height: 30px;
+    min-height: 30px;
 }
 .feed__images{
     margin: 0;

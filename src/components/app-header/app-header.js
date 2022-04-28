@@ -9,8 +9,6 @@ import {
 import { NavLink } from "react-router-dom";
 
 const AppHeader = () => { 
-  React.useEffect(() => {
-  },[]);
   return (
     <header className={styles.header}>
       <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>

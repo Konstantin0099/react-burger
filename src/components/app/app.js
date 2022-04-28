@@ -30,8 +30,6 @@ const App = () => {
   const { visible, user, data } = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
-  React.useEffect(() => {
-  },[]);
   const toggleVisible = (history) => {
     visible && history.replace({ pathname: '/'});
     dispatch({ type: TOGGLE_VISIBLE })

@@ -16,8 +16,6 @@ export const ProfileForm = ({ name, email, pass }) => {
   const [newData, setNewData] = React.useState({ name: name, password: pass });
   const [fix, setFix] = React.useState(false);
 
-  React.useEffect(() => {});
-
   const setData = (data, name) => {
     setNewData({ ...newData, [name]: data });
     setFix(true);
@@ -32,7 +30,7 @@ export const ProfileForm = ({ name, email, pass }) => {
   };
 
   return (
-    <form onsubmit={setUser}>
+    <form onsubmit={setUser} className={style.form}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName

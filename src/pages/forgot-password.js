@@ -14,7 +14,7 @@ export const ForgotPassword = () => {
   const recreate = () => {
     dispatch(forgotPassword(history, email));
   };
-  React.useEffect(() => {}, [history]);
+  // React.useEffect(() => {}, [history]);
 
   const [email, setEmail] = React.useState("");
   const setData = (email) => {

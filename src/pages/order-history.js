@@ -15,7 +15,7 @@ export const OrderHistory = () => {
     React.useEffect(() => {
       dispatch({ type: WS_CONNECTION_START_HISTORY });
     },[]);
-    console.log("OrderHistory>>>>____", historyOrders);
+    // console.log("OrderHistory>>>>____", historyOrders);
     const listHistory = getListOrders(historyOrders, true);
 
     return (

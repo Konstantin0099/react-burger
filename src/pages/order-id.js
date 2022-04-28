@@ -9,7 +9,6 @@ import * as React from "react";
 import styles from "./order-id.module.css";
 
 export const OrderId = () => {
-  React.useEffect(() => {}, []);
   const history = useHistory();
   return (
     <section className={styles.order__container}>

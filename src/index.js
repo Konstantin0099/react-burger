@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-// import thunkMiddleware from 'redux-thunk';
 import App from "./components/app/app";
 import rootReducer from "./services/reducers";
 import { socketMiddleware } from "./wsRedux/middleware";
@@ -46,7 +45,6 @@ const enhancer = composeEnhancers(
   applyMiddleware(
     thunk,
      socketMiddleware(wsUrl, wsActionsFeed, wsActionsHistory))
-    //  socketMiddleware(wsUrl, wsActionsHistory))
 );
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);

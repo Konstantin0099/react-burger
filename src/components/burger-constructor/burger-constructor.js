@@ -7,7 +7,6 @@ import { ORDER_SUM } from "../../services/actions/burger-constructor";
 
 const BurgerConstructor = () => {
 
-  // debugger;
   const dispatch = useDispatch();
   const dataOrder = useSelector((state) => state.dataOrder);
   React.useEffect(() => {

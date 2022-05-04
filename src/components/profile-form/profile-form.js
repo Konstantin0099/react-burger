@@ -13,7 +13,7 @@ export const ProfileForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
-
+  const [fix, setFix] = React.useState(false);
   React.useEffect(() => {
     user.name && dispatch(getDataUser(), getToken());
   }, [dispatch, user.name]);

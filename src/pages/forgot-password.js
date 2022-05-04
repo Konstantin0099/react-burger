@@ -9,36 +9,32 @@ import { EMail } from "../components/email/email";
 
 export const ForgotPassword = () => {
   const history = useHistory();
-  const { authSuccess} = useSelector((state) => state.user);
+  const { authSuccess } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const recreate = (e) => {
     e.preventDefault();
     dispatch(forgotPassword(history, email));
   };
-  // React.useEffect(() => {}, [history]);
 
   const [email, setEmail] = React.useState("");
   const setData = (email) => {
     setEmail(email);
   };
 
-  return  authSuccess ? (
+  return authSuccess ? (
     <Redirect to="/" />
   ) : (
     <div className={style.modal}>
-      <h2 className={"text text_type_main-medium " + style.title}>
-        {" "}
-        Востановление пароля{" "}
-      </h2>
+      <h2 className={"text text_type_main-medium " + style.title}> Востановление пароля </h2>
       <form onSubmit={recreate}>
-      <ul className={style.list}>
-        <li className={style.field + " mb-4"}>
-          <EMail setData={setData} />
-        </li>
-      </ul>
-      <Button type="primary" size="medium" onSubmit={recreate}>
-        Восстановить
-      </Button>
+        <ul className={style.list}>
+          <li className={style.field + " mb-4"}>
+            <EMail setData={setData} />
+          </li>
+        </ul>
+        <Button type="primary" size="medium" onSubmit={recreate}>
+          Восстановить
+        </Button>
       </form>
       <ul className={style.list}>
         <li className={style.field + " mt-20 mb-4"}>

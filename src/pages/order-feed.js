@@ -1,27 +1,15 @@
-import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from "react-router-dom";
-import * as React from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
-import { WS_CONNECTION_START } from "../wsRedux/action-types";
-import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE  } from "../services/actions/modal";
-
+import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
 
 export const OrderFeedItem = ({ cbOnClick, statusVisible = false, id, number, date, name, ingredients }) => {
-  // console.log("OrderFeedItem", ingredients);
-  const dispatch = useDispatch();
   const { data } = useSelector((state) => state.data);
-  const history = useHistory();
-
-  // const onClick = () => {
-  //   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id});
-  //   dispatch({ type: TOGGLE_VISIBLE });
-  //   history.replace({ pathname: `/feed/${id}`});
-  // };
   const onClick = () => {
-    cbOnClick(id)
+    cbOnClick(id);
   };
-  
-  // history.replace({ pathname: `/ingredients/${item._id}`, state: {visibleModal: true}});
+
   return (
     <div className={styles.feed__box + " p-6 mb-4"} onClick={onClick}>
       <div className={styles.feed__box_info}>
@@ -53,11 +41,9 @@ export const getListOrders = (func, orders, statusVisible = false) => {
   });
 };
 export const OrderFeed = () => {
-  // console.log("OrderFeed");
   const history = useHistory();
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector((state) => state.feed);
-
 
   const getListNumbersOrders = (status) =>
     orders.map(
@@ -70,11 +56,10 @@ export const OrderFeed = () => {
     );
   const listDoneOrder = getListNumbersOrders("done");
   const listCreatedOrder = getListNumbersOrders("created");
-  // const listFeedOrders = getListOrders(orders);
   const func = (id) => {
-    dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id});
+    dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
     dispatch({ type: TOGGLE_VISIBLE });
-    history.replace({ pathname: `/feed/${id}`});
+    history.replace({ pathname: `/feed/${id}` });
   };
   return (
     <section className={styles.feed__container}>
@@ -107,7 +92,6 @@ export const OrderFeed = () => {
 };
 
 export const listIcon = (ingredients, data) => {
-  // console.log("listIcon");
   let sum = 0;
   let countListIcon = 0;
   const list = ingredients.map((ingredient, index, ingredients) => {
@@ -134,12 +118,13 @@ export const listIcon = (ingredients, data) => {
           </div>
         )
       );
-    }
+    } else {return null}
   });
   return (
     <div className={styles.feed__box_info}>
       <div className={styles.feed__images}>{list}</div>
-      <p className={styles.feed__sum + " text text_type_digits-default"}>{sum}</p>
+      <p className={styles.feed__sum + " text text_type_digits-default"}>{sum }</p>
+      <CurrencyIcon type="primary" />
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
 import * as React from "react";
-import { useParams, useRouteMatch, useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import style from "./profile-form.module.css";
 import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,18 +9,14 @@ import { getToken } from "../../services/thunk/get-token";
 
 export const ProfileForm = () => {
   const { user, pass } = useSelector((state) => state);
-  const email = user.email
+  const email = user.email;
   const history = useHistory();
-  const params = useParams();
-  const match = useRouteMatch();
-  const location = useLocation();
   const dispatch = useDispatch();
   const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
   const [fix, setFix] = React.useState(false);
   React.useEffect(() => {
-    console.log("ProfileForm__useEffect user.name && dispatch(getDataUser(), getToken())>");
     user.name && dispatch(getDataUser(), getToken());
-  }, []);
+  }, [dispatch, user.name]);
 
   const setData = (data, name) => {
     setNewData({ ...newData, [name]: data });
@@ -55,7 +50,7 @@ export const ProfileForm = () => {
         <li className={style.field + " mb-4"}>
           <InputName
             type={"password"}
-            name={"password"}
+            name={"пароль"}
             placeholder={"Пароль"}
             icon={"EditIcon"}
             value={newData.password}
@@ -76,9 +71,3 @@ export const ProfileForm = () => {
     </form>
   );
 };
-
-// ProfileForm.propTypes = {
-//   email: PropTypes.string,
-//   user: PropTypes.string,
-//   pass: PropTypes.string,
-// };

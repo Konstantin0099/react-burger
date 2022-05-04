@@ -4,29 +4,28 @@ import {
   OPEN_POPUP_INGREDIENTS,
   OPEN_POPUP_ORDER,
   CLOSE_POPUP_ORDER,
-  TOGGLE_VISIBLE_LIST
+  TOGGLE_VISIBLE_LIST,
 } from "../actions/modal";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import OrderDetails from "../../components/order-details/order-details";
-import {OrderId} from "../../pages/order-id";
+import { OrderId } from "../../pages/order-id";
 
 const initalState = {
   modal: false,
-  list: true
-}
+  list: false,
+};
 export const toggleVisibleReducer = (state = initalState, action) => {
-  console.log("action toggleVisibleReducer ", action);
   switch (action.type) {
     case TOGGLE_VISIBLE: {
       return {
         ...state,
-        modal: !state.modal
+        modal: !state.modal,
       };
     }
     case TOGGLE_VISIBLE_LIST: {
       return {
         ...state,
-        list: !state.list
+        list: !state.list,
       };
     }
     default: {
@@ -41,17 +40,14 @@ const initalStateOpenPopup = {
 };
 export const openPopupReducer = (state = initalStateOpenPopup, action) => {
   switch (action.type) {
-    // OrderId
     case OPEN_POPUP_ORDER_INGREDIENTS: {
-      console.log("OPEN_POPUP_ORDER_INGREDIENTS:");
       return {
         ...state,
-        popup: <OrderId id={action.item}/>,
+        popup: <OrderId id={action.item} />,
         item: action.item,
       };
     }
     case OPEN_POPUP_INGREDIENTS: {
-      // console.log("OPEN_POPUP_INGREDIENTS:", action.item);
       return {
         ...state,
         popup: <IngredientDetails item={action.item} />,

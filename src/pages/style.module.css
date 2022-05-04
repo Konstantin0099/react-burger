@@ -10,15 +10,11 @@
   background: transparent;
 }
 .profile {
-  /* font-family: "JetBrainsMono", Arial, Helvetica, sans-serif; */
   position: relative;
   display: flex;
   margin: 0;
   padding: 0;
-  /* justify-content: center; */
-  /* align-items: center; */
   width: 1240px;
-  /* height: 420px; */
   background: transparent;
 }
 .closeIcon {
@@ -69,7 +65,6 @@
 .link_profile {
   composes: link;
   text-decoration: none;
-  /* font-family: "JetBrainsMono", Arial, Helvetica, sans-serif; */
   color: #8585AD;
 }
 .link_profile:hover {

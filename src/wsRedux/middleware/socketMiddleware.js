@@ -4,19 +4,17 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
     let socketFeed = null;
     return (next) => (action) => {
       const { dispatch, getState } = store;
-      const { type, payload } = action;
+      const { type } = action;
       const { user } = getState();
       let token = localStorage.getItem("accessToken").substring(7);
       if (type === wsActions.wsInit && user) {
-        // console.log("wsActions.wsInit", type)
         socketFeed = new WebSocket(`${wsUrl}/all?token=${token}`);
       }
       if (type === wsActionsHistory.wsInit && user) {
         socketHistory = new WebSocket(`${wsUrl}?token=${token}`);
       }
       const ws = (socket, actions) => {
-        // console.log("socket", socket)
-        const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = actions;
+        const { onOpen, onClose, onError, onMessage } = actions;
         if (socket) {
           socket.onopen = (event) => {
             dispatch({ type: onOpen, payload: event });

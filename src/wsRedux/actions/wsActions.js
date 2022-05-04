@@ -5,7 +5,6 @@ import {
     WS_GET_FEED,
     WS_SEND_ORDER
   } from '../action-types';
-  console.log("wsAction");
   export const wsConnectionSuccess = () => {
     return {
       type: WS_CONNECTION_SUCCESS

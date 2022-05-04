@@ -138,7 +138,6 @@ const ItemOrder = ({ item, index, length }) => {
   );
 };
 export const Lists = ({ dataOrder }) => {
-  console.log("Lists1");
   const dispatch = useDispatch();
   const [, refLists] = useDrop({
     accept: "items",
@@ -156,7 +155,6 @@ export const Lists = ({ dataOrder }) => {
     },
     hover(el, monitor) {},
   });
-  console.log("Lists2");
   return (
     <div
       ref={refLists}

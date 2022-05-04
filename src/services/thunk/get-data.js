@@ -12,13 +12,13 @@ import {checkResponse} from "./checkResponse"
 const URL_INGREDIENTS = `${baseUrl}/ingredients`;
 
 export function getData() {
-  console.log("getData1")
+
   return function (dispatch) {
     dispatch({ type: GET_DATA });
     fetch(`${URL_INGREDIENTS}`)
     .then(checkResponse)
     .then((productData) => {
-        console.log("getData2")
+
         dispatch({ type: GET_DATA_SUCCES, data: productData.data });
       })
       .catch((e) => {

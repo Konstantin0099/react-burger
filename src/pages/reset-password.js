@@ -1,6 +1,6 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import * as React from "react";
 import style from "./style.module.css";
 import { MenuField } from "../components/menu-field/menu-field";
@@ -10,7 +10,7 @@ import { resetPassword } from "../services/thunk/forgot-reset-password";
 export const ResetPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  let location = useLocation();
+  const location = useLocation();
   const [newData, setNewData] = React.useState({});
   const resetPass = () => {
     history.replace({ state: {revert: '/'}});
@@ -24,7 +24,7 @@ export const ResetPassword = () => {
     !location.hasOwnProperty("state")
       ? history.replace({ pathname: "/forgot-password" })
       : !location.state && history.replace({ pathname: "/forgot-password" });
-  }, [history]);
+  }, [history, location]);
   return (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}>

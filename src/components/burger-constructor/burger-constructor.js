@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { ORDER_SUM } from "../../services/actions/burger-constructor";
 
 const BurgerConstructor = () => {
-  console.log("BurgerConstructor1");
+
   // debugger;
   const dispatch = useDispatch();
   const dataOrder = useSelector((state) => state.dataOrder);
-  dispatch({ type: ORDER_SUM, dataOrder });
   React.useEffect(() => {
-  }, [dataOrder]);
-  console.log("BurgerConstructor2");
+    dispatch({ type: ORDER_SUM, dataOrder });
+  }, [dispatch, dataOrder]);
+
   return (
     <section
       className={

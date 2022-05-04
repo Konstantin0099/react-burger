@@ -25,10 +25,7 @@
   opacity: 0.6;
 }
 .link_active {
-  /* color: white; */
-  /* text-decoration: underline; */
-  /* display: flex; */
-  /* flex-direction: row; */
+
   opacity: 1;
 }
 .navigation {

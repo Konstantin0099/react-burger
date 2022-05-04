@@ -11,7 +11,6 @@ import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
 const SetIngredients = ({ tab, index }) => {
   const tabsName = ["Булки", "Начинки", "Соусы"];
   const inputRef = useRef(null);
-  useEffect(() => {}, []);
   return (
     <li
       className={style.listBlock + " text text_type_main-medium"}
@@ -24,13 +23,13 @@ const SetIngredients = ({ tab, index }) => {
 };
 
 const BurgerIngredients = () => {
+
   const dispatch = useDispatch();
-  const { user, pass } = useSelector((state) => state);
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
   useEffect(() => {
     dispatch(getData());
-  },[]);
+  },[dispatch]);
   let arrTabs = [];
   data.data.forEach((tab) => {
     if (!arrTabs.includes(tab.type)) {
@@ -52,6 +51,7 @@ const BurgerIngredients = () => {
       dispatch({ type: TAB_TWO });
     }
   };
+  
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>

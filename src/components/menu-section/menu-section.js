@@ -2,7 +2,6 @@ import { Food } from "../food/food.js";
 import PropTypes from "prop-types";
 import style from "./menu-section.module.css";
 import { useSelector } from "react-redux";
-import { ingredientType } from "../../utils/types";
 
 const MenuSection = ({ ingredient }) => {
   const { data, dataOrder } = useSelector((state) => state);

@@ -1,20 +1,23 @@
-import PropTypes from "prop-types";
 import * as React from "react";
-import { useParams, useRouteMatch, useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import style from "./profile-form.module.css";
 import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
+import { getToken } from "../../services/thunk/get-token";
 
-export const ProfileForm = ({ name, email, pass }) => {
+export const ProfileForm = () => {
+  const { user, pass } = useSelector((state) => state);
+  const email = user.email;
   const history = useHistory();
-  const params = useParams();
-  const match = useRouteMatch();
-  const location = useLocation();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState({ name: name, password: pass });
-  const [fix, setFix] = React.useState(false);
+  const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
+
+  React.useEffect(() => {
+    user.name && dispatch(getDataUser(), getToken());
+  }, [dispatch, user.name]);
+
 
   const setData = (data, name) => {
     setNewData({ ...newData, [name]: data });
@@ -26,12 +29,14 @@ export const ProfileForm = ({ name, email, pass }) => {
     dispatch(setDataUser(history, newData));
   };
   const cancelInput = () => {
-    setNewData({ name: name, password: pass });
+    setNewData({ name: user.name, password: pass.password });
     setFix(false);
   };
 
   return (
-    <form onSubmit={setUser} className={style.form}>
+
+    <form onSubmit={setUser}>
+
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -49,7 +54,7 @@ export const ProfileForm = ({ name, email, pass }) => {
         <li className={style.field + " mb-4"}>
           <InputName
             type={"password"}
-            name={"password"}
+            name={"пароль"}
             placeholder={"Пароль"}
             icon={"EditIcon"}
             value={newData.password}
@@ -69,10 +74,4 @@ export const ProfileForm = ({ name, email, pass }) => {
       </ul>
     </form>
   );
-};
-
-ProfileForm.propTypes = {
-  email: PropTypes.string,
-  user: PropTypes.string,
-  pass: PropTypes.string,
 };

@@ -4,10 +4,10 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
     let socketFeed = null;
     return (next) => (action) => {
       const { dispatch, getState } = store;
-      const { type, payload } = action;
+
+      const { type } = action;
       const { user } = getState();
       let token = localStorage.getItem("accessToken").substring(7);
-
       if (type === wsActions.wsInit && user) {
         socketFeed = new WebSocket(`${wsUrl}/all?token=${token}`);
       }
@@ -15,15 +15,13 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
         socketHistory = new WebSocket(`${wsUrl}?token=${token}`);
       }
       const ws = (socket, actions) => {
-        const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = actions;
+        const { onOpen, onClose, onError, onMessage } = actions;
         if (socket) {
           socket.onopen = (event) => {
-            console.log("socket.onopen", event);
             dispatch({ type: onOpen, payload: event });
           };
           
           socket.onerror = (event) => {
-            console.log("socket.onerror", event);
             dispatch({ type: onError, payload: event });
           };
           
@@ -33,14 +31,12 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
             const { success, ...restParsedData } = parsedData;
             
             dispatch({ type: onMessage, payload: restParsedData });
-            console.log("..........ПИСЬМО С СЕРВЕРА", { type: onMessage, payload: restParsedData });
           };
           
           socket.onclose = (event) => {
-            console.log("socket.onclose", event);
             dispatch({ type: onClose, payload: event });
           };
-          
+
           }
       };
       socketFeed && ws(socketFeed, wsActions);

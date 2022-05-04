@@ -1,30 +1,18 @@
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Route, Redirect } from "react-router-dom";
-import { useEffect, useState } from "react";
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
 
 export function ProtectedRoute({ children, ...rest }) {
-  const { authSuccess} = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { authSuccess } = useSelector((state) => state.user);
   const history = useHistory();
-
-  useEffect(() => {}, []);
+  React.useEffect(() => {}, []);
   const location = {
     pathname: "/login",
-    state: {revert: `${history.location.pathname}`}
+    state: { revert: `${history.location.pathname}` },
   };
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        authSuccess ? (
-          children
-        ) : (
-          <Redirect to={location}/>
-        )
-      }
-    />
-  );
+
+  return authSuccess ? children : <Redirect to={location} />;
 }
 
 ProtectedRoute.propTypes = {

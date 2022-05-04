@@ -6,7 +6,6 @@ const IngredientDetails = (props) => {
   const { name, proteins, calories, carbohydrates, fat, image } = item;
   return (
     <div className={style.order}>
-      {/* <p className={style.title + " text text_type_digits-medium pt-10 "}> */}
       <p className={(!modal ? style.titleModal : style.title) + " text text_type_digits-medium pt-10 "}>
         Детали ингредиента
       </p>

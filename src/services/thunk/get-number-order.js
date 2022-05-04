@@ -27,7 +27,6 @@ export function getNumber(dataOrder) {
     })
       .then(checkResponse)
       .then((order) => {
-        console.log("order", order);
         dispatch({ type: GET_NUMBER_SUCCES, number: order.order.number });
       })
       .catch((e) => {

@@ -2,29 +2,18 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
   return (store) => {
     let socketHistory = null;
     let socketFeed = null;
-    // console.log("socketMiddleware");
     return (next) => (action) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      // const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
       const { user } = getState();
       let token = localStorage.getItem("accessToken").substring(7);
-      // console.log(
-      //   "сравниваем type ===  wsActionsHistory.wsInit=",
-      //   type,
-      //   type === wsActionsHistory.wsInit,
-      //   wsActionsHistory.wsInit,
-      // );
-      // console.log("type ===  wsActions.wsInit=", (type ===  wsActions.wsInit) );
+
       if (type === wsActions.wsInit && user) {
-        // console.log("socket = new WebSocket");
         socketFeed = new WebSocket(`${wsUrl}/all?token=${token}`);
       }
       if (type === wsActionsHistory.wsInit && user) {
         socketHistory = new WebSocket(`${wsUrl}?token=${token}`);
-        // console.log("socketHistory = new WebSocket");
       }
-      // console.log("socketFeed", socketFeed);
       const ws = (socket, actions) => {
         const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = actions;
         if (socket) {
@@ -52,13 +41,7 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
             dispatch({ type: onClose, payload: event });
           };
           
-          // if (type === wsSendMessage) {
-            //   // console.log("wsSendMessage");
-            //   const message = { ...payload, token: user.token };
-            //   socket.send(JSON.stringify(message));
-            // }
           }
-          // console.log("ws = (socket, actions)", socket);
       };
       socketFeed && ws(socketFeed, wsActions);
       socketHistory && ws(socketHistory, wsActionsHistory);

@@ -20,7 +20,8 @@ export const ProfileForm = ({ name, email, pass }) => {
     setNewData({ ...newData, [name]: data });
     setFix(true);
   };
-  const setUser = () => {
+  const setUser = (event) => {
+    event.preventDefault();
     history.replace({ state: { revert: "/" } });
     dispatch(setDataUser(history, newData));
   };
@@ -30,7 +31,7 @@ export const ProfileForm = ({ name, email, pass }) => {
   };
 
   return (
-    <form onsubmit={setUser} className={style.form}>
+    <form onSubmit={setUser} className={style.form}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -57,10 +58,10 @@ export const ProfileForm = ({ name, email, pass }) => {
         </li>
         {fix && (
           <div className={style.btn__block + " mb-4"}>
-            <Button type="primary" size="small" onClick={setUser}>
+            <Button type="primary" size="small" onSubmit={setUser}>
               Сохранить
             </Button>
-            <Button type="primary" size="small" onClick={cancelInput}>
+            <Button type="primary" size="small" onSubmit={cancelInput}>
               &nbsp;&nbsp;Отмена&#160;
             </Button>
           </div>

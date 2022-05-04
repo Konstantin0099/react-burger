@@ -12,7 +12,8 @@ export const ResetPassword = () => {
   const dispatch = useDispatch();
   let location = useLocation();
   const [newData, setNewData] = React.useState({});
-  const resetPass = () => {
+  const resetPass = (e) => {
+    e.preventDefault();
     history.replace({ state: {revert: '/'}});
     dispatch(resetPassword(history, newData));
   };
@@ -31,7 +32,7 @@ export const ResetPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
-      <form onsubmit={resetPass}>
+      <form onSubmit={resetPass}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -54,7 +55,7 @@ export const ResetPassword = () => {
           />
         </li>
       </ul>
-      <Button type="primary" size="medium" onClick={resetPass}>
+      <Button type="primary" size="medium" onSubmit={resetPass}>
         Сохранить
       </Button>
       </form>

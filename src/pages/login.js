@@ -26,7 +26,6 @@ export const Login = () => {
   };
   /** */
   const getUser = (event) => {
-    console.log(event);
     event.preventDefault();
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthLogin(history, newData, location.state.revert));
@@ -35,7 +34,7 @@ export const Login = () => {
   return authSuccess ? <Redirect to="/" /> : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
-      <form onsubmit={getUser}>
+      <form onSubmit={getUser}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />
@@ -44,7 +43,7 @@ export const Login = () => {
           <Password setData={setData} />
         </li>
       </ul>
-      <Button type="primary" size="medium" onClick={getUser}>
+      <Button type="primary" size="medium" onSubmit={getUser}>
         Войти
       </Button>
       </form>

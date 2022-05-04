@@ -15,7 +15,8 @@ export const RegisterPage = () => {
   const dispatch = useDispatch();
   const [newData, setNewData] = React.useState({});
 
-  const register = () => {
+  const register = (e) => {
+    e.preventDefault();
     history.replace({ state: {revert: '/'}});
     dispatch(userAuthRegister(history, newData));
   };
@@ -31,7 +32,7 @@ export const RegisterPage = () => {
         {" "}
         Регистрация{" "}
       </h2>
-      <form onsubmit={register}>
+      <form onSubmit={register}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -50,7 +51,7 @@ export const RegisterPage = () => {
           <Password setData={setData} />
         </li>
       </ul>
-      <Button type="primary" size="medium" onClick={register}>
+      <Button type="primary" size="medium" onSubmit={register}>
         Зарегистрироваться
       </Button>
       </form>

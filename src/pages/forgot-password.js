@@ -11,7 +11,8 @@ export const ForgotPassword = () => {
   const history = useHistory();
   const { authSuccess} = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const recreate = () => {
+  const recreate = (e) => {
+    e.preventDefault();
     dispatch(forgotPassword(history, email));
   };
   // React.useEffect(() => {}, [history]);
@@ -29,13 +30,13 @@ export const ForgotPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
-      <form onsubmit={recreate}>
+      <form onSubmit={recreate}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />
         </li>
       </ul>
-      <Button type="primary" size="medium" onClick={recreate}>
+      <Button type="primary" size="medium" onSubmit={recreate}>
         Восстановить
       </Button>
       </form>

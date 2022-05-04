@@ -31,7 +31,7 @@ export const RegisterPage = () => {
         {" "}
         Регистрация{" "}
       </h2>
-      <form onsubmit={register}>
+      <form onSubmit={register}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName

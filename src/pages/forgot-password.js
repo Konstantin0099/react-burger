@@ -29,7 +29,7 @@ export const ForgotPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
-      <form onsubmit={recreate}>
+      <form onSubmit={recreate}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />

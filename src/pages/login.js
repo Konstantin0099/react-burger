@@ -18,6 +18,7 @@ import { logout } from "../services/thunk/logout";
 export const Login = () => {
   const history = useHistory();
   const { authSuccess} = useSelector((state) => state.user);
+  console.log("Login", authSuccess);
   const location = useLocation();
   const dispatch = useDispatch();
   let newData = {};
@@ -31,11 +32,10 @@ export const Login = () => {
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };
-  useEffect(() => {}, []);
   return authSuccess ? <Redirect to="/" /> : (
     <div className={style.modal}>
       <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
-      <form onsubmit={getUser}>
+      <form onSubmit={getUser}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <EMail setData={setData} />

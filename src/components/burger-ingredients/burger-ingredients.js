@@ -9,9 +9,10 @@ import { getData } from "../../services/thunk/get-data";
 import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
 
 const SetIngredients = ({ tab, index }) => {
+  // debugger;
+  console.log("SetIngredients1");
   const tabsName = ["Булки", "Начинки", "Соусы"];
   const inputRef = useRef(null);
-  useEffect(() => {}, []);
   return (
     <li
       className={style.listBlock + " text text_type_main-medium"}
@@ -24,12 +25,15 @@ const SetIngredients = ({ tab, index }) => {
 };
 
 const BurgerIngredients = () => {
+  // debugger;
+  console.log("BurgerIngredients1");
+
   const dispatch = useDispatch();
   const { user, pass } = useSelector((state) => state);
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
+  dispatch(getData());
   useEffect(() => {
-    dispatch(getData());
   },[]);
   let arrTabs = [];
   data.data.forEach((tab) => {
@@ -52,6 +56,9 @@ const BurgerIngredients = () => {
       dispatch({ type: TAB_TWO });
     }
   };
+  
+  console.log("BurgerIngredients2");
+  // debugger
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>
@@ -62,6 +69,7 @@ const BurgerIngredients = () => {
         ref={inputRef}
       >
         {arrTabs.map((tab, index) => {
+          console.log("111");
           return <SetIngredients key={tab[index]} tab={tab} index={index} />;
         })}
       </ul>

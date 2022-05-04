@@ -6,17 +6,22 @@ import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
+import { getToken } from "../../services/thunk/get-token";
 
-export const ProfileForm = ({ name, email, pass }) => {
+export const ProfileForm = () => {
+  const { user, pass } = useSelector((state) => state);
+  const email = user.email
   const history = useHistory();
   const params = useParams();
   const match = useRouteMatch();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState({ name: name, password: pass });
+  const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
   const [fix, setFix] = React.useState(false);
-
-  React.useEffect(() => {});
+  React.useEffect(() => {
+    console.log("ProfileForm__useEffect user.name && dispatch(getDataUser(), getToken())>");
+    user.name && dispatch(getDataUser(), getToken());
+  }, []);
 
   const setData = (data, name) => {
     setNewData({ ...newData, [name]: data });
@@ -27,12 +32,12 @@ export const ProfileForm = ({ name, email, pass }) => {
     dispatch(setDataUser(history, newData));
   };
   const cancelInput = () => {
-    setNewData({ name: name, password: pass });
+    setNewData({ name: user.name, password: pass.password });
     setFix(false);
   };
 
   return (
-    <form onsubmit={setUser}>
+    <form onSubmit={setUser}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName
@@ -72,8 +77,8 @@ export const ProfileForm = ({ name, email, pass }) => {
   );
 };
 
-ProfileForm.propTypes = {
-  email: PropTypes.string,
-  user: PropTypes.string,
-  pass: PropTypes.string,
-};
+// ProfileForm.propTypes = {
+//   email: PropTypes.string,
+//   user: PropTypes.string,
+//   pass: PropTypes.string,
+// };

@@ -31,7 +31,7 @@ export const ResetPassword = () => {
         {" "}
         Востановление пароля{" "}
       </h2>
-      <form onsubmit={resetPass}>
+      <form onSubmit={resetPass}>
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName

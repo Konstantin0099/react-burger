@@ -6,16 +6,19 @@ import { WS_CONNECTION_START } from "../wsRedux/action-types";
 import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE  } from "../services/actions/modal";
 
 
-export const OrderFeedItem = ({ statusVisible = false, id, number, date, name, ingredients }) => {
+export const OrderFeedItem = ({ cbOnClick, statusVisible = false, id, number, date, name, ingredients }) => {
   // console.log("OrderFeedItem", ingredients);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.data);
   const history = useHistory();
 
+  // const onClick = () => {
+  //   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id});
+  //   dispatch({ type: TOGGLE_VISIBLE });
+  //   history.replace({ pathname: `/feed/${id}`});
+  // };
   const onClick = () => {
-    dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id});
-    dispatch({ type: TOGGLE_VISIBLE });
-    history.replace({ pathname: "/feed/:id" });
+    cbOnClick(id)
   };
   
   // history.replace({ pathname: `/ingredients/${item._id}`, state: {visibleModal: true}});
@@ -32,7 +35,7 @@ export const OrderFeedItem = ({ statusVisible = false, id, number, date, name, i
   );
 };
 
-export const getListOrders = (orders, statusVisible = false) => {
+export const getListOrders = (func, orders, statusVisible = false) => {
   return orders.map((element) => {
     let { number, createdAt, name, ingredients, _id } = element;
     return (
@@ -44,6 +47,7 @@ export const getListOrders = (orders, statusVisible = false) => {
         date={createdAt}
         name={name}
         ingredients={ingredients}
+        cbOnClick={func}
       />
     );
   });
@@ -54,9 +58,6 @@ export const OrderFeed = () => {
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector((state) => state.feed);
 
-  React.useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
-  }, []);
 
   const getListNumbersOrders = (status) =>
     orders.map(
@@ -70,12 +71,16 @@ export const OrderFeed = () => {
   const listDoneOrder = getListNumbersOrders("done");
   const listCreatedOrder = getListNumbersOrders("created");
   // const listFeedOrders = getListOrders(orders);
-
+  const func = (id) => {
+    dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id});
+    dispatch({ type: TOGGLE_VISIBLE });
+    history.replace({ pathname: `/feed/${id}`});
+  };
   return (
     <section className={styles.feed__container}>
       <h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
       <div className={styles.feed__block}>
-        <div className={styles.feed__orders}>{getListOrders(orders)}</div>
+        <div className={styles.feed__orders}>{getListOrders(func, orders)}</div>
         <div className={styles.feed__orders + " pl-6"}>
           <div className={styles.feed__info}>
             <div className={styles.feed__ready}>

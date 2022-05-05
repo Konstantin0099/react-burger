@@ -8,7 +8,7 @@ import { DATA_FETCH, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function userAuthLogin(history, newData, revert = "/") {
-  console.log("function userAuthLogin newData=", newData)
+
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });
     fetch(`${URL_USER_AUTH}/login`, {

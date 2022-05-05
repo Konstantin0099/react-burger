@@ -1,8 +1,10 @@
+import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
+import { WS_CONNECTION_START } from "../wsRedux/action-types";
 
 export const OrderFeedItem = ({ cbOnClick, statusVisible = false, id, number, date, name, ingredients }) => {
   const { data } = useSelector((state) => state.data);
@@ -42,8 +44,12 @@ export const getListOrders = (func, orders, statusVisible = false) => {
 };
 
 export const OrderFeed = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START });
+  }, [dispatch]);
+
+  const history = useHistory();
   const { orders, total, totalToday } = useSelector((state) => state.feed);
 
   const getListNumbersOrders = (status) =>

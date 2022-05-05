@@ -25,7 +25,7 @@ import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
 
 import { getData } from "../../services/thunk/get-data";
 
-import { WS_CONNECTION_START, WS_CONNECTION_START_HISTORY } from "../../wsRedux/action-types";
+
 
 const App = () => {
   const { visible } = useSelector((state) => state);
@@ -33,8 +33,8 @@ const App = () => {
 
   React.useEffect(() => {
     dispatch(getData());
-    dispatch({ type: WS_CONNECTION_START });
-    dispatch({ type: WS_CONNECTION_START_HISTORY });
+    // dispatch({ type: WS_CONNECTION_START });
+    // dispatch({ type: WS_CONNECTION_START_HISTORY });
   }, [dispatch]);
   const toggleVisible = (history) => {
     visible.modal && history.replace({ pathname: "/" });

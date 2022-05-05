@@ -7,7 +7,8 @@ export const socketMiddleware = (wsUrl, wsActions, wsActionsHistory) => {
 
       const { type } = action;
       const { user } = getState();
-      let token = localStorage.getItem("accessToken").substring(7);
+      let token = "";
+      (user.name !== "") && (token = localStorage.getItem("accessToken").substring(7))
       if (type === wsActions.wsInit && user) {
         socketFeed = new WebSocket(`${wsUrl}/all?token=${token}`);
       }

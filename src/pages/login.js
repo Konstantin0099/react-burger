@@ -38,7 +38,7 @@ export const Login = () => {
             <Password setData={setData} />
           </li>
         </ul>
-        <Button type="primary" size="medium" onClick={getUser}>
+        <Button type="primary" size="medium" onSubmit={getUser}>
           Войти
         </Button>
       </form>

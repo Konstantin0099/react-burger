@@ -41,17 +41,12 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-const enhancer = composeEnhancers(
-  applyMiddleware(
-    thunk,
-     socketMiddleware(wsUrl, wsActionsFeed, wsActionsHistory))
-);
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActionsFeed, wsActionsHistory)));
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
 const store = initStore();
-localStorage.setItem("accessToken", "accessToken");
-localStorage.setItem("refreshToken", "refreshToken");
-console.log("INDEX", localStorage.getItem("accessToken"),localStorage.getItem("refreshToken"));
+localStorage.setItem("accessToken", "");
+localStorage.setItem("refreshToken", "");
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

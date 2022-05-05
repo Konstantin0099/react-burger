@@ -49,7 +49,9 @@ const enhancer = composeEnhancers(
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
 const store = initStore();
-
+localStorage.setItem("accessToken", "accessToken");
+localStorage.setItem("refreshToken", "refreshToken");
+console.log("INDEX", localStorage.getItem("accessToken"),localStorage.getItem("refreshToken"));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

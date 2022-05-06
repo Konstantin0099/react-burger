@@ -17,6 +17,16 @@
     height: 916px;
     overflow: auto;
 }
+.history__orders::-webkit-scrollbar {
+    width: 8px;
+  }
+.history__orders::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+.history__orders::-webkit-scrollbar-thumb {
+    background: #8585ad;
+  }
+
 .feed__title{
     display: flex;
     justify-content: left;
@@ -101,10 +111,12 @@
 .feed__box{
     box-sizing: border-box;
     border-radius: 40px;
+    background-color: rgb(28, 28, 33);;
 }
 .feed__box_info{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
+    justify-content: space-between;
     margin: 0;
 }
 .feed__number{

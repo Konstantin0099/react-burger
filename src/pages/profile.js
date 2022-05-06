@@ -1,10 +1,5 @@
 import PropTypes from "prop-types";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -31,11 +26,10 @@ export const ProfilePage = () => {
   };
   return (
     <Router>
-      <Route exact path="/profile/orders/:id" component={OrderInfo}>
-      </Route>
+      <Route exact path="/profile/orders/:id" component={OrderInfo}></Route>
       {!visible.list && (
-          <Route path="/profile">
-        <div className={styles.profile}>
+        <Route path="/profile">
+          <div className={styles.profile}>
             <ul className={styles.menu + " pr-15 "}>
               <li className={styles.field__profile} key={1}>
                 <NavLink
@@ -68,16 +62,16 @@ export const ProfilePage = () => {
                 </p>
               </li>
             </ul>
-          <Switch>
-            <Route exact path="/profile">
-              <ProfileForm />
-            </Route>
-            <Route exact path="/profile/orders">
-              <OrderHistory />
-            </Route>
-          </Switch>
-        </div>
-         </Route>
+            <Switch>
+              <Route exact path="/profile">
+                <ProfileForm />
+              </Route>
+              <Route exact path="/profile/orders">
+                <OrderHistory />
+              </Route>
+            </Switch>
+          </div>
+        </Route>
       )}
     </Router>
   );

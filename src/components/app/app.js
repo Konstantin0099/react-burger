@@ -34,8 +34,6 @@ const App = () => {
 
   React.useEffect(() => {
     dispatch(getData());
-    // dispatch({ type: WS_CONNECTION_START });
-    // dispatch({ type: WS_CONNECTION_START_HISTORY });
   }, [dispatch]);
   const toggleVisible = (history) => {
     visible.modal && history.replace({ pathname: "/" });

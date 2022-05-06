@@ -1,13 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-// import { Route, Redirect } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import {
-  TOGGLE_VISIBLE,
-  OPEN_POPUP_INGREDIENTS,
-} from "../../services/actions/modal";
-import { useDrag} from "react-dnd";
+import { TOGGLE_VISIBLE, OPEN_POPUP_INGREDIENTS } from "../../services/actions/modal";
+import { useDrag } from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
 import { useHistory } from "react-router-dom";
@@ -15,7 +11,7 @@ import { useHistory } from "react-router-dom";
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [{ opacity, getItem }, ref] = useDrag(
+  const [{ opacity }, ref] = useDrag(
     {
       type: "items",
       item: { el: item, drag: "food" },
@@ -25,18 +21,13 @@ export const Food = ({ item, count }) => {
     },
     []
   );
-const onClick = () =>{
-  dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
-  dispatch({ type: TOGGLE_VISIBLE });
-  history.replace({ pathname: `/ingredients/${item._id}`, state: {visibleModal: true}});
-}
+  const onClick = () => {
+    dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
+    dispatch({ type: TOGGLE_VISIBLE });
+    history.replace({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
+  };
   return (
-    <li
-      ref={ref}
-      className={style.itemMenu}
-      style={{ opacity: `${opacity}` }}
-      onClick={onClick}
-    >
+    <li ref={ref} className={style.itemMenu} style={{ opacity: `${opacity}` }} onClick={onClick}>
       {count !== 0 && <Counter count={count} size="default" />}
       <img className={style.img} src={item.image} alt="фото ингредиента" />
       <div className={style.price + " pt-2 pb-2"}>

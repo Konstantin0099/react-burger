@@ -18,11 +18,10 @@ export const Login = () => {
     newData = { ...newData, [name]: data };
   };
 
-  /** */
+  /**отправить данные user для авторизации */
   const getUser = (event) => {
     event.preventDefault();
     history.replace({ state: { revert: "/" } });
-    console.log("getUser", location)
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };
   return authSuccess ? (

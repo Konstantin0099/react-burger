@@ -1,10 +1,8 @@
-// import { useHistory } from "react-router-dom";
 import * as React from "react";
 import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getListOrders, func } from "./order-feed";
 import { WS_CONNECTION_START_HISTORY } from "../wsRedux/action-types";
-// import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
 
 export const OrderHistory = () => {
   const dispatch = useDispatch();
@@ -13,7 +11,7 @@ export const OrderHistory = () => {
   }, [dispatch]);
   const { orders, total } = useSelector((state) => state.ordersHistory);
   let listHistory = null;
-  const urlList = "/profile/orders/"
+  const urlList = "/profile/orders/";
   const statusVisible = true;
   total ? (listHistory = getListOrders(func, orders, statusVisible, urlList)) : (listHistory = null);
   return (

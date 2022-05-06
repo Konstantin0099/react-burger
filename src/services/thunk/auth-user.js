@@ -8,7 +8,6 @@ import { DATA_FETCH, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function userAuthLogin(history, newData, revert = "/") {
-
   return function (dispatch) {
     dispatch({ type: AUTH_LOGIN });
     fetch(`${URL_USER_AUTH}/login`, {

@@ -8,7 +8,7 @@ import {
 const initialState = {
   wsConnected: false,
 
-  historyOrders: [],
+  orders: [],
   total: 0,
   totalToday: 0,
 };
@@ -37,7 +37,7 @@ export const wsReducerOrdersHistory = (state = initialState, action) => {
       let { orders, total, totalToday } = action.payload;
       return {
         ...state,
-        historyOrders: orders,
+        orders: orders,
         total: total,
         totalToday: totalToday,
       };

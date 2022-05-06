@@ -28,7 +28,8 @@ import { getData } from "../../services/thunk/get-data";
 
 
 const App = () => {
-  const { visible } = useSelector((state) => state);
+  const { visible, feed } = useSelector((state) => state);
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -69,7 +70,10 @@ const App = () => {
             <Route path="/feed" exact>
               <OrderFeed />
             </Route>
-            <Route path="/feed/:id" exact component={OrderInfo} />
+            
+            
+            
+            <Route path="/feed/:id" exact component={OrderInfo}></Route>
             <Route path="/" exact>
               <main className={style.main}>
                 <BurgerIngredients />

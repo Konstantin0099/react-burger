@@ -1,7 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { Route, Redirect } from 'react-router-dom';
+// import { Route, Redirect } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import {
   TOGGLE_VISIBLE,
@@ -10,7 +10,7 @@ import {
 import { useDrag} from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
-import { Link, useHistory,  useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();

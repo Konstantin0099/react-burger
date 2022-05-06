@@ -23,11 +23,12 @@ export const OrderInfo = () => {
   if (data.data.length === 0) {
     return <div className={style.ingredientsInfo}></div>;
   }
-  const order = data.data.find((item) => item._id === id);
+  // const order = data.data.find((item) => item._id === id);
+  // console.log("OrderInfo", id , order, data.data)
   return (
     !visible.modal && (
       <div className={style.ingredientsInfo}>
-        <OrderId id={id} item={order} modal={true} />
+        <OrderId id={id}/>
       </div>
     )
   );

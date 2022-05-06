@@ -6,12 +6,14 @@ import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
 import { WS_CONNECTION_START } from "../wsRedux/action-types";
 
-export const OrderFeedItem = ({ cbOnClick, statusVisible = false, id, number, date, name, ingredients }) => {
-  const { data } = useSelector((state) => state.data);
-  const onClick = () => {
-    cbOnClick(id);
-  };
 
+export const OrderItem = ({ urlList , statusVisible = false, id, number, date, name, ingredients, cbOnClick }) => {
+  const { data } = useSelector((state) => state.data);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onClick = () => {
+    cbOnClick(id, urlList, dispatch, history);
+  };
   return (
     <div className={styles.feed__box + " p-6 mb-4"} onClick={onClick}>
       <div className={styles.feed__box_info}>
@@ -24,12 +26,12 @@ export const OrderFeedItem = ({ cbOnClick, statusVisible = false, id, number, da
     </div>
   );
 };
-
-export const getListOrders = (func, orders, statusVisible = false) => {
+export const getListOrders = (func, orders, statusVisible = false, urlList) => {
   return orders.map((element) => {
     let { number, createdAt, name, ingredients, _id } = element;
     return (
-      <OrderFeedItem
+      <OrderItem
+        urlList={urlList}
         key={_id}
         id={_id}
         statusVisible={statusVisible}
@@ -42,14 +44,17 @@ export const getListOrders = (func, orders, statusVisible = false) => {
     );
   });
 };
+export const func = (id, urlList, dispatch, history ) => {
+  dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
+  dispatch({ type: TOGGLE_VISIBLE });
+  history.replace({ pathname: `${urlList}${id}` });
+};
 
 export const OrderFeed = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch({ type: WS_CONNECTION_START });
   }, [dispatch]);
-
-  const history = useHistory();
   const { orders, total, totalToday } = useSelector((state) => state.feed);
 
   const getListNumbersOrders = (status) =>
@@ -63,16 +68,14 @@ export const OrderFeed = () => {
     );
   const listDoneOrder = getListNumbersOrders("done");
   const listCreatedOrder = getListNumbersOrders("created");
-  const func = (id) => {
-    dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
-    dispatch({ type: TOGGLE_VISIBLE });
-    history.replace({ pathname: `/feed/${id}` });
-  };
+  const urlList = "/feed/";
+  const statusVisible = true;
   return (
-    <section className={styles.feed__container}>
-      <h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
+     <section className={styles.feed__container}>
+      {(total) 
+      ? <><h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
       <div className={styles.feed__block}>
-        <div className={styles.feed__orders}>{getListOrders(func, orders)}</div>
+        <div className={styles.feed__orders}>{getListOrders(func, orders, statusVisible, urlList)}</div>
         <div className={styles.feed__orders + " pl-6"}>
           <div className={styles.feed__info}>
             <div className={styles.feed__ready}>
@@ -93,7 +96,8 @@ export const OrderFeed = () => {
             <p className={styles.feed__total_sum + " text text_type_digits-large"}>{totalToday}</p>
           </div>
         </div>
-      </div>
+      </div></>
+      : <p>.......ЗАГРУЗКА.........</p>}
     </section>
   );
 };

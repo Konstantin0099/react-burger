@@ -17,10 +17,12 @@ export const Login = () => {
   const setData = (data, name) => {
     newData = { ...newData, [name]: data };
   };
+
   /** */
   const getUser = (event) => {
     event.preventDefault();
     history.replace({ state: { revert: "/" } });
+    console.log("getUser", location)
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };
   return authSuccess ? (

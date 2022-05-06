@@ -5,7 +5,6 @@ import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
-import { getToken } from "../../services/thunk/get-token";
 
 export const ProfileForm = () => {
   const { user, pass } = useSelector((state) => state);
@@ -15,7 +14,7 @@ export const ProfileForm = () => {
   const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
   const [fix, setFix] = React.useState(false);
   React.useEffect(() => {
-    !user.name && dispatch(getDataUser(), getToken());
+    !user.name && dispatch(getDataUser());
   }, [dispatch, user.name]);
 
 

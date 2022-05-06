@@ -28,7 +28,7 @@ import { getData } from "../../services/thunk/get-data";
 
 
 const App = () => {
-  const { visible, feed } = useSelector((state) => state);
+  const { visible } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 

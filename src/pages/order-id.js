@@ -15,7 +15,7 @@ export const OrderId = ({ id }) => {
     history.location.pathname.indexOf("feed") !== -1
       ? !feed.total && dispatch({ type: WS_CONNECTION_START })
       : !ordersHistory.total && dispatch({ type: WS_CONNECTION_START_HISTORY });
-  }, []);
+  }, [dispatch, feed.total, ordersHistory.total, history.location.pathname]);
   if (history.location.pathname.indexOf("feed") !== -1) {
     orders = feed.orders;
     total = feed.total;

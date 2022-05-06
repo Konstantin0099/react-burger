@@ -1,15 +1,12 @@
 import {
   AUTH_FAILED,
   GET_USER,
-  AUTH_LOGIN
 } from "../actions/user-auth";
 import {GET_DATA, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getDataUser() {
-  console.log("getDataUser")
   return function (dispatch) {
-    // dispatch({ type: AUTH_LOGIN });
     fetch(`${URL_USER_AUTH}/user`, {
       ...GET_DATA,
       headers: { 
@@ -44,9 +41,8 @@ export function setDataUser(history, newData) {
     })
     .then(checkResponse)
     .then((user) => {
-      dispatch({ type: GET_USER, user: user });
-      console.log("setDataUser", history)
       history.replace({ pathname: '/'});
+      dispatch({ type: GET_USER, user: user });
       })
       .catch((e) => {
         console.log("упс... ошибка в function setDataUser :(", e);

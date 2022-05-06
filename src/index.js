@@ -45,8 +45,8 @@ const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl,
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
 const store = initStore();
-localStorage.setItem("accessToken", "");
-localStorage.setItem("refreshToken", "");
+// localStorage.setItem("accessToken", "");
+// localStorage.setItem("refreshToken", "");
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

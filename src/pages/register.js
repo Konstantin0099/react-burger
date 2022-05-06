@@ -51,7 +51,7 @@ export const RegisterPage = () => {
           <Password setData={setData} />
         </li>
       </ul>
-      <Button type="primary" size="medium" onSubmit={register}>
+      <Button type="primary" size="medium">
         Зарегистрироваться
       </Button>
       </form>

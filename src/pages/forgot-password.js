@@ -32,7 +32,7 @@ export const ForgotPassword = () => {
             <EMail setData={setData} />
           </li>
         </ul>
-        <Button type="primary" size="medium" onSubmit={recreate}>
+        <Button type="primary" size="medium">
           Восстановить
         </Button>
       </form>

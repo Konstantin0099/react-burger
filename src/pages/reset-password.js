@@ -55,7 +55,7 @@ export const ResetPassword = () => {
           />
         </li>
       </ul>
-      <Button type="primary" size="medium" onSubmit={resetPass}>
+      <Button type="primary" size="medium">
         Сохранить
       </Button>
       </form>

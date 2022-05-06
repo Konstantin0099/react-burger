@@ -1,15 +1,18 @@
 import {
   AUTH_FAILED,
-  GET_USER
+  GET_USER,
+  AUTH_LOGIN
 } from "../actions/user-auth";
 import {GET_DATA, URL_USER_AUTH} from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getDataUser() {
+  console.log("getDataUser")
   return function (dispatch) {
+    // dispatch({ type: AUTH_LOGIN });
     fetch(`${URL_USER_AUTH}/user`, {
       ...GET_DATA,
-      headers: {
+      headers: { 
         ...GET_DATA.headers,
         Authorization: localStorage.getItem("accessToken"),
       },
@@ -38,11 +41,12 @@ export function setDataUser(history, newData) {
       body: JSON.stringify(newData),
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-  })
-      .then(checkResponse)
-      .then((user) => {
-        dispatch({ type: GET_USER, user: user });
-        history.replace({ pathname: '/'});
+    })
+    .then(checkResponse)
+    .then((user) => {
+      dispatch({ type: GET_USER, user: user });
+      console.log("setDataUser", history)
+      history.replace({ pathname: '/'});
       })
       .catch((e) => {
         console.log("упс... ошибка в function setDataUser :(", e);

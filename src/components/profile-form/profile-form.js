@@ -15,7 +15,7 @@ export const ProfileForm = () => {
   const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
   const [fix, setFix] = React.useState(false);
   React.useEffect(() => {
-    user.name && dispatch(getDataUser(), getToken());
+    !user.name && dispatch(getDataUser(), getToken());
   }, [dispatch, user.name]);
 
 
@@ -63,10 +63,10 @@ export const ProfileForm = () => {
         </li>
         {fix && (
           <div className={style.btn__block + " mb-4"}>
-            <Button type="primary" size="small" onSubmit={setUser}>
+            <Button type="primary" size="small">
               Сохранить
             </Button>
-            <Button type="primary" size="small" onSubmit={cancelInput}>
+            <Button type="primary" size="small" onClick={cancelInput}>
               &nbsp;&nbsp;Отмена&#160;
             </Button>
           </div>

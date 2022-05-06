@@ -3,11 +3,14 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./order-id.module.css";
 
-export const OrderId = (props) => {
+export const OrderId = ({ id }) => {
   const history = useHistory();
   const { feed, ordersHistory, data } = useSelector((state) => state);
-  const id = props.id;
-  if (ordersHistory.total) {
+  // const id = props.id;
+  console.log("OrderId id= feed.total=", id, feed.total, ordersHistory);
+  if (feed.total || ordersHistory.total) {
+  // if (ordersHistory.total) {
+    console.log("return dom")
     let orders = [];
     history.location.pathname.indexOf("feed") !== -1 ? (orders = feed.orders) : (orders = ordersHistory.historyOrders);
     const dataIngredients = data.data;
@@ -35,9 +38,10 @@ export const OrderId = (props) => {
               });
               const indexEl = ingredients.indexOf(el);
               indexEl !== index && (countInOrder = 0);
-              if (!!countInOrder) {
+              console.log("map", index)
+              if (!!countInOrder) {console.log("return dom1", index)
                 return dataIngredients.map((item, index) => {
-                  if (el === item._id) {
+                  if (el === item._id) {console.log("return dom2", index)
                     return (
                       <div key={index} className={styles.order__ingredient + " mb-4"}>
                         <div className={styles.order__image__box + " mr-4"}>
@@ -50,11 +54,12 @@ export const OrderId = (props) => {
                         <CurrencyIcon type="primary" />
                       </div>
                     );
-                  } else return null;
+                  } else { console.log("return null1", index) ; return null;}
                 });
               } else {
+                console.log("return null2", index)
                 return null;
-              }
+              } 
             })}
           </div>
           <div className={styles.order__total + " mt-10"}>

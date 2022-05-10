@@ -3,7 +3,9 @@ import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./order-id.module.css";
-import { WS_CONNECTION_START, WS_CONNECTION_START_HISTORY } from "../wsRedux/action-types";
+import { WS_CONNECTION_START, WS_CONNECTION_START_HISTORY, WS_CONNECTION } from "../wsRedux/action-types";
+import { wsActionsFeed, wsActionsHistory } from "../index"
+import { wsUrl } from "../utils/data"
 
 export const OrderId = ({ id }) => {
   const history = useHistory();
@@ -13,8 +15,9 @@ export const OrderId = ({ id }) => {
   let total = 0;
   React.useEffect(() => {
     history.location.pathname.indexOf("feed") !== -1
-      ? !feed.total && dispatch({ type: WS_CONNECTION_START })
-      : !ordersHistory.total && dispatch({ type: WS_CONNECTION_START_HISTORY });
+      // ? !feed.total && dispatch({ type: WS_CONNECTION_START })
+      ? !feed.total && dispatch({ type: WS_CONNECTION,  wsActions: wsActionsFeed,  urlWs:`${wsUrl}/all`})
+      : !ordersHistory.total && dispatch({ type: WS_CONNECTION, wsActions: wsActionsHistory, urlWs: `${wsUrl}` });
   }, [dispatch, feed.total, ordersHistory.total, history.location.pathname]);
   if (history.location.pathname.indexOf("feed") !== -1) {
     orders = feed.orders;

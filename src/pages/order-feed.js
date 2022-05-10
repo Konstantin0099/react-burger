@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
-import { WS_CONNECTION_START } from "../wsRedux/action-types";
+import { WS_CONNECTION } from "../wsRedux/action-types";
+import { wsActionsFeed } from "../index";
+import { wsUrl } from "../utils/data";
 
-
-export const OrderItem = ({ urlList , statusVisible = false, id, number, date, name, ingredients, cbOnClick }) => {
+export const OrderItem = ({ urlList, statusVisible = false, id, number, date, name, ingredients, cbOnClick }) => {
   const { data } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -44,7 +45,7 @@ export const getListOrders = (func, orders, statusVisible = false, urlList) => {
     );
   });
 };
-export const func = (id, urlList, dispatch, history ) => {
+export const func = (id, urlList, dispatch, history) => {
   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
   dispatch({ type: TOGGLE_VISIBLE });
   history.replace({ pathname: `${urlList}${id}` });
@@ -52,10 +53,13 @@ export const func = (id, urlList, dispatch, history ) => {
 
 export const OrderFeed = () => {
   const dispatch = useDispatch();
+  const { socket, orders, total, totalToday } = useSelector((state) => state.feed);
   React.useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch({ type: WS_CONNECTION, wsActions: wsActionsFeed, urlWs: `${wsUrl}/all` });
+    return () => {
+      socket && socket.close();
+    };
   }, [dispatch]);
-  const { orders, total, totalToday } = useSelector((state) => state.feed);
 
   const getListNumbersOrders = (status) =>
     orders.map(
@@ -66,38 +70,43 @@ export const OrderFeed = () => {
           </li>
         )
     );
+    
   const listDoneOrder = getListNumbersOrders("done");
   const listCreatedOrder = getListNumbersOrders("created");
   const urlList = "/feed/";
   const statusVisible = true;
   return (
-     <section className={styles.feed__container}>
-      {(total) 
-      ? <><h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
-      <div className={styles.feed__block}>
-        <div className={styles.feed__orders}>{getListOrders(func, orders, statusVisible, urlList)}</div>
-        <div className={styles.feed__orders + " pl-6"}>
-          <div className={styles.feed__info}>
-            <div className={styles.feed__ready}>
-              <p className={styles.feed__status + " text text_type_main-medium"}>Готовы :</p>
-              <ul className={styles.feed__status_list}>{listDoneOrder}</ul>
+    <section className={styles.feed__container}>
+      {total ? (
+        <>
+          <h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
+          <div className={styles.feed__block}>
+            <div className={styles.feed__orders}>{getListOrders(func, orders, statusVisible, urlList)}</div>
+            <div className={styles.feed__orders + " pl-6"}>
+              <div className={styles.feed__info}>
+                <div className={styles.feed__ready}>
+                  <p className={styles.feed__status + " text text_type_main-medium"}>Готовы :</p>
+                  <ul className={styles.feed__status_list}>{listDoneOrder}</ul>
+                </div>
+                <div className={styles.feed__ready}>
+                  <p className={styles.feed__status + " text text_type_main-medium mb-6"}>В работе :</p>
+                  <ul className={styles.feed__status_list}>{listCreatedOrder}</ul>
+                </div>
+              </div>
+              <div className={styles.feed__total + " mt-15"}>
+                <h4 className={styles.feed__total_text + " text text_type_main-medium"}>Выполнено за все время :</h4>
+                <p className={styles.feed__total_sum + " text text_type_digits-large"}>{total}</p>
+              </div>
+              <div className={styles.feed__total + " mt-15"}>
+                <h4 className={styles.feed__total_text + " text text_type_main-medium"}>Выполнено за сегодня :</h4>
+                <p className={styles.feed__total_sum + " text text_type_digits-large"}>{totalToday}</p>
+              </div>
             </div>
-            <div className={styles.feed__ready}>
-              <p className={styles.feed__status + " text text_type_main-medium mb-6"}>В работе :</p>
-              <ul className={styles.feed__status_list}>{listCreatedOrder}</ul>
-            </div>
           </div>
-          <div className={styles.feed__total + " mt-15"}>
-            <h4 className={styles.feed__total_text + " text text_type_main-medium"}>Выполнено за все время :</h4>
-            <p className={styles.feed__total_sum + " text text_type_digits-large"}>{total}</p>
-          </div>
-          <div className={styles.feed__total + " mt-15"}>
-            <h4 className={styles.feed__total_text + " text text_type_main-medium"}>Выполнено за сегодня :</h4>
-            <p className={styles.feed__total_sum + " text text_type_digits-large"}>{totalToday}</p>
-          </div>
-        </div>
-      </div></>
-      : <p>.......ЗАГРУЗКА.........</p>}
+        </>
+      ) : (
+        <p>.......ЗАГРУЗКА.........</p>
+      )}
     </section>
   );
 };

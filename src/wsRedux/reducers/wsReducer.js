@@ -1,6 +1,7 @@
 
 
 import {
+    WS_FEED,
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
@@ -8,6 +9,7 @@ import {
   } from '../action-types';
   
   const initialState = {
+    socket: null,
     wsConnected: false,
     orders: [],
     total: 0,
@@ -16,6 +18,17 @@ import {
   
   export const wsReducerAllOrders = (state = initialState, action) => {
     switch (action.type) {
+      case "CLOSE_WS_FEED":
+        console.log("CLOSE_WS_FEED", state.socket)
+        return {
+          ...state,
+          socket: action.payload
+        };
+      case WS_FEED:
+        return {
+          ...state,
+          socket: action.payload
+        };
       case WS_CONNECTION_SUCCESS:
         return {
           ...state,

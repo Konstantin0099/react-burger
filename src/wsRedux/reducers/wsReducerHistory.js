@@ -1,4 +1,5 @@
 import {
+  WS_HISTORY,
   WS_CONNECTION_SUCCESS_HISTORY,
   WS_CONNECTION_ERROR_HISTORY,
   WS_CONNECTION_CLOSED_HISTORY,
@@ -6,8 +7,8 @@ import {
 } from "../action-types";
 
 const initialState = {
+  socket: null,
   wsConnected: false,
-
   orders: [],
   total: 0,
   totalToday: 0,
@@ -15,6 +16,17 @@ const initialState = {
 
 export const wsReducerOrdersHistory = (state = initialState, action) => {
   switch (action.type) {
+    case "CLOSE_WS_HISTORY":
+      console.log("CLOSE_WS_HISTORY", state.socket);
+      return {
+        ...state,
+        socket: action.payload
+      };
+    case WS_HISTORY:
+      return {
+        ...state,
+        socket: action.payload
+      };
     case WS_CONNECTION_SUCCESS_HISTORY:
       return {
         ...state,
@@ -25,12 +37,14 @@ export const wsReducerOrdersHistory = (state = initialState, action) => {
       return {
         ...state,
         wsConnected: false,
+        socket: null
       };
 
     case WS_CONNECTION_CLOSED_HISTORY:
       return {
         ...state,
         wsConnected: false,
+        socket: null
       };
 
     case WS_GET_HISTORY:

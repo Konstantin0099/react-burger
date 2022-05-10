@@ -3,13 +3,21 @@ import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getListOrders, func } from "./order-feed";
 import { WS_CONNECTION_START_HISTORY } from "../wsRedux/action-types";
+import { WS_CONNECTION } from "../wsRedux/action-types";
+import { wsActionsHistory } from "../index";
+import { wsUrl } from "../utils/data";
 
 export const OrderHistory = () => {
   const dispatch = useDispatch();
+  const { socket, orders, total, totalToday } = useSelector((state) => state.ordersHistory);
   React.useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START_HISTORY });
+    // dispatch({ type: WS_CONNECTION_START_HISTORY });
+    dispatch({ type: WS_CONNECTION, wsActions: wsActionsHistory, urlWs: `${wsUrl}` });
+    return () => {
+      socket && socket.close();
+    };
   }, [dispatch]);
-  const { orders, total } = useSelector((state) => state.ordersHistory);
+  // const { orders, total } = useSelector((state) => state.ordersHistory);
   let listHistory = null;
   const urlList = "/profile/orders/";
   const statusVisible = true;

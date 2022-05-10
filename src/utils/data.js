@@ -1,6 +1,7 @@
 export const baseUrl = "https://norma.nomoreparties.space/api";
 export const URL_USER_AUTH = `${baseUrl}/auth`;
 export const URL_USER_PASS = `${baseUrl}/password-reset`;
+export const wsUrl = "wss://norma.nomoreparties.space/orders";
 
 export const DATA_FETCH = {
   method: "POST",

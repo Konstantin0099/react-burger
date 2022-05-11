@@ -8,15 +8,20 @@ import { ProfileForm } from "../components/profile-form/profile-form";
 import { OrderHistory } from "../pages/order-history";
 import { OrderInfo } from "../pages/index";
 import { logout } from "../services/thunk/logout";
-import { TOGGLE_VISIBLE_LIST } from "../services/actions/modal";
+import { TOGGLE_VISIBLE_LIST, DISABLED_LIST, VISIBLE_LIST } from "../services/actions/modal";
 
 export const ProfilePage = () => {
   const { visible } = useSelector((state) => state);
   const history = useHistory();
   const dispatch = useDispatch();
   React.useEffect(() => {
-    visible.list && dispatch({ type: TOGGLE_VISIBLE_LIST });
-  }, [visible.list, dispatch]);
+    // visible.list && dispatch({ type: TOGGLE_VISIBLE_LIST });
+    dispatch({ type: VISIBLE_LIST });
+    return () => { 
+      console.log(".............return  ProfilePage DISABLED_LIST ");
+      dispatch({ type: DISABLED_LIST });
+    }
+  }, [dispatch]);
   const onClick = () => {
     const direction = {
       pathname: "/login",
@@ -24,10 +29,11 @@ export const ProfilePage = () => {
     };
     dispatch(logout(history, direction));
   };
+  console.log("ProfilePage visible.list= !visible.modal=", visible.list, !visible.modal);
+  console.log("ProfilePage history=", history);
   return (
-    <Router>
-      <Route exact path="/profile/orders/:id" component={OrderInfo}></Route>
-      {!visible.list && (
+    <Router> 
+      {visible.list && !visible.modal && (
         <Route path="/profile">
           <div className={styles.profile}>
             <ul className={styles.menu + " pr-15 "}>
@@ -63,16 +69,17 @@ export const ProfilePage = () => {
               </li>
             </ul>
             <Switch>
+              <Route path="/profile/orders">
+                <OrderHistory />
+              </Route>
               <Route exact path="/profile">
                 <ProfileForm />
-              </Route>
-              <Route exact path="/profile/orders">
-                <OrderHistory />
               </Route>
             </Switch>
           </div>
         </Route>
-      )}
+      )} 
+      {/* <Route exact path="/profile/orders/:id" component={OrderInfo}></Route> */}
     </Router>
   );
 };

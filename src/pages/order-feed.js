@@ -1,19 +1,17 @@
 import * as React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
-import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE } from "../services/actions/modal";
-import { WS_CONNECTION } from "../wsRedux/action-types";
-import { wsActionsFeed } from "../index";
-import { wsUrl } from "../utils/data";
+import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE, VISIBLE_MODAL } from "../services/actions/modal";
+import { wsConnectionStartFeed } from "../wsRedux/action-types";
 
-export const OrderItem = ({ urlList, statusVisible = false, id, number, date, name, ingredients, cbOnClick }) => {
+export const OrderItem = ({ urlList, statusVisible = false, id, number, date, name, ingredients, cbOnClick, location }) => {
   const { data } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const history = useHistory();
   const onClick = () => {
-    cbOnClick(id, urlList, dispatch, history);
+    cbOnClick(id, urlList, dispatch, history, location);
   };
   return (
     <div className={styles.feed__box + " p-6 mb-4"} onClick={onClick}>
@@ -27,7 +25,7 @@ export const OrderItem = ({ urlList, statusVisible = false, id, number, date, na
     </div>
   );
 };
-export const getListOrders = (func, orders, statusVisible = false, urlList) => {
+export const getListOrders = (func, orders, statusVisible = false, urlList, location) => {
   return orders.map((element) => {
     let { number, createdAt, name, ingredients, _id } = element;
     return (
@@ -41,25 +39,35 @@ export const getListOrders = (func, orders, statusVisible = false, urlList) => {
         name={name}
         ingredients={ingredients}
         cbOnClick={func}
+        location={location}
       />
     );
   });
 };
-export const func = (id, urlList, dispatch, history) => {
+export const func = (id, urlList, dispatch, history, location) => {
+  
+  console.log("OrderFeed func location.pathname=", location.pathname);
+  // debugger
   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
-  dispatch({ type: TOGGLE_VISIBLE });
-  history.replace({ pathname: `${urlList}${id}` });
+  dispatch({ type: VISIBLE_MODAL, pathname: urlList });
+  // dispatch({ type: VISIBLE_MODAL, pathname: location.pathname });
+  // dispatch({ type: VISIBLE_MODAL, pathname: location.pathname });
+  
+  // history.replace({ pathname: `${urlList}${id}` });
+  // console.log("OrderFeed func2 location.pathname=", location.pathname);
+  history.push({ pathname: `${urlList}/${id}` });
 };
 
 export const OrderFeed = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const { socket, orders, total, totalToday } = useSelector((state) => state.feed);
   React.useEffect(() => {
-    dispatch({ type: WS_CONNECTION, wsActions: wsActionsFeed, urlWs: `${wsUrl}/all` });
+    dispatch(wsConnectionStartFeed());
     return () => {
       socket && socket.close();
     };
-  }, [dispatch]);
+  }, [dispatch, total]);
 
   const getListNumbersOrders = (status) =>
     orders.map(
@@ -70,18 +78,19 @@ export const OrderFeed = () => {
           </li>
         )
     );
-    
+
   const listDoneOrder = getListNumbersOrders("done");
   const listCreatedOrder = getListNumbersOrders("created");
-  const urlList = "/feed/";
+  const urlList = "/feed";
   const statusVisible = true;
+  console.log("OrderFeed location=", location);
   return (
     <section className={styles.feed__container}>
       {total ? (
         <>
           <h2 className={styles.feed__title + " mt-10 mb-5 text text_type_main-large"}>Лента заказов</h2>
           <div className={styles.feed__block}>
-            <div className={styles.feed__orders}>{getListOrders(func, orders, statusVisible, urlList)}</div>
+            <div className={styles.feed__orders}>{getListOrders(func, orders, statusVisible, urlList, location)}</div>
             <div className={styles.feed__orders + " pl-6"}>
               <div className={styles.feed__info}>
                 <div className={styles.feed__ready}>
@@ -105,7 +114,7 @@ export const OrderFeed = () => {
           </div>
         </>
       ) : (
-        <p>.......ЗАГРУЗКА.........</p>
+        <p>.......ЗАГРУЗКА..OrderFeed.......</p>
       )}
     </section>
   );

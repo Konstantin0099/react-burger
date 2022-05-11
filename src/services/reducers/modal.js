@@ -1,6 +1,10 @@
 import {
   OPEN_POPUP_ORDER_INGREDIENTS,
+  VISIBLE_LIST,
+  DISABLED_LIST,
   TOGGLE_VISIBLE,
+  DISABLED_MODAL,
+  VISIBLE_MODAL,
   OPEN_POPUP_INGREDIENTS,
   OPEN_POPUP_ORDER,
   CLOSE_POPUP_ORDER,
@@ -11,6 +15,7 @@ import OrderDetails from "../../components/order-details/order-details";
 import { OrderId } from "../../pages/order-id";
 
 const initalState = {
+  pathname: "",
   modal: false,
   list: false,
 };
@@ -22,10 +27,35 @@ export const toggleVisibleReducer = (state = initalState, action) => {
         modal: !state.modal,
       };
     }
+    case VISIBLE_MODAL: {
+      return {
+        ...state,
+        pathname: action.pathname,
+        modal: true,
+      };
+    }
+    case DISABLED_MODAL: {
+      return {
+        ...state,
+        modal: false,
+      };
+    }
     case TOGGLE_VISIBLE_LIST: {
       return {
         ...state,
         list: !state.list,
+      };
+    }
+    case VISIBLE_LIST: {
+      return {
+        ...state,
+        list: true,
+      };
+    }
+    case DISABLED_LIST: {
+      return {
+        ...state,
+        list: false,
       };
     }
     default: {

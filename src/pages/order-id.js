@@ -3,30 +3,25 @@ import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./order-id.module.css";
-import { WS_CONNECTION_START, WS_CONNECTION_START_HISTORY, WS_CONNECTION } from "../wsRedux/action-types";
-import { wsActionsFeed, wsActionsHistory } from "../index"
-import { wsUrl } from "../utils/data"
+import { wsConnectionStartFeed, wsConnectionStartHistory } from "../wsRedux/action-types";
 
 export const OrderId = ({ id }) => {
+  console.log(" OrderId id=", id);
+  let list = {};
   const history = useHistory();
   const dispatch = useDispatch();
-  const { data, feed, ordersHistory } = useSelector((state) => state);
-  let orders = [];
-  let total = 0;
+  const { data } = useSelector((state) => state);
+  const { feed, ordersHistory } = useSelector((state) => state);
+  history.location.pathname.indexOf("feed") !== -1
+    ? (list = { ws: feed, wsConnection: wsConnectionStartFeed })
+    : (list = { ws: ordersHistory, wsConnection: wsConnectionStartHistory });
+  let { orders, total, socket } = list.ws;
   React.useEffect(() => {
-    history.location.pathname.indexOf("feed") !== -1
-      // ? !feed.total && dispatch({ type: WS_CONNECTION_START })
-      ? !feed.total && dispatch({ type: WS_CONNECTION,  wsActions: wsActionsFeed,  urlWs:`${wsUrl}/all`})
-      : !ordersHistory.total && dispatch({ type: WS_CONNECTION, wsActions: wsActionsHistory, urlWs: `${wsUrl}` });
-  }, [dispatch, feed.total, ordersHistory.total, history.location.pathname]);
-  if (history.location.pathname.indexOf("feed") !== -1) {
-    orders = feed.orders;
-    total = feed.total;
-  } else {
-    orders = ordersHistory.orders;
-    total = ordersHistory.total;
-  }
-
+    dispatch(list.wsConnection());
+    return () => {
+      socket && socket.close();
+    };
+  }, [dispatch, feed.total, history.location.pathname]);
   if (total) {
     /** массив имеющихся ингредиентов */
     const dataIngredients = data.data;
@@ -48,7 +43,7 @@ export const OrderId = ({ id }) => {
             {status === "done" && "В работе :"}
           </p>
           <h4 className={styles.order__specification + " mb-6 text text_type_main-medium"}>Состав :</h4>
-          <div className={styles.order__ingredients + " pr-6 mb-40"}>
+          <div className={styles.order__ingredients + " mb-40"}>
             {ingredients.map((el, index, ingredients) => {
               let countInOrder = 0;
               ingredients.forEach((element) => {
@@ -86,6 +81,6 @@ export const OrderId = ({ id }) => {
       )
     );
   } else {
-    return <h3>" .... ЗАГРУЗКА ......"</h3>;
+    return <h3>" .... ЗАГРУЗКА .OrderId....."</h3>;
   }
 };

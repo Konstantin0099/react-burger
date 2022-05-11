@@ -6,11 +6,13 @@ import { TOGGLE_VISIBLE, OPEN_POPUP_INGREDIENTS } from "../../services/actions/m
 import { useDrag } from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+
   const [{ opacity }, ref] = useDrag(
     {
       type: "items",
@@ -22,9 +24,11 @@ export const Food = ({ item, count }) => {
     []
   );
   const onClick = () => {
+    console.log(" Food location=", location);
     dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
     dispatch({ type: TOGGLE_VISIBLE });
-    history.replace({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
+    history.push({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
+    // history.replace({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
   };
   return (
     <li ref={ref} className={style.itemMenu} style={{ opacity: `${opacity}` }} onClick={onClick}>

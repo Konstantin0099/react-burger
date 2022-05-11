@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory, useLocation } from "react-router-dom";
 import modal from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {  DISABLED_LIST } from "../../services/actions/modal";
 
 const Modal = ({ toggleVisible, onClose }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const { openPopup } = useSelector((state) => state);
   const closeModal =()=> {
-    toggleVisible(history);
-    history.replace({ pathname: '/'});
+    toggleVisible(history, location);
+    // dispatch({ type: DISABLED_LIST })
+    // history.replace({ pathname: '/'});
   }
   return (
     <ModalOverlay toggleVisible={toggleVisible} onClose={onClose}>

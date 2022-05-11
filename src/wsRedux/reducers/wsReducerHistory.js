@@ -16,12 +16,6 @@ const initialState = {
 
 export const wsReducerOrdersHistory = (state = initialState, action) => {
   switch (action.type) {
-    case "CLOSE_WS_HISTORY":
-      console.log("CLOSE_WS_HISTORY", state.socket);
-      return {
-        ...state,
-        socket: action.payload
-      };
     case WS_HISTORY:
       return {
         ...state,
@@ -48,6 +42,7 @@ export const wsReducerOrdersHistory = (state = initialState, action) => {
       };
 
     case WS_GET_HISTORY:
+      // console.log("WS_GET_HISTORY", state.socket);
       let { orders, total, totalToday } = action.payload;
       return {
         ...state,

@@ -21,7 +21,8 @@ export const OrderSum = () => {
     dispatch({ type: OPEN_POPUP_ORDER });
   dispatch({ type: TOGGLE_VISIBLE })
 } else {
-  history.replace(direction)
+  history.push(direction)
+  // history.replace(direction)
 }
 }
   return (

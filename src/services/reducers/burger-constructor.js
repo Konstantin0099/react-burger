@@ -1,4 +1,4 @@
-import { dataOrder } from "../../utils/data";
+
 import {
   ORDER_SUM,
   GET_NUMBER,
@@ -11,6 +11,7 @@ import {
   DELETE_ITEM_CONSTRUCTOR,
 } from "../actions/burger-constructor";
 
+const dataOrder = [];
 const dataOrderConstructor = [...dataOrder, dataOrder[0]];
 const initalDataOrder = dataOrderConstructor.map((el) => {
   return { ...el, idInOrder: Math.ceil(Math.random() * 1000000) };
@@ -22,7 +23,6 @@ const initialOrderState = {
   sum: null,
   number: null,
 };
-
 export const orderReducer = (state = initialOrderState, action) => {
   switch (action.type) {
     case ORDER_SUM: {

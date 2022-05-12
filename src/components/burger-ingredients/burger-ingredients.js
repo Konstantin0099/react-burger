@@ -1,17 +1,16 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useRef } from "react";
 import style from "./burger-ingredients.module.css";
 import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs.js";
-import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../services/thunk/get-data";
-import { useRef } from "react";
 import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
-import PropTypes from "prop-types";
 
 const SetIngredients = ({ tab, index }) => {
   const tabsName = ["Булки", "Начинки", "Соусы"];
   const inputRef = useRef(null);
-  useEffect(() => {}, []);
   return (
     <li
       className={style.listBlock + " text text_type_main-medium"}
@@ -24,12 +23,13 @@ const SetIngredients = ({ tab, index }) => {
 };
 
 const BurgerIngredients = () => {
+
   const dispatch = useDispatch();
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef(null);
   useEffect(() => {
     dispatch(getData());
-  }, []);
+  },[dispatch]);
   let arrTabs = [];
   data.data.forEach((tab) => {
     if (!arrTabs.includes(tab.type)) {
@@ -51,6 +51,7 @@ const BurgerIngredients = () => {
       dispatch({ type: TAB_TWO });
     }
   };
+  
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>

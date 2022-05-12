@@ -22,6 +22,11 @@
   text-decoration: underline;
   display: flex;
   flex-direction: row;
+  opacity: 0.6;
+}
+.link_active {
+
+  opacity: 1;
 }
 .navigation {
   display: flex;

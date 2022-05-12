@@ -7,25 +7,6 @@
   box-sizing: border-box;
 }
 
-.ingredients {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 0;
-  padding: 0;
-  max-height: 476px;
-  overflow: auto;
-  max-width: 600px;
-}
-.ingredients::-webkit-scrollbar {
-  width: 8px;
-}
-.ingredients::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-.ingredients::-webkit-scrollbar-thumb {
-  background: #8585ad;
-}
 .order {
   display: flex;
   flex-direction: column;
@@ -33,11 +14,22 @@
   max-width: 600px;
   margin: 0;
   padding: 0;
+  max-height: 676px;
+  overflow-x: auto;
+}
+.order::-webkit-scrollbar {
+  width: 8px;
+}
+.order::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.order::-webkit-scrollbar-thumb {
+  background: #8585ad;
 }
 
 .emptyLists {
   font-size: 30px;
-  line-height: 3;
+  line-height: 1.4;
   height: 450px;
   display: flex;
   flex-direction: column;
@@ -50,8 +42,10 @@
 
 }
 .lists {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin-bottom: 40px;
+
 }

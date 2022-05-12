@@ -1,0 +1,12 @@
+
+.ingredientsInfo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 230px 0 0;
+  padding: 0;
+  width: 480px;
+  height: 420px;
+  background: transparent;
+  }

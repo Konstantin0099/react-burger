@@ -22,7 +22,6 @@ export const Login = () => {
     !user.name && dispatch(getDataUser());
   }, [dispatch, user.name]);
 
-
   let newData = {};
   const setData = (data, name) => {
     newData = { ...newData, [name]: data };
@@ -34,35 +33,36 @@ export const Login = () => {
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthLogin(history, newData, location.state.revert));
   };
-  return !authRequest 
-  ? authSuccess ? (
-    <Redirect to={location.state.revert} />
-  ) : (
-    <div className={style.modal}>
-      <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
-      <form onSubmit={getUser}>
-
+  return !authRequest ? (
+    authSuccess ? (
+      <Redirect to={location.state.revert} />
+    ) : (
+      <div className={style.modal}>
+        <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
+        <form onSubmit={getUser}>
+          <ul className={style.list}>
+            <li className={style.field + " mb-4"}>
+              <EMail setData={setData} />
+            </li>
+            <li className={style.field + " mb-4"}>
+              <Password setData={setData} />
+            </li>
+          </ul>
+          <Button type="primary" size="medium">
+            Войти
+          </Button>
+        </form>
         <ul className={style.list}>
-          <li className={style.field + " mb-4"}>
-            <EMail setData={setData} />
+          <li className={style.field + " mt-20 mb-4"}>
+            <MenuField title={"Вы — новый пользователь?"} linkName={"Зарегистрироваться"} link="register" />
           </li>
-          <li className={style.field + " mb-4"}>
-            <Password setData={setData} />
+          <li className={style.field}>
+            <MenuField title={"Забыли пароль?"} linkName={"Восстановить пароль"} link="forgot-password" />
           </li>
         </ul>
-        <Button type="primary" size="medium">
-          Войти
-        </Button>
-      </form>
-      <ul className={style.list}>
-        <li className={style.field + " mt-20 mb-4"}>
-          <MenuField title={"Вы — новый пользователь?"} linkName={"Зарегистрироваться"} link="register" />
-        </li>
-        <li className={style.field}>
-          <MenuField title={"Забыли пароль?"} linkName={"Восстановить пароль"} link="forgot-password" />
-        </li>
-      </ul>
-    </div>
-  )
-  : <p>........авторизация </p>
+      </div>
+    )
+  ) : (
+    <p>........авторизация </p>
+  );
 };

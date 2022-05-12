@@ -4,9 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE, VISIBLE_MODAL } from "../services/actions/modal";
-import { wsConnectionStartFeed } from "../wsRedux/action-types";
+import { wsConnectionStartFeed } from "../services/wsRedux/action-types";
 
-export const OrderItem = ({ urlList, statusVisible = false, id, number, date, name, ingredients, cbOnClick, location }) => {
+export const OrderItem = ({
+  urlList,
+  statusVisible = false,
+  id,
+  number,
+  date,
+  name,
+  ingredients,
+  cbOnClick,
+  location,
+}) => {
   const { data } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,9 +35,31 @@ export const OrderItem = ({ urlList, statusVisible = false, id, number, date, na
     </div>
   );
 };
+
+export const whatDateOrder = (msDate) => {
+  const today = new Date();
+  const date = new Date(msDate);
+  const differenceSeconds = (today - date) / 1000;
+  const hoursOrder = new Date();
+  hoursOrder.getUTCHours(12, 55);
+  const hours = today.getHours();
+  const minutes = today.getMinutes();
+  const seconds = today.getSeconds();
+  const secondsToday = seconds + minutes * 60 + hours * 3600;
+  let reg = /(\d\d:\d\d):\d\d+\s(\w{3}[+]\d{4})/;
+  let h = `${hoursOrder}`.match(reg);
+  h = [h[1], h[2]].join(" ");
+  if (differenceSeconds < secondsToday) {
+    return `сегодня  ${h}`;
+  } else if (differenceSeconds < secondsToday + 24 * 3600) {
+    return `вчера ${h}`;
+  } else return `${Math.ceil(differenceSeconds / (24 * 3600))} дня назад, ${h}`;
+};
+
 export const getListOrders = (func, orders, statusVisible = false, urlList, location) => {
   return orders.map((element) => {
     let { number, createdAt, name, ingredients, _id } = element;
+    const longTime = whatDateOrder(Date.parse(createdAt));
     return (
       <OrderItem
         urlList={urlList}
@@ -35,7 +67,7 @@ export const getListOrders = (func, orders, statusVisible = false, urlList, loca
         id={_id}
         statusVisible={statusVisible}
         number={number}
-        date={createdAt}
+        date={longTime}
         name={name}
         ingredients={ingredients}
         cbOnClick={func}
@@ -45,16 +77,8 @@ export const getListOrders = (func, orders, statusVisible = false, urlList, loca
   });
 };
 export const func = (id, urlList, dispatch, history, location) => {
-  
-  console.log("OrderFeed func location.pathname=", location.pathname);
-  // debugger
   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
   dispatch({ type: VISIBLE_MODAL, pathname: urlList });
-  // dispatch({ type: VISIBLE_MODAL, pathname: location.pathname });
-  // dispatch({ type: VISIBLE_MODAL, pathname: location.pathname });
-  
-  // history.replace({ pathname: `${urlList}${id}` });
-  // console.log("OrderFeed func2 location.pathname=", location.pathname);
   history.push({ pathname: `${urlList}/${id}` });
 };
 
@@ -83,7 +107,6 @@ export const OrderFeed = () => {
   const listCreatedOrder = getListNumbersOrders("created");
   const urlList = "/feed";
   const statusVisible = true;
-  console.log("OrderFeed location=", location);
   return (
     <section className={styles.feed__container}>
       {total ? (

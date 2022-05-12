@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import App from "./components/app/app";
 import rootReducer from "./services/reducers";
-import { socketMiddleware } from "./wsRedux/middleware";
+import { socketMiddleware } from "./services/wsRedux/middleware";
 import "./index.css";
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

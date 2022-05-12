@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Redirect,  useHistory, useRouteMatch, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import modal from "./modal-overlay.module.css";
 
 const ModalOverlay = ({ toggleVisible, onClose, children }) => {
   const history = useHistory();
-  const match = useRouteMatch();
   const location = useLocation();
-  // console.log("ModalOverlay history= loc=", history, location)
   const modalRoot = document.getElementById("react-modals");
   const closedModal = (e) => {
     e.target === e.currentTarget && toggleVisible(history, location);

@@ -35,9 +35,6 @@ const IngredientDetails = (props) => {
   );
 };
 
-
-
-
 IngredientDetails.propTypes = {
   item: ingredientType.isRequired,
 };

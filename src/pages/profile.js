@@ -6,21 +6,18 @@ import { NavLink } from "react-router-dom";
 import styles from "./style.module.css";
 import { ProfileForm } from "../components/profile-form/profile-form";
 import { OrderHistory } from "../pages/order-history";
-import { OrderInfo } from "../pages/index";
 import { logout } from "../services/thunk/logout";
-import { TOGGLE_VISIBLE_LIST, DISABLED_LIST, VISIBLE_LIST } from "../services/actions/modal";
+import { DISABLED_LIST, VISIBLE_LIST } from "../services/actions/modal";
 
 export const ProfilePage = () => {
   const { visible } = useSelector((state) => state);
   const history = useHistory();
   const dispatch = useDispatch();
   React.useEffect(() => {
-    // visible.list && dispatch({ type: TOGGLE_VISIBLE_LIST });
     dispatch({ type: VISIBLE_LIST });
-    return () => { 
-      console.log(".............return  ProfilePage DISABLED_LIST ");
+    return () => {
       dispatch({ type: DISABLED_LIST });
-    }
+    };
   }, [dispatch]);
   const onClick = () => {
     const direction = {
@@ -29,10 +26,8 @@ export const ProfilePage = () => {
     };
     dispatch(logout(history, direction));
   };
-  console.log("ProfilePage visible.list= !visible.modal=", visible.list, !visible.modal);
-  console.log("ProfilePage history=", history);
   return (
-    <Router> 
+    <Router>
       {visible.list && !visible.modal && (
         <Route path="/profile">
           <div className={styles.profile}>
@@ -78,8 +73,7 @@ export const ProfilePage = () => {
             </Switch>
           </div>
         </Route>
-      )} 
-      {/* <Route exact path="/profile/orders/:id" component={OrderInfo}></Route> */}
+      )}
     </Router>
   );
 };

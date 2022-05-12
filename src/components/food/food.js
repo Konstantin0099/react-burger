@@ -24,11 +24,9 @@ export const Food = ({ item, count }) => {
     []
   );
   const onClick = () => {
-    console.log(" Food location=", location);
     dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
     dispatch({ type: TOGGLE_VISIBLE });
     history.push({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
-    // history.replace({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
   };
   return (
     <li ref={ref} className={style.itemMenu} style={{ opacity: `${opacity}` }} onClick={onClick}>

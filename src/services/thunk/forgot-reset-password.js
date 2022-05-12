@@ -1,9 +1,4 @@
-import {
-  PASS_FORGOT,
-  PASS_RESET,
-  PASS_SUCCESS,
-  PASS_FAILED,
-} from "../actions/password-reset-forgot";
+import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED } from "../actions/password-reset-forgot";
 import { DATA_FETCH, URL_USER_PASS } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 

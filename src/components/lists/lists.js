@@ -46,8 +46,7 @@ const ItemOrder = ({ item, index, length }) => {
           return;
         }
         const hoverBoundingRect = ref.current?.getBoundingClientRect();
-        const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
         const clientOffset = monitor.getClientOffset();
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
         if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -91,11 +90,7 @@ const ItemOrder = ({ item, index, length }) => {
 
   return length !== 0 ? (
     index === 0 ? (
-      <li
-        ref={ref}
-        className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"}
-        style={{ opacity: `${opacity}` }}
-      >
+      <li ref={ref} className={styleConstructor.ingredient + " pl-8 mb-2 mr-2"} style={{ opacity: `${opacity}` }}>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -105,11 +100,7 @@ const ItemOrder = ({ item, index, length }) => {
         />
       </li>
     ) : index === length - 1 ? (
-      <li
-        ref={ref}
-        className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"}
-        style={{ opacity: `${opacity}` }}
-      >
+      <li ref={ref} className={styleConstructor.ingredient + " pl-8 mt-3 mr-2"} style={{ opacity: `${opacity}` }}>
         <ConstructorElement
           type="bottom"
           isLocked={true}
@@ -126,11 +117,7 @@ const ItemOrder = ({ item, index, length }) => {
         onClickCapture={deleteConstructorElement}
       >
         <DragIcon />
-        <ConstructorElement
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-        />
+        <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
       </li>
     )
   ) : (
@@ -156,19 +143,11 @@ export const Lists = ({ dataOrder }) => {
     hover(el, monitor) {},
   });
   return (
-    <div
-      ref={refLists}
-      className={styleConstructor.lists}
-    >
+    <div ref={refLists} className={styleConstructor.lists}>
       {dataOrder.length > 1 ? (
         <ul className={styleConstructor.order}>
           {dataOrder.map((item, index) => (
-            <ItemOrder
-              key={item.idInOrder}
-              item={item}
-              index={index}
-              length={dataOrder.length}
-            />
+            <ItemOrder key={item.idInOrder} item={item} index={index} length={dataOrder.length} />
           ))}
         </ul>
       ) : (
@@ -176,7 +155,10 @@ export const Lists = ({ dataOrder }) => {
           <h4 className={styleConstructor.emptyLists}>
             ЧТОБ НЕ ОСТАТЬСЯ ГОЛОДНЫМ , ПЕРЕТАЩИ СЮДА БУЛКУ, а потом остальные ингредиенты
           </h4>
-          <p style={{fontSize: 20}}>ВНИМАНИЕ: в связи с проведением землянами на планете Пандора специальной геологической операции, монеты из анобтаниума не принимаются к расчету</p>
+          <p style={{ fontSize: 20 }}>
+            ВНИМАНИЕ: в связи с проведением землянами на планете Пандора специальной геологической операции, монеты из
+            анобтаниума не принимаются к расчету
+          </p>
         </>
       )}
     </div>

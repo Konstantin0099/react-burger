@@ -1,4 +1,4 @@
-import { WS_CONNECTION } from "../../wsRedux/action-types/wsActionTypes";
+import { WS_CONNECTION } from "../action-types/wsActionTypes";
 export const socketMiddleware = () => {
   return (store) => (next) => (action) => {
     const { dispatch, getState } = store;
@@ -17,7 +17,6 @@ export const socketMiddleware = () => {
     }
     type === WS_CONNECTION && user && ws(urlWs, wsActions);
     const wsEvent = (socket, actions) => {
-      // console.log("wsEvent socket=", socket);
       const { webSocket, onOpen, onClose, onError, onMessage } = actions;
       dispatch({ type: webSocket, payload: socket });
       socket.onopen = () => {
@@ -27,18 +26,15 @@ export const socketMiddleware = () => {
         dispatch({ type: onError });
       };
       socket.onmessage = (event) => {
-        // console.log("socket.onmessage    socket= event=", socket, event, actions);
         const { data } = event;
         const parsedData = JSON.parse(data);
         const { success, ...restParsedData } = parsedData;
         dispatch(onMessage(restParsedData));
       };
       socket.onclose = () => {
-        // console.log("CLOSED......................CLOSED ");
-        dispatch({ type: onClose});
+        dispatch({ type: onClose });
       };
     };
     next(action);
   };
 };
-

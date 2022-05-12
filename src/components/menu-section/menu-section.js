@@ -14,11 +14,7 @@ const MenuSection = ({ ingredient }) => {
     <ul className={style.menu + " pt-6 pb-10"}>
       {data.data.map((item) => {
         const countOrder = recountOrder(item);
-        return (
-          item.type === ingredient && (
-            <Food item={item} key={item._id} count={countOrder} />
-          )
-        );
+        return item.type === ingredient && <Food item={item} key={item._id} count={countOrder} />;
       })}
     </ul>
   );

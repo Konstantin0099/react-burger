@@ -2,15 +2,7 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-export const InputName = ({
-  type,
-  name,
-  placeholder,
-  icon,
-  value = "",
-  setData,
-  disabled = false,
-}) => {
+export const InputName = ({ type, name, placeholder, icon, value = "", setData, disabled = false }) => {
   const [valueRegisterPage, setValueName] = React.useState(value);
   const inputRef = React.useRef(null);
   const setValue = (e) => {
@@ -19,7 +11,7 @@ export const InputName = ({
   };
   React.useEffect(() => {
     setValueName(value);
-  },);
+  });
 
   return (
     <Input

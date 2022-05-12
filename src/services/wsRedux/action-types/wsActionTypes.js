@@ -1,4 +1,4 @@
-import { wsUrl } from "../../utils/data";
+import { wsUrl } from "../../../utils/data";
 export const WS_FEED = "WS_FEED";
 export const CLOSE_WS_FEED = "CLOSE_WS_FEED";
 export const WS_CONNECTION = "WS_CONNECTION";
@@ -72,14 +72,13 @@ export const wsConnectionStartFeed = () => {
   return {
     type: WS_CONNECTION,
     wsActions: wsActionsFeed,
-    urlWs: `${wsUrl}/all`
+    urlWs: `${wsUrl}/all`,
   };
 };
 export const wsConnectionStartHistory = () => {
   return {
     type: WS_CONNECTION,
     wsActions: wsActionsHistory,
-    urlWs: `${wsUrl}`
-
+    urlWs: `${wsUrl}`,
   };
 };

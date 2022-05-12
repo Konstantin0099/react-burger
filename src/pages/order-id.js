@@ -2,11 +2,11 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { whatDateOrder } from "./order-feed";
 import styles from "./order-id.module.css";
-import { wsConnectionStartFeed, wsConnectionStartHistory } from "../wsRedux/action-types";
+import { wsConnectionStartFeed, wsConnectionStartHistory } from "../services/wsRedux/action-types";
 
 export const OrderId = ({ id }) => {
-  console.log(" OrderId id=", id);
   let list = {};
   const history = useHistory();
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export const OrderId = ({ id }) => {
     const order = orders.find((el) => el._id === id);
     const { number, name, status, ingredients, updatedAt } = order;
     let sum = 0;
-
+    let h = whatDateOrder(updatedAt);
     ingredients.forEach((element) => {
       dataIngredients.forEach((item) => item._id === element && (sum = sum + item.price));
     });
@@ -73,7 +73,7 @@ export const OrderId = ({ id }) => {
             })}
           </div>
           <div className={styles.order__total + " mt-10"}>
-            <p className={styles.order__date + " text text_type_digits-default"}>{updatedAt}</p>
+            <p className={styles.order__date + " text text_type_digits-default"}>{h}</p>
             <p className={styles.order__total_sum + " text text_type_digits-default mr-2"}>{sum}</p>
             <CurrencyIcon type="primary" />
           </div>

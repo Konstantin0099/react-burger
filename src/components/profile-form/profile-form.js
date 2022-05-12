@@ -17,7 +17,6 @@ export const ProfileForm = () => {
     !user.name && dispatch(getDataUser());
   }, [dispatch, user.name]);
 
-
   const setData = (data, name) => {
     setNewData({ ...newData, [name]: data });
     setFix(true);
@@ -33,9 +32,7 @@ export const ProfileForm = () => {
   };
 
   return (
-
     <form onSubmit={setUser}>
-
       <ul className={style.list}>
         <li className={style.field + " mb-4"}>
           <InputName

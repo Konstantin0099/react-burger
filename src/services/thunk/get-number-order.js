@@ -1,11 +1,6 @@
-import {
-  GET_NUMBER,
-  GET_NUMBER_SUCCES,
-  GET_NUMBER_FAILED,
-} from "../actions/burger-constructor";
+import { GET_NUMBER, GET_NUMBER_SUCCES, GET_NUMBER_FAILED } from "../actions/burger-constructor";
 import { baseUrl } from "../../utils/data";
-import {checkResponse} from "./checkResponse"
-
+import { checkResponse } from "./checkResponse";
 
 const URL_ORDER = `${baseUrl}/orders`;
 
@@ -18,7 +13,7 @@ export function getNumber(dataOrder) {
     fetch(`${URL_ORDER}`, {
       method: "POST",
       body: JSON.stringify({
-        ingredients: arrDataID
+        ingredients: arrDataID,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",

@@ -1,4 +1,3 @@
-
 import {
   ORDER_SUM,
   GET_NUMBER,
@@ -26,10 +25,7 @@ const initialOrderState = {
 export const orderReducer = (state = initialOrderState, action) => {
   switch (action.type) {
     case ORDER_SUM: {
-      let sum = action.dataOrder.reduce(
-        (sum, ingredients) => (sum += ingredients.price),
-        0
-      );
+      let sum = action.dataOrder.reduce((sum, ingredients) => (sum += ingredients.price), 0);
       return {
         ...state,
         sum: sum,

@@ -1,8 +1,4 @@
-import {
-  GET_DATA,
-  GET_DATA_SUCCES,
-  GET_DATA_FAILED,
-} from "../actions/burger-ingredients";
+import { GET_DATA, GET_DATA_SUCCES, GET_DATA_FAILED } from "../actions/burger-ingredients";
 
 const initialData = {
   dataRequest: false,

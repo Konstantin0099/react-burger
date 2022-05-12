@@ -12,14 +12,7 @@ export const EMail = ({ setData, data = "bob@example.com" }) => {
   React.useEffect(() => {
     setValue("");
   }, []);
-  return (
-    <EmailInput
-      onChange={onChange}
-      value={value}
-      disabled={false}
-      name={"email"}
-    />
-  );
+  return <EmailInput onChange={onChange} value={value} disabled={false} name={"email"} />;
 };
 EMail.propTypes = {
   setData: PropTypes.func,

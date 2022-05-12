@@ -19,10 +19,11 @@ const IngredientsInfo = ({ match }) => {
   }
   const itemIngredient = data.data.find((item) => item._id === id);
   return (
-    !visible.modal &&
-    <div className={style.ingredientsInfo}>
-      <IngredientDetails item={itemIngredient} modal={true} />
-    </div>
+    !visible.modal && (
+      <div className={style.ingredientsInfo}>
+        <IngredientDetails item={itemIngredient} modal={true} />
+      </div>
+    )
   );
 };
 

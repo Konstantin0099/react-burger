@@ -2,28 +2,26 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { whatDateOrder } from "./order-feed";
 import styles from "./order-id.module.css";
-import { WS_CONNECTION_START, WS_CONNECTION_START_HISTORY } from "../wsRedux/action-types";
+import { wsConnectionStartFeed, wsConnectionStartHistory } from "../services/wsRedux/action-types";
 
 export const OrderId = ({ id }) => {
+  let list = {};
   const history = useHistory();
   const dispatch = useDispatch();
-  const { data, feed, ordersHistory } = useSelector((state) => state);
-  let orders = [];
-  let total = 0;
+  const { data } = useSelector((state) => state);
+  const { feed, ordersHistory } = useSelector((state) => state);
+  history.location.pathname.indexOf("feed") !== -1
+    ? (list = { ws: feed, wsConnection: wsConnectionStartFeed })
+    : (list = { ws: ordersHistory, wsConnection: wsConnectionStartHistory });
+  let { orders, total, socket } = list.ws;
   React.useEffect(() => {
-    history.location.pathname.indexOf("feed") !== -1
-      ? !feed.total && dispatch({ type: WS_CONNECTION_START })
-      : !ordersHistory.total && dispatch({ type: WS_CONNECTION_START_HISTORY });
-  }, [dispatch, feed.total, ordersHistory.total, history.location.pathname]);
-  if (history.location.pathname.indexOf("feed") !== -1) {
-    orders = feed.orders;
-    total = feed.total;
-  } else {
-    orders = ordersHistory.orders;
-    total = ordersHistory.total;
-  }
-
+    dispatch(list.wsConnection());
+    return () => {
+      socket && socket.close();
+    };
+  }, [dispatch, feed.total, history.location.pathname]);
   if (total) {
     /** массив имеющихся ингредиентов */
     const dataIngredients = data.data;
@@ -31,7 +29,7 @@ export const OrderId = ({ id }) => {
     const order = orders.find((el) => el._id === id);
     const { number, name, status, ingredients, updatedAt } = order;
     let sum = 0;
-
+    let h = whatDateOrder(updatedAt);
     ingredients.forEach((element) => {
       dataIngredients.forEach((item) => item._id === element && (sum = sum + item.price));
     });
@@ -45,7 +43,7 @@ export const OrderId = ({ id }) => {
             {status === "done" && "В работе :"}
           </p>
           <h4 className={styles.order__specification + " mb-6 text text_type_main-medium"}>Состав :</h4>
-          <div className={styles.order__ingredients + " pr-6 mb-40"}>
+          <div className={styles.order__ingredients + " mb-40"}>
             {ingredients.map((el, index, ingredients) => {
               let countInOrder = 0;
               ingredients.forEach((element) => {
@@ -75,7 +73,7 @@ export const OrderId = ({ id }) => {
             })}
           </div>
           <div className={styles.order__total + " mt-10"}>
-            <p className={styles.order__date + " text text_type_digits-default"}>{updatedAt}</p>
+            <p className={styles.order__date + " text text_type_digits-default"}>{h}</p>
             <p className={styles.order__total_sum + " text text_type_digits-default mr-2"}>{sum}</p>
             <CurrencyIcon type="primary" />
           </div>
@@ -83,6 +81,6 @@ export const OrderId = ({ id }) => {
       )
     );
   } else {
-    return <h3>" .... ЗАГРУЗКА ......"</h3>;
+    return <h3>" .... ЗАГРУЗКА .OrderId....."</h3>;
   }
 };

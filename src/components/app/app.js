@@ -20,24 +20,22 @@ import Modal from "../modal/modal.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { TOGGLE_VISIBLE } from "../../services/actions/modal";
+import { TOGGLE_VISIBLE, VISIBLE_LIST } from "../../services/actions/modal";
 import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
-
 import { getData } from "../../services/thunk/get-data";
-
-
 
 const App = () => {
   const { visible } = useSelector((state) => state);
-
+  let to = {};
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-  const toggleVisible = (history) => {
-    visible.modal && history.replace({ pathname: "/" });
+  const toggleVisible = (history, location) => {
+    history.replace(visible.pathname);
     dispatch({ type: TOGGLE_VISIBLE });
+    dispatch({ type: VISIBLE_LIST });
   };
   return (
     <Router>
@@ -60,17 +58,16 @@ const App = () => {
             <Route path="/reset-password" exact>
               <ResetPassword />
             </Route>
-            <ProtectedRoute path="/profile">
+            <ProtectedRoute path="/profile/orders/:id">
+              <OrderInfo />
+            </ProtectedRoute>
+            <ProtectedRoute path={["/profile", "/profile/orders"]}>
               <ProfilePage />
             </ProtectedRoute>
-            <Route path="/ingredients/:id" exact component={IngredientsInfo}>
-            </Route>
+            <Route path="/ingredients/:id" exact component={IngredientsInfo}></Route>
             <Route path="/feed" exact>
               <OrderFeed />
             </Route>
-            
-            
-            
             <Route path="/feed/:id" exact component={OrderInfo}></Route>
             <Route path="/" exact>
               <main className={style.main}>

@@ -1,25 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useRouteMatch, useLocation } from "react-router-dom";
 import style from "./ingredients-info.module.css";
 import { OrderId } from "../pages";
-import { TOGGLE_VISIBLE_LIST } from "../services/actions/modal";
 
 export const OrderInfo = () => {
+  const location = useLocation();
   const { data, visible } = useSelector((state) => state);
-  const dispatch = useDispatch();
   const routeMatch = useRouteMatch();
-
-  const {
+  let {
     params: { id },
   } = routeMatch;
-  React.useEffect(() => {
-    !visible.list && id && dispatch({ type: TOGGLE_VISIBLE_LIST });
-    return () => {
-      return dispatch({ type: TOGGLE_VISIBLE_LIST });
-    };
-  }, [visible.list, id, dispatch]);
+  !id && (id = location.pathname.substring(16));
+  React.useEffect(() => {});
   if (data.data.length === 0) {
     return <div className={style.ingredientsInfo}></div>;
   }

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import * as React from "react";
 
-export const Password = ({setData}) => {
+export const Password = ({ setData }) => {
   const [value, setValue] = React.useState("password");
   const onChange = (e) => {
     setValue(e.target.value);

@@ -1,15 +1,12 @@
-import {
-  AUTH_FAILED,
-  GET_USER,
-} from "../actions/user-auth";
-import {GET_DATA, URL_USER_AUTH} from "../../utils/data";
+import { AUTH_FAILED, GET_USER } from "../actions/user-auth";
+import { GET_DATA, URL_USER_AUTH } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
 export function getDataUser() {
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/user`, {
       ...GET_DATA,
-      headers: { 
+      headers: {
         ...GET_DATA.headers,
         Authorization: localStorage.getItem("accessToken"),
       },
@@ -27,22 +24,22 @@ export function getDataUser() {
 export function setDataUser(history, newData) {
   return function (dispatch) {
     fetch(`${URL_USER_AUTH}/user`, {
-      method: 'PATCH',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
+      method: "PATCH",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
-        "authorization": localStorage.getItem("accessToken"),
-        'Content-Type': 'application/json',
+        authorization: localStorage.getItem("accessToken"),
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(newData),
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
     })
-    .then(checkResponse)
-    .then((user) => {
-      history.replace({ pathname: '/'});
-      dispatch({ type: GET_USER, user: user });
+      .then(checkResponse)
+      .then((user) => {
+        history.replace({ pathname: "/" });
+        dispatch({ type: GET_USER, user: user });
       })
       .catch((e) => {
         console.log("упс... ошибка в function setDataUser :(", e);

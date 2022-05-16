@@ -6,12 +6,11 @@ import { TOGGLE_VISIBLE, OPEN_POPUP_INGREDIENTS } from "../../services/actions/m
 import { useDrag } from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const Food = ({ item, count }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
 
   const [{ opacity }, ref] = useDrag(
     {

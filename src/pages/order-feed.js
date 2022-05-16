@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
-import { OPEN_POPUP_ORDER_INGREDIENTS, TOGGLE_VISIBLE, VISIBLE_MODAL } from "../services/actions/modal";
+import { OPEN_POPUP_ORDER_INGREDIENTS, VISIBLE_MODAL } from "../services/actions/modal";
 import { wsConnectionStartFeed } from "../services/wsRedux/action-types";
 
 export const OrderItem = ({

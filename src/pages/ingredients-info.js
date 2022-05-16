@@ -8,22 +8,23 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 const IngredientsInfo = ({ match }) => {
   const { data, visible } = useSelector((state) => state);
   const dispatch = useDispatch();
+  
   React.useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-  const {
-    params: { id },
-  } = match;
   if (data.data.length === 0) {
     return <div className={style.ingredientsInfo}></div>;
   }
+  const {
+    params: { id },
+  } = match;
   const itemIngredient = data.data.find((item) => item._id === id);
   return (
-    !visible.modal && (
+    !visible.modal ? (
       <div className={style.ingredientsInfo}>
         <IngredientDetails item={itemIngredient} modal={true} />
-      </div>
-    )
+      </div>)
+      : null
   );
 };
 

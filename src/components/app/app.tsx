@@ -1,9 +1,14 @@
 import style from "./app.module.css";
 import * as React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AppHeader from "../app-header/app-header.js";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import AppHeader from "../app-header/app-header";
+import {
+  useDispatch,
+  TypedUseSelectorHook,
+  useSelector as selectorHook
+} from 'react-redux';
 
-import { ProtectedRoute } from "../../components/protected-route/protected-route";
+import { ProtectedRoute } from "../protected-route/protected-route";
 import {
   Login,
   RegisterPage,
@@ -19,20 +24,27 @@ import IngredientsInfo from "../../pages/ingredients-info";
 import Modal from "../modal/modal.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { TOGGLE_VISIBLE, VISIBLE_LIST } from "../../services/actions/modal";
 import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
 import { getData } from "../../services/thunk/get-data";
+import { RootState } from "../../services/types/types";
+
+
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 
 
 const App = () => {
   const { visible } = useSelector((state) => state);
-  let to = {};
+  //добавлен
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-  const toggleVisible = (history, location) => {
+  // const toggleVisible = (history) => {
+  const toggleVisible = () => {
     history.replace(visible.pathname);
     dispatch({ type: TOGGLE_VISIBLE });
     dispatch({ type: VISIBLE_LIST });

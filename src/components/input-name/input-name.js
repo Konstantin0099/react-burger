@@ -11,7 +11,7 @@ export const InputName = ({ type, name, placeholder, icon, value = "", setData, 
   };
   React.useEffect(() => {
     setValueName(value);
-  });
+  },[setValueName]);
 
   return (
     <Input

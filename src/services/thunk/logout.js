@@ -1,6 +1,7 @@
-import { AUTH_TOKEN, AUTH_FAILED, AUTH_LOGOUT } from "../actions/user-auth";
-import { DATA_FETCH, URL_USER_AUTH, bodyToken } from "../../utils/data";
+import { AUTH_FAILED, AUTH_LOGOUT } from "../actions/user-auth";
+import { DATA_FETCH, URL_USER_AUTH } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
+
 
 export function logout(history, direction) {
   return function (dispatch) {

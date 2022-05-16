@@ -2,12 +2,13 @@ import styles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 const AppHeader = () => {
   return (
     <header className={styles.header}>
       <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>
         <li className={"pt-4 pb-4 m-l12 " + styles.constructor}>
-          <BurgerIcon />
+          <BurgerIcon type="primary"/>
           <NavLink
             className={styles.link + " text text_type_main-default"}
             activeClassName={styles.link_active}
@@ -19,7 +20,7 @@ const AppHeader = () => {
           </NavLink>
         </li>
         <li className={"pt-4 pb-4 ml-2 ml-12 " + styles.orderList}>
-          <ListIcon />
+          <ListIcon type="primary"/>
           <NavLink
             exact
             className={styles.link + " text text_type_main-default"}

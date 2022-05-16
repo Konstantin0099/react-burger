@@ -16,7 +16,8 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
 
 const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
-const store = initStore();
+export const store = initStore();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

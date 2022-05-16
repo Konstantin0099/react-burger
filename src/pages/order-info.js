@@ -6,23 +6,24 @@ import style from "./ingredients-info.module.css";
 import { OrderId } from "../pages";
 
 export const OrderInfo = () => {
-  const location = useLocation();
   const { data, visible } = useSelector((state) => state);
+  const location = useLocation();
   const routeMatch = useRouteMatch();
+  if (data.data.length === 0) {
+    return (<div className={style.ingredientsInfo}></div>);
+  }
   let {
     params: { id },
   } = routeMatch;
   !id && (id = location.pathname.substring(16));
-  React.useEffect(() => {});
-  if (data.data.length === 0) {
-    return <div className={style.ingredientsInfo}></div>;
-  }
+  // React.useEffect(() => {});
   return (
-    !visible.modal && (
+    !visible.modal ? (
       <div className={style.ingredientsInfo}>
         <OrderId id={id} />
-      </div>
-    )
+      </div>)
+      : null
+    
   );
 };
 

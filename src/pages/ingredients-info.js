@@ -22,7 +22,7 @@ const IngredientsInfo = ({ match }) => {
   return (
     !visible.modal ? (
       <div className={style.ingredientsInfo}>
-        <IngredientDetails item={itemIngredient} modal={true} />
+        <IngredientDetails item={itemIngredient} modal={false} />
       </div>)
       : null
   );

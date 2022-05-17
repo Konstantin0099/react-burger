@@ -80,7 +80,7 @@ export const openPopupReducer = (state = initalStateOpenPopup, action) => {
     case OPEN_POPUP_INGREDIENTS: {
       return {
         ...state,
-        popup: <IngredientDetails item={action.item} />,
+        popup: <IngredientDetails item={action.item} modal={true}/>,
         item: action.item,
       };
     }

@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router
 import AppHeader from "../app-header/app-header";
 import {
   useDispatch,
-  TypedUseSelectorHook,
-  useSelector as selectorHook
 } from 'react-redux';
 
 import { ProtectedRoute } from "../protected-route/protected-route";
@@ -28,10 +26,9 @@ import { DndProvider } from "react-dnd";
 import { TOGGLE_VISIBLE, VISIBLE_LIST } from "../../services/actions/modal";
 import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
 import { getData } from "../../services/thunk/get-data";
-import { RootState } from "../../services/types/types";
+import { useSelector } from "../../services/types/types";
 
-
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 
+// export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 
 
 const App = () => {
   const { visible } = useSelector((state) => state);
@@ -54,7 +51,8 @@ const App = () => {
       <div className={style.app}>
         <AppHeader />
         {visible.modal && (
-          <Modal toggleVisible={toggleVisible} onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}></Modal>
+          // <Modal toggleVisible={toggleVisible} onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}></Modal>
+          <Modal toggleVisible={toggleVisible} ></Modal>
         )}
         <DndProvider backend={HTML5Backend}>
           <Switch>

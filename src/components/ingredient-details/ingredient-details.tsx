@@ -1,12 +1,21 @@
 import style from "./ingredient-details.module.css";
-import { ingredientType } from "../../utils/types";
+// import { ingredientType } from "../../utils/types";
+import  { FC } from "react";
 
-const IngredientDetails = (props) => {
-  const { item, modal } = props;
+interface IItem {
+  name: string;
+  proteins: string;
+  calories: number;
+  carbohydrates: string;
+  fat: string;
+  image: string;
+}
+
+const IngredientDetails: FC<{item: IItem; modal: boolean }> = ({ item, modal }) => {
   const { name, proteins, calories, carbohydrates, fat, image } = item;
   return (
     <div className={style.order}>
-      <p className={(!modal ? style.titleModal : style.title) + " text text_type_digits-medium pt-10 "}>
+      <p className={(modal ? style.titleModal : style.title) + " text text_type_digits-medium pt-10 "}>
         Детали ингредиента
       </p>
       <div className={style.content}>
@@ -35,8 +44,8 @@ const IngredientDetails = (props) => {
   );
 };
 
-IngredientDetails.propTypes = {
-  item: ingredientType.isRequired,
-};
+// IngredientDetails.propTypes = {
+//   item: ingredientType.isRequired,
+// };
 
 export default IngredientDetails;

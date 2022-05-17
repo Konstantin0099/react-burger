@@ -19,7 +19,7 @@ import {
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.js";
 import BurgerConstructor from "../burger-constructor/burger-constructor.js";
 import IngredientsInfo from "../../pages/ingredients-info";
-import Modal from "../modal/modal.js";
+import Modal from "../modal/modal";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 // import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,7 @@ import { useSelector } from "../../services/types/types";
 // export const useSelector: TypedUseSelectorHook<RootState> = selectorHook; 
 
 const App = () => {
+
   const { visible } = useSelector((state) => state);
   //добавлен
   const history = useHistory();
@@ -41,18 +42,21 @@ const App = () => {
     dispatch(getData());
   }, [dispatch]);
   // const toggleVisible = (history) => {
-  const toggleVisible = () => {
-    history.replace(visible.pathname);
-    dispatch({ type: TOGGLE_VISIBLE });
-    dispatch({ type: VISIBLE_LIST });
-  };
+    // console.log("history", history);
+  // const toggleVisible = () => {
+  //   console.log("history1", history);
+  //   history.replace(visible.pathname);
+  //   dispatch({ type: TOGGLE_VISIBLE });
+  //   dispatch({ type: VISIBLE_LIST });
+  // };
   return (
     <Router>
       <div className={style.app}>
         <AppHeader />
         {visible.modal && (
           // <Modal toggleVisible={toggleVisible} onClose={() => dispatch({ type: CLOSE_POPUP_ORDER })}></Modal>
-          <Modal toggleVisible={toggleVisible} ></Modal>
+          // <Modal toggleVisible={toggleVisible} ></Modal>
+          <Modal></Modal>
         )}
         <DndProvider backend={HTML5Backend}>
           <Switch>

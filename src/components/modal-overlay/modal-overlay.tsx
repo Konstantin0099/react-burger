@@ -5,19 +5,28 @@ import { useHistory, useLocation } from "react-router-dom";
 import modal from "./modal-overlay.module.css";
 import { CLOSE_POPUP_ORDER } from "../../services/actions/modal";
 import { useDispatch } from "react-redux";
+import { MouseEvent, FC } from "react"; 
+import { RouteProps } from 'react-router';
 
-const ModalOverlay = ({ toggleVisible, children }) => {
+// let type TElement = typeof document.querySelector('#modals');
+// let type TElement = typeof modalRoot;
+
+const ModalOverlay: FC<{toggleVisible: () => void} & RouteProps> = ({ toggleVisible, children }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  const modalRoot = document.getElementById("react-modals");
-  const closedModal = (e) => {
-    e.target === e.currentTarget && toggleVisible(history, location);
+  let modalRoot1 = document.createElement('div');
+   let modalRoot = document.querySelector('#modals');
+  // modalRoot.append(div);
+  const closedModal = (e: MouseEvent<HTMLDivElement>) => {
+    // e.target === e.currentTarget && toggleVisible(history, location);
+    e.target === e.currentTarget && toggleVisible();
   };
-  const closedModalEscape = (e) => {
-    e.key === "Escape" && toggleVisible(history, location);
+  // const modalRoot = document.getElementById("modals");
+  let div = document.createElement('div');
+  const closedModalEscape = (e: {key: string}) => {
+    e.key === "Escape" && toggleVisible();
   };
-
   React.useEffect(() => {
     document.addEventListener("keydown", closedModalEscape);
     return () => {
@@ -26,12 +35,13 @@ const ModalOverlay = ({ toggleVisible, children }) => {
       // onClose();
     };
   }, []);
-
+// console.log("modalRoot + 1",modalRoot, modalRoot1);
   return ReactDOM.createPortal(
     <div className={modal.overlay} onClick={closedModal}>
       {children}
     </div>,
-    modalRoot
+    modalRoot ? modalRoot : modalRoot1
+    // div
   );
 };
 

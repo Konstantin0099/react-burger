@@ -2,12 +2,6 @@
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import  React, { ChangeEvent, FC } from "react";
 
-// SortingControl: FC<{ onSort(): void; value: string }> = ({
-//   label,
-//   onSort,
-//   value
-// }) => {
-//   return (
 /** EMail поле меню для ввода адреса эл.почты  */
 export const EMail: FC<{setData(data: string, name?: string): void}> = ({ setData }) => {
   const [value, setValue] = React.useState("bob@example.com");

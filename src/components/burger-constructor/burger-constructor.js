@@ -10,7 +10,8 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const dataOrder = useSelector((state) => state.dataOrder);
   React.useEffect(() => {
-    dispatch({ type: ORDER_SUM, dataOrder });
+    let sum = dataOrder.reduce((sum, ingredients) => (sum += ingredients.price), 0);
+    dispatch({ type: ORDER_SUM, sum });
   }, [dispatch, dataOrder]);
 
   return (

@@ -1,4 +1,4 @@
-import { GET_NUMBER, GET_NUMBER_SUCCES, GET_NUMBER_FAILED } from "../actions/burger-constructor";
+import { GET_NUMBER, GET_NUMBER_SUCCESS, GET_NUMBER_FAILED } from "../actions/burger-constructor";
 import { baseUrl } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
@@ -22,7 +22,7 @@ export function getNumber(dataOrder) {
     })
       .then(checkResponse)
       .then((order) => {
-        dispatch({ type: GET_NUMBER_SUCCES, number: order.order.number });
+        dispatch({ type: GET_NUMBER_SUCCESS, number: order.order.number });
       })
       .catch((e) => {
         console.log("catch ошибка ", e);

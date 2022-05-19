@@ -8,14 +8,23 @@ import {
   GET_USER,
 } from "../actions/user-auth";
 
-const initaUser = {
+export type TInitaUser = {
+  authRequest: boolean;
+  authFailed: boolean;
+  authSuccess: boolean;
+  email: string;
+  name:  string;
+};
+
+
+const initaUser: TInitaUser = {
   authRequest: false,
   authFailed: false,
   authSuccess: false,
   email: "",
   name: "",
 };
-export const userAuthReducer = (state = initaUser, action) => {
+export const userAuthReducer = (state = initaUser, action: any): TInitaUser => {
   switch (action.type) {
     case AUTH_LOGIN: {
       return {
@@ -34,7 +43,7 @@ export const userAuthReducer = (state = initaUser, action) => {
         email: action.user.user.email,
         authRequest: false,
         authFailed: false,
-        authSuccess: action.user.success,
+        authSuccess: true,
       };
     }
     case AUTH_REGISTER: {
@@ -46,7 +55,7 @@ export const userAuthReducer = (state = initaUser, action) => {
         email: action.user.user.email,
         authRequest: false,
         authFailed: false,
-        authSuccess: action.user.success,
+        authSuccess: true,
       };
     }
     case AUTH_LOGOUT: {
@@ -77,7 +86,7 @@ export const userAuthReducer = (state = initaUser, action) => {
         email: action.user.user.email,
         authRequest: false,
         authFailed: false,
-        authSuccess: action.user.success,
+        authSuccess: true,
       };
     }
 

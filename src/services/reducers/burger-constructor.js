@@ -1,7 +1,7 @@
 import {
   ORDER_SUM,
   GET_NUMBER,
-  GET_NUMBER_SUCCES,
+  GET_NUMBER_SUCCESS,
   GET_NUMBER_FAILED,
   NUMBER_REMOVE,
   TOGGLE_ITEM_CONSTRUCTOR,
@@ -25,10 +25,9 @@ const initialOrderState = {
 export const orderReducer = (state = initialOrderState, action) => {
   switch (action.type) {
     case ORDER_SUM: {
-      let sum = action.dataOrder.reduce((sum, ingredients) => (sum += ingredients.price), 0);
       return {
         ...state,
-        sum: sum,
+        sum: action.sum,
       };
     }
     case GET_NUMBER: {
@@ -38,7 +37,7 @@ export const orderReducer = (state = initialOrderState, action) => {
         numberFailed: false,
       };
     }
-    case GET_NUMBER_SUCCES: {
+    case GET_NUMBER_SUCCESS: {
       return {
         ...state,
         numberRequest: false,

@@ -16,7 +16,7 @@ export function userAuthLogin(history, newData, revert = "/") {
     })
       .then(checkResponse)
       .then((user) => {
-        dispatch({ type: AUTH_SUCCESS, user: user });
+        dispatch({ type: AUTH_SUCCESS, name: user.name, email: user.email });
         history.replace({ pathname: revert});
       })
       .catch((e) => {

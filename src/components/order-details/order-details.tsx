@@ -1,17 +1,20 @@
 import React from "react";
 import style from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NUMBER_REMOVE } from "../../services/actions/burger-constructor";
 import { getNumber } from "../../services/thunk/get-number-order";
+import { useSelector } from "../../services/types/types";
+import type {  TItemDataOrder } from "../../services/types/data";
 
 const OrderDetails = () => {
+  // console.log("OrderDetails")
   const dispatch = useDispatch();
-  const dataOrder = useSelector((state) => state.dataOrder);
+  const {dataOrder} = useSelector((state) => state);
   const { number } = useSelector((state) => state.orderState);
-  React.useEffect(() => {
+  React.useEffect( () => { 
     dispatch(getNumber(dataOrder));
-    return () => dispatch({ type: NUMBER_REMOVE });
+    return () => {dispatch({ type: NUMBER_REMOVE })};
   }, []);
   return (
     <div className={style.order}>

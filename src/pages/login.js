@@ -8,7 +8,14 @@ import { EMail } from "../components/email/email";
 import { MenuField } from "../components/menu-field/menu-field";
 import { userAuthLogin } from "../services/thunk/auth-user";
 import { getDataUser } from "../services/thunk/data-user";
-import { AUTH_LOGIN } from "../services/actions/user-auth";
+import { AUTH_LOGIN, AUTH_FAILED, GET_USER  } from "../services/actions/user-auth";
+
+// import { AUTH_FAILED, GET_USER } from "../services/actions/user-auth";
+import { checkResponse } from "../services/thunk/checkResponse";
+
+
+
+
 
 export const Login = () => {
   const { user } = useSelector((state) => state);
@@ -17,9 +24,26 @@ export const Login = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
+const getD = async () => {
+  try {
+     const res = await getDataUser();
+     const user = await checkResponse(res);
+     dispatch({ type: GET_USER, user: user });
+   } catch (e) {
+     console.log("упс... ошибка в function getDataUser:(", e);
+     dispatch({ type: AUTH_FAILED });
+    }
+  }
+  
+  
+  
+  
   React.useEffect(() => {
-    !user.name && dispatch({ type: AUTH_LOGIN });
+    // !user.name && dispatch({ type: AUTH_LOGIN });
     !user.name && dispatch(getDataUser());
+    // console.log("useEffect");
+    // !user.name && dispatch(getD());
+    // !user.name && getD();
   }, [dispatch, user.name]);
 
   let newData = {};
@@ -38,7 +62,7 @@ export const Login = () => {
       <Redirect to={location.state.revert} />
     ) : (
       <div className={style.modal}>
-        <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
+        <h2 className={"text text_type_main-medium " + style.title}> ...ВХОД... </h2>
         <form onSubmit={getUser}>
           <ul className={style.list}>
             <li className={style.field + " mb-4"}>

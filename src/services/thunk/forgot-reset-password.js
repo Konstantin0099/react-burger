@@ -1,8 +1,14 @@
 import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED } from "../actions/password-reset-forgot";
 import { DATA_FETCH, URL_USER_PASS } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
+import { useDispatch } from "react-redux";
+import { useHistory, Redirect} from "react-router-dom";
 
-export function forgotPassword(history, email) {
+export function forgotPassword (history, email) {
+  // export function forgotPassword(email) {
+  // const history = useHistory();
+  
+  // const dispatch = useDispatch();
   return function (dispatch) {
     dispatch({ type: PASS_FORGOT });
     fetch(`${URL_USER_PASS}`, {

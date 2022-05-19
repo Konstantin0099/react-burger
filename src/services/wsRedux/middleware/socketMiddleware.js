@@ -1,6 +1,8 @@
 import { WS_CONNECTION } from "../action-types/wsActionTypes";
 export const socketMiddleware = () => {
   return (store) => (next) => (action) => {
+    // console.log("action  WebSocket=", action);
+
     const { dispatch, getState } = store;
     const { type, wsActions, urlWs } = action;
     const { user } = getState();

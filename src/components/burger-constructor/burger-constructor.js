@@ -1,7 +1,7 @@
 import React from "react";
 import styleConstructor from "./burger-constructor.module.css";
 import { Lists } from "../lists/lists.js";
-import { OrderSum } from "../order-sum/order-sum.js";
+import { OrderSum } from "../order-sum/order-sum";
 import { useDispatch, useSelector } from "react-redux";
 import { ORDER_SUM } from "../../services/actions/burger-constructor";
 

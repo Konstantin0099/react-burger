@@ -32,6 +32,8 @@ import { useSelector } from "../../services/types/types";
 
 const App = () => {
 
+
+
   const { visible } = useSelector((state) => state);
   //добавлен
   const history = useHistory();

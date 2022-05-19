@@ -1,7 +1,8 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "../../services/types/types";
 import styleConstructor from "./order-sum.module.css";
 import { OPEN_POPUP_ORDER, TOGGLE_VISIBLE } from "../../services/actions/modal";
 
@@ -26,7 +27,7 @@ export const OrderSum = () => {
     <div className={styleConstructor.placeOrder}>
       <span className={styleConstructor.sumOrder + " mr-15"}>
         {sum ? <span className="text text_type_digits-medium">{sum}</span> : ""}
-        <CurrencyIcon type="primary" x="10" />
+        <CurrencyIcon type="primary" />
       </span>
       <Button type="primary" size="large" onClick={setOrder}>
         Оформить заказ

@@ -1,4 +1,7 @@
 import {
+  IItem,
+  TOrderActions,
+  TDataOrderActions,
   ORDER_SUM,
   GET_NUMBER,
   GET_NUMBER_SUCCESS,
@@ -8,21 +11,33 @@ import {
   ADD_ITEM_CONSTRUCTOR,
   ADD_BUN_CONSTRUCTOR,
   DELETE_ITEM_CONSTRUCTOR,
-} from "../actions/burger-constructor";
+} from "../actions";
 
-const dataOrder = [];
+// interface IData extends IItem {
+//   idInOrder?: number;
+// }
+const dataOrder: Array<IItem> = [];
+// const dataOrder: any = [];
+
+
 const dataOrderConstructor = [...dataOrder, dataOrder[0]];
 const initalDataOrder = dataOrderConstructor.map((el) => {
+  
   return { ...el, idInOrder: Math.ceil(Math.random() * 1000000) };
 });
-
-const initialOrderState = {
+type TInitialOrderState = {
+  numberRequest: boolean,
+  numberFailed: boolean,
+  sum: number,
+  number: number,
+}
+const initialOrderState: TInitialOrderState = {
   numberRequest: false,
   numberFailed: false,
-  sum: null,
-  number: null,
+  sum: 0,
+  number: 0,
 };
-export const orderReducer = (state = initialOrderState, action) => {
+export const orderReducer = (state = initialOrderState, action: TOrderActions): TInitialOrderState => {
   switch (action.type) {
     case ORDER_SUM: {
       return {
@@ -54,7 +69,7 @@ export const orderReducer = (state = initialOrderState, action) => {
     case NUMBER_REMOVE: {
       return {
         ...state,
-        number: null,
+        number: 0,
       };
     }
     default: {
@@ -62,7 +77,7 @@ export const orderReducer = (state = initialOrderState, action) => {
     }
   }
 };
-export const dataOrderReducer = (state = initalDataOrder, action) => {
+export const dataOrderReducer = (state = initalDataOrder, action: TDataOrderActions) => {
   switch (action.type) {
     case DELETE_ITEM_CONSTRUCTOR: {
       const next = state.slice();
@@ -70,6 +85,7 @@ export const dataOrderReducer = (state = initalDataOrder, action) => {
       return [...next];
     }
     case ADD_BUN_CONSTRUCTOR: {
+      // console.log("action.dragItem=", action.dragItem)
       const next = state.slice();
       if (state.length < 2) {
         next.splice(0, 1, action.dragItem, action.dragItem);

@@ -38,7 +38,7 @@ export function resetPassword(history, newData) {
     })
       .then(checkResponse)
       .then((user) => {
-        dispatch({ type: PASS_RESET, user: user });
+        dispatch({ type: PASS_RESET, password: user.password });
         history.replace({ pathname: "/" });
       })
       .catch((e) => {

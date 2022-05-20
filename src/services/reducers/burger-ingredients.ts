@@ -1,11 +1,16 @@
-import { GET_DATA, GET_DATA_SUCCES, GET_DATA_FAILED } from "../actions/burger-ingredients";
+import { GET_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED, TData, IItem } from "../actions";
 
-const initialData = {
+type TInitialData = {
+  dataRequest: boolean,
+  dataFailed: boolean,
+  data: Array<IItem>,
+};
+const initialData: TInitialData = {
   dataRequest: false,
   dataFailed: false,
   data: [],
 };
-export const dataReducer = (state = initialData, action) => {
+export const dataReducer = (state = initialData, action: TData): TInitialData => {
   switch (action.type) {
     case GET_DATA: {
       return {
@@ -14,7 +19,7 @@ export const dataReducer = (state = initialData, action) => {
         dataFailed: false,
       };
     }
-    case GET_DATA_SUCCES: {
+    case GET_DATA_SUCCESS: {
       return {
         ...state,
         dataRequest: false,

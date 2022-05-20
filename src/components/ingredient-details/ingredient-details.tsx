@@ -1,15 +1,7 @@
 import style from "./ingredient-details.module.css";
 // import { ingredientType } from "../../utils/types";
 import  { FC } from "react";
-
-interface IItem {
-  name: string;
-  proteins: string;
-  calories: number;
-  carbohydrates: string;
-  fat: string;
-  image: string;
-}
+import  { IItem } from "../../services/actions";
 
 const IngredientDetails: FC<{item: IItem; modal: boolean }> = ({ item, modal }) => {
   const { name, proteins, calories, carbohydrates, fat, image } = item;

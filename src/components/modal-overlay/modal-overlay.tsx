@@ -15,7 +15,7 @@ const ModalOverlay: FC<{toggleVisible: () => void} & RouteProps> = ({ toggleVisi
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  let modalRoot1 = document.createElement('div');
+  let modalRootPlaceholder = document.createElement('div');
    let modalRoot = document.querySelector('#modals');
   // modalRoot.append(div);
   const closedModal = (e: MouseEvent<HTMLDivElement>) => {
@@ -40,7 +40,7 @@ const ModalOverlay: FC<{toggleVisible: () => void} & RouteProps> = ({ toggleVisi
     <div className={modal.overlay} onClick={closedModal}>
       {children}
     </div>,
-    modalRoot ? modalRoot : modalRoot1
+    modalRoot ? modalRoot : modalRootPlaceholder
     // div
   );
 };

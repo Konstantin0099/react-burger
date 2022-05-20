@@ -20,41 +20,47 @@ export interface IAuthSuccessAction extends Omit<IAuthLoginAction, "type"> {
 export interface IAuthRegisterAction extends Omit<IAuthSuccessAction, "type"> {
   readonly type: typeof AUTH_REGISTER;
 }
-export interface IAuthLogoutAction extends Omit<IAuthRegisterAction, "type"> {
+export interface IAuthLogoutAction {
   readonly type: typeof AUTH_LOGOUT;
 }
-export interface IAuthUserAction extends Omit<IAuthLogoutAction, "type"> {
+export interface IAuthUserAction extends Omit<IAuthRegisterAction, "type"> {
   readonly type: typeof GET_USER;
 }
 export interface IAuthFailedAction extends Omit<IAuthLoginAction, "type"> {
   readonly type: typeof AUTH_FAILED;
 }
+export type TAuthActions =
+  | IAuthLoginAction
+  | IAuthTokenAction
+  | IAuthSuccessAction
+  | IAuthRegisterAction
+  | IAuthLogoutAction
+  | IAuthUserAction
+  | IAuthFailedAction;
 
 export const getAuthLoginAction = (): IAuthLoginAction => ({
   type: AUTH_LOGIN,
 });
 export const getAuthTokenAction = (): IAuthTokenAction => ({
-    type: AUTH_TOKEN,
+  type: AUTH_TOKEN,
 });
 export const getAuthSuccessAction = (name: string, email: string): IAuthSuccessAction => ({
-    type: AUTH_SUCCESS,
-    name,
-    email,
+  type: AUTH_SUCCESS,
+  name,
+  email,
 });
 export const getAuthRegisterAction = (name: string, email: string): IAuthRegisterAction => ({
-    type: AUTH_REGISTER,
-    name,
-    email,
+  type: AUTH_REGISTER,
+  name,
+  email,
 });
-export const getAuthLogoutAction = (name: string, email: string): IAuthLogoutAction => ({
-    type: AUTH_LOGOUT,
-    name,
-    email,
+export const getAuthLogoutAction = (): IAuthLogoutAction => ({
+  type: AUTH_LOGOUT,
 });
 export const getAuthUserAction = (name: string, email: string): IAuthUserAction => ({
-    type: GET_USER,
-    name,
-    email,
+  type: GET_USER,
+  name,
+  email,
 });
 export const getAuthFailedAction = (): IAuthFailedAction => ({
   type: AUTH_FAILED,

@@ -25,6 +25,7 @@ export const Food = ({ item, count }) => {
     []
   );
   const onClick = () => {
+    console.log("item", item)
     dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
     dispatch({ type: TOGGLE_VISIBLE });
     history.push({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });

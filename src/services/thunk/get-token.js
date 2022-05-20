@@ -12,7 +12,9 @@ export function getToken() {
     })
       .then(checkResponse)
       .then((res) => {
-        dispatch({ type: AUTH_TOKEN, token: res });
+        localStorage.setItem("accessToken", token.accessToken);
+        localStorage.setItem("refreshToken", token.refreshToken);
+        dispatch({ type: AUTH_TOKEN });
       })
       .catch((e) => {
         console.log("упс... ошибка в function getToken():(", e);

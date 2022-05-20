@@ -1,12 +1,18 @@
-import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED } from "../actions/password-reset-forgot";
+import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED, TPassAction } from "../actions";
 
-const initPass = {
+type TInitPass = {
+  passRequest: boolean,
+  passFailed: boolean,
+  password: string,
+};
+
+const initPass: TInitPass = {
   passRequest: true,
   passFailed: false,
   password: "",
 };
 
-export const userPassReducer = (state = initPass, action) => {
+export const userPassReducer = (state = initPass, action: TPassAction): TInitPass => {
   switch (action.type) {
     case PASS_FORGOT: {
       return {
@@ -26,7 +32,7 @@ export const userPassReducer = (state = initPass, action) => {
     case PASS_RESET: {
       return {
         ...state,
-        password: action.user.password,
+        password: action.password,
         passRequest: false,
         passFailed: false,
       };

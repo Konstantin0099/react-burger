@@ -24,16 +24,16 @@ export const Login = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
-const getD = async () => {
-  try {
-     const res = await getDataUser();
-     const user = await checkResponse(res);
-     dispatch({ type: GET_USER, user: user });
-   } catch (e) {
-     console.log("упс... ошибка в function getDataUser:(", e);
-     dispatch({ type: AUTH_FAILED });
-    }
-  }
+// const getD = async () => {
+//   try {
+//      const res = await getDataUser();
+//      const user = await checkResponse(res);
+//      dispatch({ type: GET_USER, name: user.user.name, email: user.user.email });
+//    } catch (e) {
+//      console.log("упс... ошибка в function getDataUser:(", e);
+//      dispatch({ type: AUTH_FAILED });
+//     }
+//   }
   
   
   

@@ -13,7 +13,9 @@ export function logout(history, direction) {
     })
       .then(checkResponse)
       .then((user) => {
-        dispatch({ type: AUTH_LOGOUT, token: user });
+        localStorage.setItem("accessToken", "");
+        localStorage.setItem("refreshToken", "");
+        dispatch({ type: AUTH_LOGOUT });
         history.replace(direction);
       })
       .catch((e) => {

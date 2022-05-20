@@ -1,4 +1,4 @@
-import { GET_DATA, GET_DATA_SUCCES, GET_DATA_FAILED } from "../actions/burger-ingredients";
+import { GET_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED } from "../actions/burger-ingredients";
 import { baseUrl } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
@@ -10,7 +10,8 @@ export function getData() {
     fetch(`${URL_INGREDIENTS}`)
       .then(checkResponse)
       .then((productData) => {
-        dispatch({ type: GET_DATA_SUCCES, data: productData.data });
+        // console.log("productData.data=", productData.data);
+        dispatch({ type: GET_DATA_SUCCESS, data: productData.data });
       })
       .catch((e) => {
         console.log("упс... ошибка function getData:(  >>>", e, "<<<end");

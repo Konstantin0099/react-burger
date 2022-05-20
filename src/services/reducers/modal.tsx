@@ -1,4 +1,10 @@
+import IngredientDetails from "../../components/ingredient-details/ingredient-details";
+import OrderDetails from "../../components/order-details/order-details";
+import { OrderId } from "../../pages/order-id";
 import {
+  IItem,
+  TOpenPopup,
+  TVisible,
   OPEN_POPUP_ORDER_INGREDIENTS,
   VISIBLE_LIST,
   DISABLED_LIST,
@@ -8,18 +14,18 @@ import {
   OPEN_POPUP_INGREDIENTS,
   OPEN_POPUP_ORDER,
   CLOSE_POPUP_ORDER,
-  TOGGLE_VISIBLE_LIST,
-} from "../actions/modal";
-import IngredientDetails from "../../components/ingredient-details/ingredient-details";
-import OrderDetails from "../../components/order-details/order-details";
-import { OrderId } from "../../pages/order-id";
-
-const initalState = {
+} from "../actions";
+type TInitalState = {
+  pathname: string,
+  modal: boolean,
+  list: boolean,
+};
+const initalState: TInitalState = {
   pathname: "",
   modal: false,
   list: false,
 };
-export const toggleVisibleReducer = (state = initalState, action) => {
+export const toggleVisibleReducer = (state = initalState, action: TVisible): TInitalState => {
   switch (action.type) {
     case TOGGLE_VISIBLE: {
       return {
@@ -40,12 +46,6 @@ export const toggleVisibleReducer = (state = initalState, action) => {
         modal: false,
       };
     }
-    case TOGGLE_VISIBLE_LIST: {
-      return {
-        ...state,
-        list: !state.list,
-      };
-    }
     case VISIBLE_LIST: {
       return {
         ...state,
@@ -63,19 +63,22 @@ export const toggleVisibleReducer = (state = initalState, action) => {
     }
   }
 };
-
-const initalStateOpenPopup = {
-  popup: {},
-  item: {},
+type TInitalStateOpenPopup = {
+  popup: | JSX.Element | null;
+  item: | IItem | string | null
 };
-export const openPopupReducer = (state = initalStateOpenPopup, action) => {
+
+const initalStateOpenPopup: TInitalStateOpenPopup = {
+  popup: null,
+  item: null,
+};
+export const openPopupReducer = (state = initalStateOpenPopup, action: TOpenPopup): TInitalStateOpenPopup => {
   switch (action.type) {
     case OPEN_POPUP_ORDER_INGREDIENTS: {
       return {
-        ...state,
-        popup: <OrderId id={action.item} />,
+        popup: <OrderId id={action.item}/>,
         item: action.item,
-      };
+      }
     }
     case OPEN_POPUP_INGREDIENTS: {
       return {
@@ -93,8 +96,8 @@ export const openPopupReducer = (state = initalStateOpenPopup, action) => {
     case CLOSE_POPUP_ORDER: {
       return {
         ...state,
-        popup: {},
-        item: {},
+        popup: null,
+        item: null,
       };
     }
     default: {

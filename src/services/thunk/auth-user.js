@@ -16,7 +16,10 @@ export function userAuthLogin(history, newData, revert = "/") {
     })
       .then(checkResponse)
       .then((user) => {
-        dispatch({ type: AUTH_SUCCESS, name: user.name, email: user.email });
+        localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("refreshToken", user.refreshToken);
+        // console.log("user=", user);
+        dispatch({ type: AUTH_SUCCESS, name: user.user.name, email: user.user.email });
         history.replace({ pathname: revert});
       })
       .catch((e) => {
@@ -35,7 +38,9 @@ export function userAuthRegister(history, newData) {
     })
       .then(checkResponse)
       .then((user) => {
-        dispatch({ type: AUTH_REGISTER, user: user });
+        localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("refreshToken", user.refreshToken);
+        dispatch({ type: AUTH_REGISTER, user: user.user.name, user: user.user.email});
         history.replace({ pathname: '/'});
       })
       .catch((e) => {

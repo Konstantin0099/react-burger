@@ -2,13 +2,6 @@ import { AUTH_LOGIN,  AUTH_FAILED, GET_USER } from "../actions/user-auth";
 import { GET_DATA, URL_USER_AUTH } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 
-// export type TDataUser = {
-//   readonly success: boolean;
-//   readonly user: {
-//     readonly email: string;
-//     readonly name: string;
-// };}
-// const dd = async (): Promise<TDataUser> => {
 const dd = async () => {
 
     const pr = await fetch(`${URL_USER_AUTH}/user`, {
@@ -30,7 +23,8 @@ const dd = async () => {
         return checkResponse(res)
       })
       .then((user) => {
-        dispatch({type: GET_USER, user: user});
+        // console.log("user=", user);
+        dispatch({type: GET_USER, name: user.user.name, email: user.user.email});
       })
       .catch((e) => {
         console.log("упс... ошибка в function getDataUser:(", e);
@@ -59,7 +53,7 @@ export function setDataUser(history, newData) {
       .then(checkResponse)
       .then((user) => {
         history.replace({ pathname: "/" });
-        dispatch({ type: GET_USER, user: user });
+        dispatch({ type: GET_USER, name: user.user.name, email: user.user.email});
       })
       .catch((e) => {
         console.log("упс... ошибка в function setDataUser :(", e);

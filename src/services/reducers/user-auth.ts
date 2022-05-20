@@ -6,7 +6,8 @@ import {
   AUTH_FAILED,
   AUTH_SUCCESS,
   GET_USER,
-} from "../actions/user-auth";
+  TAuthActions,
+} from "../actions";
 
 export type TInitaUser = {
   authRequest: boolean;
@@ -24,7 +25,7 @@ const initaUser: TInitaUser = {
   email: "",
   name: "",
 };
-export const userAuthReducer = (state = initaUser, action: any): TInitaUser => {
+export const userAuthReducer = (state = initaUser, action: TAuthActions): TInitaUser => {
   switch (action.type) {
     case AUTH_LOGIN: {
       return {
@@ -35,32 +36,26 @@ export const userAuthReducer = (state = initaUser, action: any): TInitaUser => {
     }
     /**сохраняет полученные токены в localStorage , записывает в стейт name, email*/
     case AUTH_SUCCESS: {
-      localStorage.setItem("accessToken", action.user.accessToken);
-      localStorage.setItem("refreshToken", action.user.refreshToken);
       return {
         ...state,
-        name: action.user.user.name,
-        email: action.user.user.email,
+        name: action.name,
+        email: action.email,
         authRequest: false,
         authFailed: false,
         authSuccess: true,
       };
     }
     case AUTH_REGISTER: {
-      localStorage.setItem("accessToken", action.user.accessToken);
-      localStorage.setItem("refreshToken", action.user.refreshToken);
       return {
         ...state,
-        name: action.user.user.name,
-        email: action.user.user.email,
+        name: action.name,
+        email: action.email,
         authRequest: false,
         authFailed: false,
         authSuccess: true,
       };
     }
     case AUTH_LOGOUT: {
-      localStorage.setItem("accessToken", "");
-      localStorage.setItem("refreshToken", "");
       return {
         ...state,
         name: "",
@@ -71,8 +66,6 @@ export const userAuthReducer = (state = initaUser, action: any): TInitaUser => {
       };
     }
     case AUTH_TOKEN: {
-      localStorage.setItem("accessToken", action.token.accessToken);
-      localStorage.setItem("refreshToken", action.token.refreshToken);
       return {
         ...state,
         authRequest: false,
@@ -82,8 +75,8 @@ export const userAuthReducer = (state = initaUser, action: any): TInitaUser => {
     case GET_USER: {
       return {
         ...state,
-        name: action.user.user.name,
-        email: action.user.user.email,
+        name: action.name,
+        email: action.email,
         authRequest: false,
         authFailed: false,
         authSuccess: true,

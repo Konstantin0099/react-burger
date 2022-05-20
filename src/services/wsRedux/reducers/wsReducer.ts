@@ -1,12 +1,20 @@
 import {
-  WS_FEED,
+  // WS_FEED,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_FEED,
+  TWsFeedActions
 } from "../action-types";
 
-const initialState = {
+export type TInitialState = {
+  socket: WebSocket | null;
+  wsConnected: boolean;
+  orders: Array<number>;
+  total: number;
+  totalToday: number;
+};
+const initialState: TInitialState = {
   socket: null,
   wsConnected: false,
   orders: [],
@@ -14,13 +22,13 @@ const initialState = {
   totalToday: 0,
 };
 
-export const wsReducerAllOrders = (state = initialState, action) => {
+export const wsReducerAllOrders = (state = initialState, action: TWsFeedActions) => {
   switch (action.type) {
-    case WS_FEED:
-      return {
-        ...state,
-        socket: action.payload,
-      };
+    // case WS_FEED:
+    //   return {
+    //     ...state,
+    //     socket: action.payload,
+    //   };
     case WS_CONNECTION_SUCCESS:
       return {
         ...state,

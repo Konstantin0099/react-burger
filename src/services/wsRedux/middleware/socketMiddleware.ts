@@ -1,14 +1,18 @@
-import { WS_CONNECTION } from "../action-types/wsActionTypes";
+import { WS_CONNECTION, TWsAction, TWsConnectionStart } from "../action-types/wsActionTypes";
 export const socketMiddleware = () => {
-  return (store) => (next) => (action) => {
+  return (store: { dispatch: any; getState: any; }) => (next: (arg0: TWsConnectionStart) => void) => (action: TWsConnectionStart) => {
     // console.log("action  WebSocket=", action);
 
     const { dispatch, getState } = store;
     const { type, wsActions, urlWs } = action;
     const { user } = getState();
-    let token = "";
-    localStorage.getItem("accessToken") && (token = localStorage.getItem("accessToken").substring(7));
-    async function ws(urlWs, wsActions) {
+    let token: string | null = null;
+    let accessToken: string = "";
+
+
+    if (localStorage.getItem("accessToken") !== null) {accessToken = localStorage.getItem("accessToken") + ""}
+    if (localStorage.getItem("accessToken") !== null) {token = accessToken.substring(7)}
+    async function ws(urlWs: string, wsActions: TWsAction) {
       try {
         let socket = await new WebSocket(`${urlWs}?token=${token}`);
         wsEvent(socket, wsActions);
@@ -17,15 +21,16 @@ export const socketMiddleware = () => {
         return err;
       }
     }
-    type === WS_CONNECTION && user && ws(urlWs, wsActions);
-    const wsEvent = (socket, actions) => {
+    (type === WS_CONNECTION) && user && ws(urlWs, wsActions);
+
+    const wsEvent = (socket: WebSocket, actions: TWsAction) => {
       const { webSocket, onOpen, onClose, onError, onMessage } = actions;
-      dispatch({ type: webSocket, payload: socket });
+      dispatch(webSocket(socket));
       socket.onopen = () => {
         dispatch(onOpen());
       };
       socket.onerror = () => {
-        dispatch({ type: onError });
+        dispatch(onError());
       };
       socket.onmessage = (event) => {
         const { data } = event;
@@ -34,7 +39,7 @@ export const socketMiddleware = () => {
         dispatch(onMessage(restParsedData));
       };
       socket.onclose = () => {
-        dispatch({ type: onClose });
+        dispatch(onClose());
       };
     };
     next(action);

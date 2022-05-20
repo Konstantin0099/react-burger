@@ -1,4 +1,6 @@
 import {
+  TInitialState,
+  TWsHistoryActions,
   WS_HISTORY,
   WS_CONNECTION_SUCCESS_HISTORY,
   WS_CONNECTION_ERROR_HISTORY,
@@ -6,7 +8,8 @@ import {
   WS_GET_HISTORY,
 } from "../action-types";
 
-const initialState = {
+
+const initialState: TInitialState = {
   socket: null,
   wsConnected: false,
   orders: [],
@@ -14,7 +17,7 @@ const initialState = {
   totalToday: 0,
 };
 
-export const wsReducerOrdersHistory = (state = initialState, action) => {
+export const wsReducerOrdersHistory = (state = initialState, action: TWsHistoryActions) => {
   switch (action.type) {
     case WS_HISTORY:
       return {

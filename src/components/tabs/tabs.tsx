@@ -1,5 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types/types";
 import { TAB_ONE, TAB_TWO, TAB_THREE } from "../../services/actions/tabs";
 
 export const Tabs = () => {

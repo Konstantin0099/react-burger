@@ -1,4 +1,5 @@
-import { WS_CONNECTION, TWsAction, TWsConnectionStart } from "../action-types/wsActionTypes";
+import { WS_CONNECTION, TWsAction, TWsConnectionStart} from "../action-types/wsActionTypes";
+// import {RootState} from "../../../services/types/types";
 export const socketMiddleware = () => {
   return (store: { dispatch: any; getState: any; }) => (next: (arg0: TWsConnectionStart) => void) => (action: TWsConnectionStart) => {
     // console.log("action  WebSocket=", action);

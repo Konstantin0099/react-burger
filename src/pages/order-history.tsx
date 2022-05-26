@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "./feed.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../services/types/types";
 import { getListOrders, func } from "./order-feed";
 import { useLocation  } from "react-router-dom";
 import { VISIBLE_LIST } from "../services/actions/modal";

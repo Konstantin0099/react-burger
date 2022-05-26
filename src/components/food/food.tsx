@@ -1,16 +1,16 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { TOGGLE_VISIBLE, OPEN_POPUP_INGREDIENTS } from "../../services/actions/modal";
 import { useDrag } from "react-dnd";
 import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
 import { useHistory } from "react-router-dom";
+import { IItem } from "../../services/actions";
+import { FC } from "react";
 
-export const Food = ({ item, count }) => {
-
-
+export const Food: FC<{ item: IItem, count: number  }> = ({ item, count}) => {
+  // console.log("item , count ", item, count)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -25,7 +25,6 @@ export const Food = ({ item, count }) => {
     []
   );
   const onClick = () => {
-    console.log("item", item)
     dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
     dispatch({ type: TOGGLE_VISIBLE });
     history.push({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });
@@ -43,7 +42,4 @@ export const Food = ({ item, count }) => {
   );
 };
 
-Food.propTypes = {
-  item: ingredientType.isRequired,
-  count: PropTypes.number,
-};
+

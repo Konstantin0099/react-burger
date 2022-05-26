@@ -3,31 +3,32 @@ import { useHistory } from "react-router-dom";
 import style from "./profile-form.module.css";
 import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
+import { useSelector, TSetData, useDispatch, TNewData } from "../../services/types/types";
 
 export const ProfileForm = () => {
   const { user, pass } = useSelector((state) => state);
-  const email = user.email;
+  // const email = user.email;
   const history = useHistory();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState({ name: user.name, password: pass.password });
-  const [fix, setFix] = React.useState(false);
+  const [newData, setNewData] = React.useState<Omit<TNewData, "token">>({ name: user.name, password: pass.password, email: user.email  });
+  const [fix, setFix] = React.useState<boolean>(false);
   React.useEffect(() => {
     !user.name && dispatch(getDataUser());
   }, [dispatch, user.name]);
 
-  const setData = (data, name) => {
+  const setData: TSetData = (data, name) => {
     setNewData({ ...newData, [name]: data });
     setFix(true);
   };
-  const setUser = (event) => {
+  const setUser = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     history.replace({ state: { revert: "/" } });
     dispatch(setDataUser(history, newData));
   };
   const cancelInput = () => {
-    setNewData({ name: user.name, password: pass.password });
+    setNewData({ name: user.name, password: pass.password, email: user.email  });
     setFix(false);
   };
 
@@ -45,7 +46,7 @@ export const ProfileForm = () => {
           />
         </li>
         <li className={style.field + " mb-4"}>
-          <InputName disabled={true} type={"email"} name={"email"} placeholder={"Логин"} value={email} />
+          <InputName disabled={true} type={"email"} name={"email"} placeholder={"Логин"} value={user.email} />
         </li>
         <li className={style.field + " mb-4"}>
           <InputName

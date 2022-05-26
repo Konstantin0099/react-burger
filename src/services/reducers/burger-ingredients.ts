@@ -11,6 +11,7 @@ const initialData: TInitialData = {
   data: [],
 };
 export const dataReducer = (state = initialData, action: TData): TInitialData => {
+  // console.log("action", action);
   switch (action.type) {
     case GET_DATA: {
       return {

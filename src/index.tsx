@@ -8,15 +8,23 @@ import App from "./components/app/app";
 import rootReducer from "./services/reducers";
 import { socketMiddleware } from "./services/wsRedux/middleware";
 import "./index.css";
-const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers =
+//   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+//     : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
 
-const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
-export const store = initStore();
+// const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
+// createStore(rootReducer, initialState, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>

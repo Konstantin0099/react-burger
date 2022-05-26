@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { NUMBER_REMOVE } from "../../services/actions/burger-constructor";
 import { getNumber } from "../../services/thunk/get-number-order";
 import { useSelector } from "../../services/types/types";
-import type {  TItemDataOrder } from "../../services/types/data";
+// import type {  TItemDataOrder } from "../../services/types/data";
 
 const OrderDetails = () => {
   // console.log("OrderDetails")

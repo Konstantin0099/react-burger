@@ -1,26 +1,30 @@
-import PropTypes from "prop-types";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styleConstructor from "./lists.module.css";
-import { useDrag, useDrop } from "react-dnd";
-import { useRef } from "react";
+import { useDrag, useDrop} from "react-dnd";
+import { useRef, FC, MouseEvent} from "react";
 import { useDispatch } from "react-redux";
-import { ingredientType } from "../../utils/types";
+// import { ingredientType } from "../../utils/types";
 import {
   TOGGLE_ITEM_CONSTRUCTOR,
   ADD_ITEM_CONSTRUCTOR,
   ADD_BUN_CONSTRUCTOR,
   DELETE_ITEM_CONSTRUCTOR,
 } from "../../services/actions/burger-constructor";
+import  { IItem } from "../../services/actions";
 
-const ItemOrder = ({ item, index, length }) => {
+type TEl = { id?: string; index: number; el?: IItem; drag?: "food"}
+
+const ItemOrder: FC<{item:  IItem , index: number, length: number}> = ({ item, index, length }) => {
+
   const dispatch = useDispatch();
   const [, drop] = useDrop(
     {
       accept: "items",
-      collect: (monitor) => ({}),
-      drop(el) {
-        if (el.drag === "food") {
+      // collect: (monitor) => ({}),
+      drop(el: TEl) {
+        // console.log("el", el);
+        if (el.drag === "food" && el.el) {
           el.el.type === "bun"
             ? dispatch({ type: ADD_BUN_CONSTRUCTOR, dragItem: el.el })
             : dispatch({
@@ -30,8 +34,10 @@ const ItemOrder = ({ item, index, length }) => {
               });
         }
       },
-      hover(el, monitor) {
-        if (!ref.current) {
+      hover(el: TEl, monitor: any) {
+        const refEl: any = ref.current;
+        console.log("monitor, refEl", monitor, refEl);
+        if (!refEl) {
           return;
         }
         const dragIndex = el.index;
@@ -45,7 +51,7 @@ const ItemOrder = ({ item, index, length }) => {
         if (dragIndex === hoverIndex) {
           return;
         }
-        const hoverBoundingRect = ref.current?.getBoundingClientRect();
+        const hoverBoundingRect = refEl?.getBoundingClientRect();
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
         const clientOffset = monitor.getClientOffset();
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -83,8 +89,9 @@ const ItemOrder = ({ item, index, length }) => {
   const ref = useRef(null);
   drag(drop(ref));
 
-  const deleteConstructorElement = (e) => {
-    e.nativeEvent.path[2].classList[0] === "constructor-element__action" &&
+  const deleteConstructorElement = (e: MouseEvent<HTMLLIElement>) => {
+    const eN: any = e.nativeEvent;
+    eN.path[2].classList[0] === "constructor-element__action" &&
       dispatch({ type: DELETE_ITEM_CONSTRUCTOR, index });
   };
 
@@ -116,7 +123,7 @@ const ItemOrder = ({ item, index, length }) => {
         style={{ opacity: `${opacity}` }}
         onClickCapture={deleteConstructorElement}
       >
-        <DragIcon />
+        <DragIcon type="primary"/>
         <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
       </li>
     )
@@ -124,12 +131,12 @@ const ItemOrder = ({ item, index, length }) => {
     <p>GHBDTY</p>
   );
 };
-export const Lists = ({ dataOrder }) => {
+export const Lists: FC<{dataOrder: Array<IItem>}> = ({ dataOrder }) => {
   const dispatch = useDispatch();
   const [, refLists] = useDrop({
     accept: "items",
     collect: (monitor) => ({}),
-    drop(el) {
+    drop(el: any) {
       if (el.el === undefined) {
         return;
       }
@@ -164,11 +171,11 @@ export const Lists = ({ dataOrder }) => {
     </div>
   );
 };
-Lists.propTypes = {
-  dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
-};
-ItemOrder.propTypes = {
-  item: ingredientType.isRequired,
-  index: PropTypes.number,
-  length: PropTypes.number,
-};
+// Lists.propTypes = {
+//   dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
+// };
+// ItemOrder.propTypes = {
+//   item: ingredientType.isRequired,
+//   index: PropTypes.number,
+//   length: PropTypes.number,
+// };

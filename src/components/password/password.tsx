@@ -2,13 +2,10 @@
 import { PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 // import * as React from "react";
 import React, { FC, ChangeEvent } from "react";
+import { TSetData } from "../../services/types/types";
 
-// const setData = (data, name) => {
-//   newData = { ...newData, [name]: data };
-// };ChangeEvent<HTMLInputElement>)
-
-export const Password: FC<{setData: (data: string, name: string) => void;}>  = ({ setData }) => {
-  const [value, setValue] = React.useState("password");
+export const Password: FC<{setData:  TSetData}>  = ({ setData }) => {
+  const [value, setValue] = React.useState<string>("password");
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setData(e.target.value, e.target.name);

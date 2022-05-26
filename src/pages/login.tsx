@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import * as React from "react";
+// import { useDispatch} from "react-redux";
+import React, { FormEvent } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import style from "./style.module.css";
@@ -9,12 +9,10 @@ import { MenuField } from "../components/menu-field/menu-field";
 import { userAuthLogin } from "../services/thunk/auth-user";
 import { getDataUser } from "../services/thunk/data-user";
 import { AUTH_LOGIN, AUTH_FAILED, GET_USER  } from "../services/actions/user-auth";
-
-// import { AUTH_FAILED, GET_USER } from "../services/actions/user-auth";
 import { checkResponse } from "../services/thunk/checkResponse";
-
-
-
+import { useSelector, useDispatch,  TSetData, TLocation } from "../services/types/types";
+// type TUserAuthLogin = (history: History<unknown>, newData: {string: string}, revert: string)
+// type TSetData = (data: string, name: string) => void
 
 
 export const Login = () => {
@@ -22,40 +20,23 @@ export const Login = () => {
   const history = useHistory();
   const { authSuccess, authRequest } = useSelector((state) => state.user);
 
-  const location = useLocation();
+  const location: TLocation = useLocation();
   const dispatch = useDispatch();
-// const getD = async () => {
-//   try {
-//      const res = await getDataUser();
-//      const user = await checkResponse(res);
-//      dispatch({ type: GET_USER, name: user.user.name, email: user.user.email });
-//    } catch (e) {
-//      console.log("упс... ошибка в function getDataUser:(", e);
-//      dispatch({ type: AUTH_FAILED });
-//     }
-//   }
-  
-  
-  
-  
+  console.log("location", location)
   React.useEffect(() => {
-    // !user.name && dispatch({ type: AUTH_LOGIN });
     !user.name && dispatch(getDataUser());
-    // console.log("useEffect");
-    // !user.name && dispatch(getD());
-    // !user.name && getD();
   }, [dispatch, user.name]);
 
   let newData = {};
-  const setData = (data, name) => {
+  const setData: TSetData = (data, name) => {
     newData = { ...newData, [name]: data };
   };
 
   /**отправить данные user для авторизации */
-  const getUser = (event) => {
+  const getUser = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     history.replace({ state: { revert: "/" } });
-    dispatch(userAuthLogin(history, newData, location.state.revert));
+    location.state && dispatch(userAuthLogin(history, newData, location.state.revert));
   };
   return !authRequest ? (
     authSuccess ? (

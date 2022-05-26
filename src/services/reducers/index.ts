@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { tabReducer } from "./tabs.ts";
+import { tabReducer } from "./tabs";
 import { orderReducer, dataOrderReducer } from "./burger-constructor";
 import { dataReducer } from "./burger-ingredients";
 import { wsReducerAllOrders } from "../wsRedux/reducers";

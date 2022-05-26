@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
-import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import  React , { FC } from "react";
+import { useDispatch, useSelector } from "../services/types/types";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.css";
 import { ProfileForm } from "../components/profile-form/profile-form";
@@ -9,7 +8,7 @@ import { OrderHistory } from "../pages/order-history";
 import { logout } from "../services/thunk/logout";
 import { DISABLED_LIST, VISIBLE_LIST } from "../services/actions/modal";
 
-export const ProfilePage = () => {
+export const ProfilePage: FC = () => {
   const { visible } = useSelector((state) => state);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -76,8 +75,4 @@ export const ProfilePage = () => {
       )}
     </Router>
   );
-};
-
-ProfilePage.propTypes = {
-  orderHistory: PropTypes.bool,
 };

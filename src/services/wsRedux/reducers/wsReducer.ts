@@ -22,7 +22,7 @@ const initialState: TInitialState = {
   totalToday: 0,
 };
 
-export const wsReducerAllOrders = (state = initialState, action: TWsFeedActions) => {
+export const wsReducerAllOrders = (state = initialState, action: TWsFeedActions): TInitialState => {
   switch (action.type) {
     // case WS_FEED:
     //   return {

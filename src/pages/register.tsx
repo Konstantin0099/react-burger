@@ -1,6 +1,6 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import * as React from "react";
+// import { useDispatch, useSelector } from "react-redux";
+import React, { FormEvent } from "react";
 import style from "./style.module.css";
 import { Password } from "../components/password/password";
 import { EMail } from "../components/email/email";
@@ -8,20 +8,25 @@ import { InputName } from "../components/input-name/input-name";
 import { MenuField } from "../components/menu-field/menu-field";
 import { userAuthRegister } from "../services/thunk/auth-user";
 import { useHistory, Redirect } from "react-router-dom";
-
+import { useDispatch, useSelector, TSetData, TNewData } from "../services/types/types";
+// export type TNewData = {
+//   name: string;
+//   password: string;
+//   email: string;
+// }
 export const RegisterPage = () => {
   const { authSuccess } = useSelector((state) => state.user);
   const history = useHistory();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState({});
+  const [newData, setNewData] = React.useState<Omit<TNewData, "token">>({ name: "", password: "", email: "" });
 
-  const register = (e) => {
+  const register = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     history.replace({ state: { revert: "/" } });
     dispatch(userAuthRegister(history, newData));
   };
 
-  const setData = (data, name) => {
+  const setData: TSetData = (data, name) => {
     setNewData({ ...newData, [name]: data });
   };
   return authSuccess ? (

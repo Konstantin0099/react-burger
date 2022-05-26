@@ -6,6 +6,7 @@ const URL_INGREDIENTS = `${baseUrl}/ingredients`;
 
 export function getData() {
   return function (dispatch) {
+    // console.log("getData", dispatch)
     dispatch({ type: GET_DATA });
     fetch(`${URL_INGREDIENTS}`)
       .then(checkResponse)

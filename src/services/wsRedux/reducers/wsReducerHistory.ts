@@ -8,7 +8,6 @@ import {
   WS_GET_HISTORY,
 } from "../action-types";
 
-
 const initialState: TInitialState = {
   socket: null,
   wsConnected: false,
@@ -17,12 +16,12 @@ const initialState: TInitialState = {
   totalToday: 0,
 };
 
-export const wsReducerOrdersHistory = (state = initialState, action: TWsHistoryActions) => {
+export const wsReducerOrdersHistory = (state = initialState, action: TWsHistoryActions): TInitialState => {
   switch (action.type) {
     case WS_HISTORY:
       return {
         ...state,
-        socket: action.payload
+        socket: action.payload,
       };
     case WS_CONNECTION_SUCCESS_HISTORY:
       return {

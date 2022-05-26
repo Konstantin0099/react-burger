@@ -38,15 +38,19 @@ export type TWsFeedActions =
   | IWsConnectionErrorAction
   | IWsConnectionClosedAction
   | IWsGetFeedAction;
- 
 
 export interface IWsHistoryAction {
   type: typeof WS_HISTORY;
   payload: WebSocket;
 }
+type TPayloadGetHistory = {
+    orders: Array<number>;
+    total: number;
+    totalToday: number;
+}
 export interface IWsGetHistoryAction {
   type: typeof WS_GET_HISTORY;
-  payload: any
+  payload: TPayloadGetHistory;
 }
 export interface IWsConnectionErrorHistoryAction {
   type: typeof WS_CONNECTION_ERROR_HISTORY;
@@ -58,11 +62,11 @@ export interface IWsConnectionClosedHistoryAction {
   type: typeof WS_CONNECTION_CLOSED_HISTORY;
 }
 export type TWsHistoryActions =
-| IWsHistoryAction
-| IWsGetHistoryAction
-| IWsConnectionErrorHistoryAction
-| IWsConnectionSuccessHistoryAction
-| IWsConnectionClosedHistoryAction
+  | IWsHistoryAction
+  | IWsGetHistoryAction
+  | IWsConnectionErrorHistoryAction
+  | IWsConnectionSuccessHistoryAction
+  | IWsConnectionClosedHistoryAction;
 
 export const wsFeed = (payload: WebSocket): IWsFeedAction => {
   return {
@@ -91,20 +95,19 @@ export const wsGetFeed = (data: any): IWsGetFeedAction => {
     payload: data,
   };
 };
-// export type TWsActionsFeed = 
+// export type TWsActionsFeed =
 //   | IWsFeedAction
 //   | IWsConnectionSuccessAction
 //   | IWsConnectionErrorAction
 //   | IWsConnectionClosedAction
 //   | IWsGetFeedAction
 
-// export type TWsActionsFeed = 
+// export type TWsActionsFeed =
 //   | typeof wsFeed
 //   | typeof wsConnectionSuccess
 //   | typeof wsConnectionError
 //   | typeof wsConnectionClosed
 //   | typeof wsGetFeed
-
 
 export const wsHistory = (payload: WebSocket): IWsHistoryAction => {
   return {
@@ -122,7 +125,7 @@ export const wsConnectionSuccessHistory = (): IWsConnectionSuccessHistoryAction 
     type: WS_CONNECTION_SUCCESS_HISTORY,
   };
 };
-export const wsGetHistory = (data: any): IWsGetHistoryAction => {
+export const wsGetHistory = (data: TPayloadGetHistory): IWsGetHistoryAction => {
   return {
     type: WS_GET_HISTORY,
     payload: data,
@@ -133,13 +136,13 @@ export const wsConnectionClosedHistory = (): IWsConnectionClosedHistoryAction =>
     type: WS_CONNECTION_CLOSED_HISTORY,
   };
 };
-export interface IWsActionsFeed{
+export interface IWsActionsFeed {
   webSocket: typeof wsFeed;
   onOpen: typeof wsConnectionSuccess;
   onClose: typeof wsConnectionClosed;
   onError: typeof wsConnectionError;
   onMessage: typeof wsGetFeed;
-};
+}
 
 export const wsActionsFeed: IWsActionsFeed = {
   webSocket: wsFeed,
@@ -155,7 +158,7 @@ export interface IWsActionsHistory {
   onClose: typeof wsConnectionClosedHistory;
   onError: typeof wsConnectionErrorHistory;
   onMessage: typeof wsGetHistory;
-};
+}
 export const wsActionsHistory: IWsActionsHistory = {
   webSocket: wsHistory,
   onOpen: wsConnectionSuccessHistory,
@@ -163,18 +166,16 @@ export const wsActionsHistory: IWsActionsHistory = {
   onError: wsConnectionErrorHistory,
   onMessage: wsGetHistory,
 };
-// export type TWsAction = 
+// export type TWsAction =
 // | typeof wsActionsFeed
 // | typeof wsActionsHistory;
-export type TWsAction = 
-| IWsActionsFeed
-| IWsActionsHistory;
+export type TWsAction = IWsActionsFeed | IWsActionsHistory;
 
 export type TWsConnectionStart = {
   type: typeof WS_CONNECTION;
   wsActions: TWsAction;
   urlWs: string;
-}
+};
 
 export const wsConnectionStartFeed = (): TWsConnectionStart => {
   return {

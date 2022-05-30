@@ -3,7 +3,7 @@ import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED, TPassAction } from 
 type TInitPass = {
   passRequest: boolean,
   passFailed: boolean,
-  password: string,
+  password: string | undefined,
 };
 
 const initPass: TInitPass = {

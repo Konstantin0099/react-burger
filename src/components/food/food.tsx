@@ -1,18 +1,17 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/types";
 import { TOGGLE_VISIBLE, OPEN_POPUP_INGREDIENTS } from "../../services/actions/modal";
 import { useDrag } from "react-dnd";
-import { ingredientType } from "../../utils/types";
 import style from "./food.module.css";
 import { useHistory } from "react-router-dom";
 import { IItem } from "../../services/actions";
 import { FC } from "react";
+import { History } from "history";
 
 export const Food: FC<{ item: IItem, count: number  }> = ({ item, count}) => {
-  // console.log("item , count ", item, count)
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history: History<unknown> = useHistory();
 
   const [{ opacity }, ref] = useDrag(
     {
@@ -24,7 +23,7 @@ export const Food: FC<{ item: IItem, count: number  }> = ({ item, count}) => {
     },
     []
   );
-  const onClick = () => {
+  const onClick: () => void = () => {
     dispatch({ type: OPEN_POPUP_INGREDIENTS, item: item });
     dispatch({ type: TOGGLE_VISIBLE });
     history.push({ pathname: `/ingredients/${item._id}`, state: { visibleModal: true } });

@@ -13,12 +13,7 @@ import {
   DELETE_ITEM_CONSTRUCTOR,
 } from "../actions";
 
-// interface IData extends IItem {
-//   idInOrder?: number;
-// }
 const dataOrder: Array<IItem> = [];
-// const dataOrder: any = [];
-
 
 const dataOrderConstructor = [...dataOrder, dataOrder[0]];
 const initalDataOrder = dataOrderConstructor.map((el) => {
@@ -85,7 +80,6 @@ export const dataOrderReducer = (state = initalDataOrder, action: TDataOrderActi
       return [...next];
     }
     case ADD_BUN_CONSTRUCTOR: {
-      // console.log("action.dragItem=", action.dragItem)
       const next = state.slice();
       if (state.length < 2) {
         next.splice(0, 1, action.dragItem, action.dragItem);

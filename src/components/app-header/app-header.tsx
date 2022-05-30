@@ -1,9 +1,10 @@
 import styles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
+import { FC} from "react";
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
   return (
     <header className={styles.header}>
       <ul className={styles.navigation + " ml-30 mr-30 pr-30"}>
@@ -42,7 +43,7 @@ const AppHeader = () => {
             exact
             className={styles.link + " text text_type_main-default"}
             activeClassName={styles.link_active}
-            to={{ pathname: `/profile` }}
+            to={{ pathname: `/profile`, state: { call: "AppHeader" } }}
           >
             Личный кабинет
           </NavLink>

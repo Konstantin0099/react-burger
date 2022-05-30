@@ -1,5 +1,4 @@
 import { IItem } from "../actions";
-// export const TOGGLE_VISIBLE_LIST: 'TOGGLE_VISIBLE_LIST' = "TOGGLE_VISIBLE_LIST";
 export const VISIBLE_LIST: "VISIBLE_LIST" = "VISIBLE_LIST";
 export const DISABLED_LIST: "DISABLED_LIST" = "DISABLED_LIST";
 export const DISABLED_MODAL: "DISABLED_MODAL" = "DISABLED_MODAL";

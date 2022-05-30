@@ -1,4 +1,5 @@
 import { wsUrl } from "../../../utils/data";
+import { TPayloadGetHistory } from "../../types/data";
 export const WS_FEED: "WS_FEED" = "WS_FEED";
 export const CLOSE_WS_FEED: "CLOSE_WS_FEED" = "CLOSE_WS_FEED";
 export const WS_CONNECTION: "WS_CONNECTION" = "WS_CONNECTION";
@@ -43,11 +44,7 @@ export interface IWsHistoryAction {
   type: typeof WS_HISTORY;
   payload: WebSocket;
 }
-type TPayloadGetHistory = {
-    orders: Array<number>;
-    total: number;
-    totalToday: number;
-}
+
 export interface IWsGetHistoryAction {
   type: typeof WS_GET_HISTORY;
   payload: TPayloadGetHistory;
@@ -95,19 +92,6 @@ export const wsGetFeed = (data: any): IWsGetFeedAction => {
     payload: data,
   };
 };
-// export type TWsActionsFeed =
-//   | IWsFeedAction
-//   | IWsConnectionSuccessAction
-//   | IWsConnectionErrorAction
-//   | IWsConnectionClosedAction
-//   | IWsGetFeedAction
-
-// export type TWsActionsFeed =
-//   | typeof wsFeed
-//   | typeof wsConnectionSuccess
-//   | typeof wsConnectionError
-//   | typeof wsConnectionClosed
-//   | typeof wsGetFeed
 
 export const wsHistory = (payload: WebSocket): IWsHistoryAction => {
   return {
@@ -166,9 +150,7 @@ export const wsActionsHistory: IWsActionsHistory = {
   onError: wsConnectionErrorHistory,
   onMessage: wsGetHistory,
 };
-// export type TWsAction =
-// | typeof wsActionsFeed
-// | typeof wsActionsHistory;
+
 export type TWsAction = IWsActionsFeed | IWsActionsHistory;
 
 export type TWsConnectionStart = {

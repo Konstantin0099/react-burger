@@ -1,22 +1,22 @@
-import * as React from "react";
-import { useHistory } from "react-router-dom";
+import React, { FC } from "react";
 import style from "./profile-form.module.css";
 import { InputName } from "../input-name/input-name";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { useDispatch } from "react-redux";
 import { getDataUser, setDataUser } from "../../services/thunk/data-user";
 import { useSelector, TSetData, useDispatch, TNewData } from "../../services/types/types";
 
-export const ProfileForm = () => {
+export const ProfileForm: FC<{ set: () => void }> = ({ set }) => {
   const { user, pass } = useSelector((state) => state);
-  // const email = user.email;
-  const history = useHistory();
   const dispatch = useDispatch();
-  const [newData, setNewData] = React.useState<Omit<TNewData, "token">>({ name: user.name, password: pass.password, email: user.email  });
+  const [newData, setNewData] = React.useState<Omit<TNewData, "token">>({
+    name: user.name,
+    password: pass.password,
+    email: user.email,
+  });
   const [fix, setFix] = React.useState<boolean>(false);
   React.useEffect(() => {
-    !user.name && dispatch(getDataUser());
-  }, [dispatch, user.name]);
+    dispatch(getDataUser());
+  }, [dispatch]);
 
   const setData: TSetData = (data, name) => {
     setNewData({ ...newData, [name]: data });
@@ -24,14 +24,12 @@ export const ProfileForm = () => {
   };
   const setUser = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    history.replace({ state: { revert: "/" } });
-    dispatch(setDataUser(history, newData));
+    dispatch(setDataUser(set, newData));
   };
-  const cancelInput = () => {
-    setNewData({ name: user.name, password: pass.password, email: user.email  });
+  const cancelInput: () => void = () => {
+    setNewData({ name: user.name, password: pass.password, email: user.email });
     setFix(false);
   };
-
   return (
     <form onSubmit={setUser}>
       <ul className={style.list}>
@@ -51,7 +49,7 @@ export const ProfileForm = () => {
         <li className={style.field + " mb-4"}>
           <InputName
             type={"password"}
-            name={"пароль"}
+            name={"password"}
             placeholder={"Пароль"}
             icon={"EditIcon"}
             value={newData.password}

@@ -6,19 +6,9 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 import { useSelector, TMatch } from "../services/types/types";
 import { IItem } from "../services/actions";
 
-// type TMatch = {
-//   isExact: boolean;
-//   params: { id: string };
-//   path: string;
-//   url: string;
-// };
-
 const IngredientsInfo: FC<{ match: TMatch }> = ({ match }) => {
-  // console.log("match", match);
   const { data, visible } = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log("IngredientsInfo");
-
   React.useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
@@ -29,7 +19,6 @@ const IngredientsInfo: FC<{ match: TMatch }> = ({ match }) => {
     params: { id },
   } = match;
   const itemIngredient = data.data.find((item: IItem) => item._id === id);
-  console.log("itemIngredient", itemIngredient);
   return !visible.modal && itemIngredient ? (
     <div className={style.ingredientsInfo}>
       <IngredientDetails item={itemIngredient} modal={false} />

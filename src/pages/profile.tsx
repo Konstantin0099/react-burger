@@ -1,5 +1,13 @@
-import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
-import  React , { FC } from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router-dom";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "../services/types/types";
 import { NavLink } from "react-router-dom";
 import styles from "./style.module.css";
@@ -24,6 +32,9 @@ export const ProfilePage: FC = () => {
       state: { revert: `/` },
     };
     dispatch(logout(history, direction));
+  };
+  const setProfUser = () => {
+    history.replace({ pathname: `/`, state: { revert: "setUser" } });
   };
   return (
     <Router>
@@ -67,7 +78,7 @@ export const ProfilePage: FC = () => {
                 <OrderHistory />
               </Route>
               <Route exact path="/profile">
-                <ProfileForm />
+                <ProfileForm set={setProfUser} />
               </Route>
             </Switch>
           </div>

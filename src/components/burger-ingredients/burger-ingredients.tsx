@@ -1,5 +1,4 @@
-import { useEffect, FC, useRef, RefObject, UIEventHandler } from "react";
-// import { useDispatch } from "react-redux";
+import { useEffect, FC, useRef, UIEventHandler } from "react";
 import style from "./burger-ingredients.module.css";
 import { MenuSection } from "../menu-section/menu-section";
 import { Tabs } from "../tabs/tabs";
@@ -9,8 +8,7 @@ import { useSelector,  useDispatch } from "../../services/types/types";
 import { IItem } from "../../services/actions";
 
 const SetIngredients: FC<{ tab: string; index: number }> = ({ tab, index }) => {
-  // console.log("SetIngredients")
-  const tabsName = ["Булки", "Начинки", "Соусы"];
+  const tabsName: ReadonlyArray<string> = ["Булки", "Начинки", "Соусы"];
   const inputRef = useRef(null);
   return (
     <li className={style.listBlock + " text text_type_main-medium"} ref={inputRef}>
@@ -20,7 +18,7 @@ const SetIngredients: FC<{ tab: string; index: number }> = ({ tab, index }) => {
   );
 };
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
   const { data, currentTab } = useSelector((state) => state);
   const inputRef = useRef<HTMLUListElement>(null);
@@ -52,8 +50,6 @@ const BurgerIngredients = () => {
       }
     }
   };
-  
-  // console.log("BurgerIngredients arrTabs", arrTabs)
   return (
     <section className={style.ingredients + " mr-5 pt-5"}>
       <p className="text text_type_main-large pb-5">Соберите бургер</p>

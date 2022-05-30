@@ -33,14 +33,14 @@ export const wsReducerOrdersHistory = (state = initialState, action: TWsHistoryA
       return {
         ...state,
         wsConnected: false,
-        socket: null
+        socket: null,
       };
 
     case WS_CONNECTION_CLOSED_HISTORY:
       return {
         ...state,
         wsConnected: false,
-        socket: null
+        socket: null,
       };
 
     case WS_GET_HISTORY:

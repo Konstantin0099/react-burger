@@ -1,17 +1,17 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
-import { useSelector } from "../../services/types/types";
+import { FC } from "react";
+import { useSelector, useDispatch } from "../../services/types/types";
 import styleConstructor from "./order-sum.module.css";
 import { OPEN_POPUP_ORDER, TOGGLE_VISIBLE } from "../../services/actions/modal";
 
-export const OrderSum = () => {
+export const OrderSum: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { sum } = useSelector((state) => state.orderState);
-  const token = localStorage.getItem("refreshToken");
-  const setOrder = () => {
+  const token: string | null = localStorage.getItem("refreshToken");
+  const setOrder: () => void = () => {
     let direction = {
       pathname: "/login",
       state: { revert: `/` },

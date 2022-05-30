@@ -1,12 +1,26 @@
-import * as React from "react";
+import React, { FC } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../services/types/types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, VISIBLE_MODAL } from "../services/actions/modal";
 import { wsConnectionStartFeed } from "../services/wsRedux/action-types";
+import { IItem } from "../services/actions";
+import { TLocation } from "../services/types/types";
 
-export const OrderItem = ({
+type TOrderItem = {
+  urlList: string;
+  statusVisible: boolean;
+  id: string;
+  number: number;
+  date: string;
+  name: string;
+  ingredients: Array<string>;
+  cbOnClick: any;
+  location: TLocation;
+};
+
+export const OrderItem: FC<TOrderItem> = ({
   urlList,
   statusVisible = false,
   id,
@@ -31,59 +45,90 @@ export const OrderItem = ({
       </div>
       <h2 className={styles.burger__name + " text text_type_main-medium mt-6 mb-6"}>{name}</h2>
       {statusVisible && <p className={styles.feed__date + " text text_type_main-small"}>Выполнено</p>}
-      {listIcon(ingredients, data)}
+      {listIcon({ ingredients, data })}
     </div>
   );
 };
 
-export const whatDateOrder = (msDate) => {
-  const today = new Date();
-  const date = new Date(msDate);
-  const differenceSeconds = (today - date) / 1000;
+export const whatDateOrder = (msDate: string | number | Date): string => {
+  const today: Date = new Date();
+  const date: Date = new Date(msDate);
+  const differenceSeconds: number = (+today - +date) / 1000;
   const hoursOrder = new Date();
-  hoursOrder.getUTCHours(12, 55);
   const hours = today.getHours();
   const minutes = today.getMinutes();
   const seconds = today.getSeconds();
   const secondsToday = seconds + minutes * 60 + hours * 3600;
   let reg = /(\d\d:\d\d):\d\d+\s(\w{3}[+]\d{4})/;
-  let h = `${hoursOrder}`.match(reg);
-  h = [h[1], h[2]].join(" ");
+  let h: RegExpMatchArray | null = `${hoursOrder}`.match(reg);
+  let timeOrder = "";
+  if (h !== null) timeOrder = [h[1], h[2]].join(" ");
   if (differenceSeconds < secondsToday) {
-    return `сегодня  ${h}`;
+    return `сегодня  ${timeOrder}`;
   } else if (differenceSeconds < secondsToday + 24 * 3600) {
-    return `вчера ${h}`;
-  } else return `${Math.ceil(differenceSeconds / (24 * 3600))} дня назад, ${h}`;
+    return `вчера ${timeOrder}`;
+  } else return `${Math.ceil(differenceSeconds / (24 * 3600))} дня назад, ${timeOrder}`;
 };
 
-export const getListOrders = (func, orders, statusVisible = false, urlList, location) => {
-  return orders.map((element) => {
-    let { number, createdAt, name, ingredients, _id } = element;
-    const longTime = whatDateOrder(Date.parse(createdAt));
-    return (
-      <OrderItem
-        urlList={urlList}
-        key={_id}
-        id={_id}
-        statusVisible={statusVisible}
-        number={number}
-        date={longTime}
-        name={name}
-        ingredients={ingredients}
-        cbOnClick={func}
-        location={location}
-      />
-    );
-  });
+
+export const getListOrders = (
+  func: {
+    (
+      id: string,
+      urlList: string,
+      dispatch: (arg0: {
+        type: "VISIBLE_MODAL" | "OPEN_POPUP_ORDER_INGREDIENTS";
+        item?: string;
+        pathname?: string;
+      }) => void,
+      history: { pathname: string }[],
+      location: TLocation
+    ): void;
+  },
+  orders: any[],
+  statusVisible = false,
+  urlList: string,
+  location: TLocation
+) => {
+  return orders.map(
+    (element: { number: number; createdAt: string; name: string; ingredients: Array<string>; _id: string }) => {
+      let { number, createdAt, name, ingredients, _id } = element;
+      const longTime: string = whatDateOrder(Date.parse(createdAt));
+      return (
+        <OrderItem
+          urlList={urlList}
+          key={_id}
+          id={_id}
+          statusVisible={statusVisible}
+          number={number}
+          date={longTime}
+          name={name}
+          ingredients={ingredients}
+          cbOnClick={func}
+          location={location}
+        />
+      );
+    }
+  );
 };
-export const func = (id, urlList, dispatch, history, location) => {
+export const func = (
+  id: string,
+  urlList: string,
+  dispatch: (arg0: {
+    type: "VISIBLE_MODAL" | "OPEN_POPUP_ORDER_INGREDIENTS";
+    item?: string;
+    pathname?: string;
+  }) => void,
+  history: { pathname: string }[],
+  location: TLocation
+) => {
   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });
   dispatch({ type: VISIBLE_MODAL, pathname: urlList });
   history.push({ pathname: `${urlList}/${id}` });
 };
 
-export const OrderFeed = () => {
-  const location = useLocation();
+export const OrderFeed: FC = () => {
+  const location: TLocation = useLocation();
   const dispatch = useDispatch();
   const { socket, orders, total, totalToday } = useSelector((state) => state.feed);
   React.useEffect(() => {
@@ -93,7 +138,7 @@ export const OrderFeed = () => {
     };
   }, [dispatch, total]);
 
-  const getListNumbersOrders = (status) =>
+  const getListNumbersOrders = (status: string) =>
     orders.map(
       (element) =>
         element.status === status && (
@@ -143,38 +188,40 @@ export const OrderFeed = () => {
   );
 };
 
-export const listIcon = (ingredients, data) => {
-  let sum = 0;
-  let countListIcon = 0;
-  const list = ingredients.map((ingredient, index, ingredients) => {
-    countListIcon++;
-    const el = data.find((item) => {
-      return item._id === ingredient;
-    });
+export const listIcon: FC<{ ingredients: Array<string>; data: Array<IItem> }> = ({ ingredients, data }) => {
+  let sum: number = 0;
+  let countListIcon: number = 0;
+  const list = ingredients.map(
+    (ingredient: string, index: React.Key | null | undefined, ingredients: Array<string>) => {
+      countListIcon++;
+      const el = data.find((item: { _id: string }) => {
+        return item._id === ingredient;
+      });
 
-    if (el) {
-      let image = el.image;
-      sum = sum + el.price;
-      return (
-        countListIcon <= 6 && (
-          <div key={index} className={styles.feed__image_box}>
-            {countListIcon === 1 && ingredients.length > 6 ? (
-              <div className={styles.feed__image__plus__box}>
-                <img className={styles.feed__image__plus} src={image} alt="фото ингредиента" />
-              </div>
-            ) : (
-              <img className={styles.feed__image} src={image} alt="фото ингредиента" />
-            )}
-            <p className={styles.count__plus + " text text_type_digits-default"}>
-              {countListIcon === 1 && ingredients.length > 6 && `+${ingredients.length - 5}`}
-            </p>
-          </div>
-        )
-      );
-    } else {
-      return null;
+      if (el) {
+        let image = el.image;
+        sum = sum + el.price;
+        return (
+          countListIcon <= 6 && (
+            <div key={index} className={styles.feed__image_box}>
+              {countListIcon === 1 && ingredients.length > 6 ? (
+                <div className={styles.feed__image__plus__box}>
+                  <img className={styles.feed__image__plus} src={image} alt="фото ингредиента" />
+                </div>
+              ) : (
+                <img className={styles.feed__image} src={image} alt="фото ингредиента" />
+              )}
+              <p className={styles.count__plus + " text text_type_digits-default"}>
+                {countListIcon === 1 && ingredients.length > 6 && `+${ingredients.length - 5}`}
+              </p>
+            </div>
+          )
+        );
+      } else {
+        return null;
+      }
     }
-  });
+  );
 
   return (
     <div className={styles.feed__box_info}>

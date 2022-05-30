@@ -1,13 +1,14 @@
-import * as React from "react";
+import React, { FC } from "react";
 import styles from "./feed.module.css";
 import { useDispatch, useSelector } from "../services/types/types";
 import { getListOrders, func } from "./order-feed";
 import { useLocation  } from "react-router-dom";
 import { VISIBLE_LIST } from "../services/actions/modal";
 import { wsConnectionStartHistory } from "../services/wsRedux/action-types";
+import { TLocation } from "../services/types/types"; 
 
-export const OrderHistory = () => {
-  const location = useLocation();
+export const OrderHistory: FC = () => {
+  const location: TLocation = useLocation();
   const dispatch = useDispatch();
   const { socket, orders, total } = useSelector((state) => state.ordersHistory);
   React.useEffect(() => {

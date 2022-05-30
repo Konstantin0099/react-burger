@@ -1,5 +1,4 @@
 import style from "./ingredient-details.module.css";
-// import { ingredientType } from "../../utils/types";
 import  { FC } from "react";
 import  { IItem } from "../../services/actions";
 
@@ -35,9 +34,5 @@ const IngredientDetails: FC<{item: IItem; modal: boolean }> = ({ item, modal }) 
     </div>
   );
 };
-
-// IngredientDetails.propTypes = {
-//   item: ingredientType.isRequired,
-// };
 
 export default IngredientDetails;

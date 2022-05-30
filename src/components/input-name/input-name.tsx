@@ -20,7 +20,7 @@ export interface IInputName {
   name: string;
   placeholder: string;
   icon?: TIcons;
-  value: string;
+  value: string | undefined;
   setData?: (data: string, name: string) => void;
   disabled?: boolean;
 }
@@ -34,7 +34,7 @@ export const InputName: FC<IInputName> = ({ type, name, placeholder, icon, value
   };
   React.useEffect(() => {
     setValueName(value);
-  }, [setValueName]);
+  }, [value]);
 
   return (
     <Input

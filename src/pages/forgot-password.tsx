@@ -1,25 +1,22 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { useDispatch} from "react-redux";
-import React, {FormEvent} from "react";
-import { useHistory, Redirect} from "react-router-dom";
+import React, { FormEvent, FC } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 import style from "./style.module.css";
 import { MenuField } from "../components/menu-field/menu-field";
 import { forgotPassword } from "../services/thunk/forgot-reset-password";
 import { EMail } from "../components/email/email";
 import { useSelector, useDispatch } from "../services/types/types";
 
-export const ForgotPassword = () => {
+export const ForgotPassword: FC = () => {
   const history = useHistory();
-  console.log(" history= ",  history);
   const { authSuccess } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const recreate = (e: FormEvent<HTMLFormElement>) => {
+  const recreate = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(forgotPassword(email));
+    dispatch(forgotPassword(history, email));
   };
-
   const [email, setEmail] = React.useState<string>("");
-  const setData = (email: string) => {
+  const setData = (email: string): void => {
     setEmail(email);
   };
 

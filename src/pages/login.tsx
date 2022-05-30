@@ -1,5 +1,4 @@
-// import { useDispatch} from "react-redux";
-import React, { FormEvent } from "react";
+import React, { FormEvent, FC } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useHistory, Redirect } from "react-router-dom";
 import style from "./style.module.css";
@@ -8,26 +7,19 @@ import { EMail } from "../components/email/email";
 import { MenuField } from "../components/menu-field/menu-field";
 import { userAuthLogin } from "../services/thunk/auth-user";
 import { getDataUser } from "../services/thunk/data-user";
-import { AUTH_LOGIN, AUTH_FAILED, GET_USER  } from "../services/actions/user-auth";
-import { checkResponse } from "../services/thunk/checkResponse";
-import { useSelector, useDispatch,  TSetData, TLocation } from "../services/types/types";
-// type TUserAuthLogin = (history: History<unknown>, newData: {string: string}, revert: string)
-// type TSetData = (data: string, name: string) => void
+import { useSelector, useDispatch, TSetData, TLocation } from "../services/types/types";
 
-
-export const Login = () => {
+export const Login: FC<{}> = () => {
   const { user } = useSelector((state) => state);
-  const history = useHistory();
+  const { replace } = useHistory();
   const { authSuccess, authRequest } = useSelector((state) => state.user);
-
   const location: TLocation = useLocation();
   const dispatch = useDispatch();
-  console.log("location", location)
   React.useEffect(() => {
     !user.name && dispatch(getDataUser());
   }, [dispatch, user.name]);
 
-  let newData = {};
+  let newData: { name?: string } = {};
   const setData: TSetData = (data, name) => {
     newData = { ...newData, [name]: data };
   };
@@ -35,15 +27,15 @@ export const Login = () => {
   /**отправить данные user для авторизации */
   const getUser = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    history.replace({ state: { revert: "/" } });
-    location.state && dispatch(userAuthLogin(history, newData, location.state.revert));
+    replace({ state: { revert: "/" } });
+    location.state && dispatch(userAuthLogin(replace, newData, location.state.revert));
   };
   return !authRequest ? (
     authSuccess ? (
       <Redirect to={location.state.revert} />
     ) : (
       <div className={style.modal}>
-        <h2 className={"text text_type_main-medium " + style.title}> ...ВХОД... </h2>
+        <h2 className={"text text_type_main-medium " + style.title}> ВХОД </h2>
         <form onSubmit={getUser}>
           <ul className={style.list}>
             <li className={style.field + " mb-4"}>
@@ -68,6 +60,6 @@ export const Login = () => {
       </div>
     )
   ) : (
-    <p>........авторизация </p>
+    <p>........авторизация......... </p>
   );
 };

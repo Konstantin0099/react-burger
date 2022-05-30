@@ -3,8 +3,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styleConstructor from "./lists.module.css";
 import { useDrag, useDrop} from "react-dnd";
 import { useRef, FC, MouseEvent} from "react";
-import { useDispatch } from "react-redux";
-// import { ingredientType } from "../../utils/types";
+import { useDispatch } from "../../services/types/types";
 import {
   TOGGLE_ITEM_CONSTRUCTOR,
   ADD_ITEM_CONSTRUCTOR,
@@ -21,9 +20,7 @@ const ItemOrder: FC<{item:  IItem , index: number, length: number}> = ({ item, i
   const [, drop] = useDrop(
     {
       accept: "items",
-      // collect: (monitor) => ({}),
       drop(el: TEl) {
-        // console.log("el", el);
         if (el.drag === "food" && el.el) {
           el.el.type === "bun"
             ? dispatch({ type: ADD_BUN_CONSTRUCTOR, dragItem: el.el })
@@ -36,7 +33,6 @@ const ItemOrder: FC<{item:  IItem , index: number, length: number}> = ({ item, i
       },
       hover(el: TEl, monitor: any) {
         const refEl: any = ref.current;
-        console.log("monitor, refEl", monitor, refEl);
         if (!refEl) {
           return;
         }
@@ -171,11 +167,4 @@ export const Lists: FC<{dataOrder: Array<IItem>}> = ({ dataOrder }) => {
     </div>
   );
 };
-// Lists.propTypes = {
-//   dataOrder: PropTypes.arrayOf(ingredientType.isRequired),
-// };
-// ItemOrder.propTypes = {
-//   item: ingredientType.isRequired,
-//   index: PropTypes.number,
-//   length: PropTypes.number,
-// };
+

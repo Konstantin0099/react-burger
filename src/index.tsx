@@ -15,15 +15,9 @@ declare global {
   }
 }
 export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const composeEnhancers =
-//   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-//     : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
 
-// const initStore = (initialState = {}) => createStore(rootReducer, initialState, enhancer);
-// createStore(rootReducer, initialState, enhancer);
 export const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(

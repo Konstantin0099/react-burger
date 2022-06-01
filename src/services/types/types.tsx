@@ -37,7 +37,7 @@ export type TLocation = {
 };
 export type TNewData = {
   name: string;
-  password: string | undefined;
+  password: string;
   email: string;
   token: string;
 };

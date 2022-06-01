@@ -1,12 +1,15 @@
 import React, { FC } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "../services/types/types";
+import { AppDispatch, AppThunk, TDispatch, useDispatch, useSelector } from "../services/types/types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
 import { OPEN_POPUP_ORDER_INGREDIENTS, VISIBLE_MODAL } from "../services/actions/modal";
 import { wsConnectionStartFeed } from "../services/wsRedux/action-types";
 import { IItem } from "../services/actions";
 import { TLocation } from "../services/types/types";
+import { TOrders } from "../services/types/data";
+import { History } from "history";
+
 
 type TOrderItem = {
   urlList: string;
@@ -16,7 +19,11 @@ type TOrderItem = {
   date: string;
   name: string;
   ingredients: Array<string>;
-  cbOnClick: any;
+  cbOnClick: (   id: string,
+    urlList: string,
+    dispatch: AppDispatch | AppThunk<void>,
+    history: History<unknown>,
+    location: TLocation) => void;
   location: TLocation;
 };
 
@@ -70,22 +77,17 @@ export const whatDateOrder = (msDate: string | number | Date): string => {
   } else return `${Math.ceil(differenceSeconds / (24 * 3600))} дня назад, ${timeOrder}`;
 };
 
-
 export const getListOrders = (
   func: {
     (
       id: string,
       urlList: string,
-      dispatch: (arg0: {
-        type: "VISIBLE_MODAL" | "OPEN_POPUP_ORDER_INGREDIENTS";
-        item?: string;
-        pathname?: string;
-      }) => void,
-      history: { pathname: string }[],
+      dispatch: AppDispatch | AppThunk<void>,
+      history: History<unknown>,
       location: TLocation
     ): void;
   },
-  orders: any[],
+  orders: TOrders,
   statusVisible = false,
   urlList: string,
   location: TLocation
@@ -114,12 +116,8 @@ export const getListOrders = (
 export const func = (
   id: string,
   urlList: string,
-  dispatch: (arg0: {
-    type: "VISIBLE_MODAL" | "OPEN_POPUP_ORDER_INGREDIENTS";
-    item?: string;
-    pathname?: string;
-  }) => void,
-  history: { pathname: string }[],
+  dispatch: AppDispatch | AppThunk<void>,
+  history: History<unknown>,
   location: TLocation
 ) => {
   dispatch({ type: OPEN_POPUP_ORDER_INGREDIENTS, item: id });

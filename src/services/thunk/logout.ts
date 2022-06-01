@@ -1,13 +1,12 @@
-import { AUTH_FAILED, AUTH_LOGOUT } from "../actions/user-auth";
+import { getAuthLogoutAction, getAuthFailedAction } from "../actions/user-auth";
 import { DATA_FETCH, URL_USER_AUTH } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 import { History } from "history";
-import { AppDispatch } from "../types/types";
-import {TLogout } from "../types/data";
+import { AppDispatch, AppThunk } from "../types/types";
+import { TLogout } from "../types/data";
 
-
-export function logout(history: History<unknown>, direction: {pathname: string}) {
-  return function (dispatch: AppDispatch) {
+export const logout: AppThunk =
+  (history: History<unknown>, direction: { pathname: string }) => (dispatch: AppDispatch) => {
     fetch(`${URL_USER_AUTH}/logout`, {
       ...DATA_FETCH,
       body: JSON.stringify({
@@ -15,15 +14,14 @@ export function logout(history: History<unknown>, direction: {pathname: string})
       }),
     })
       .then((res) => checkResponse<TLogout>(res))
-      .then((user) => {
+      .then(() => {
         localStorage.setItem("accessToken", "");
         localStorage.setItem("refreshToken", "");
-        dispatch({ type: AUTH_LOGOUT });
+        dispatch(getAuthLogoutAction());
         history.replace(direction);
       })
       .catch((e) => {
         console.log("упс... ошибка function logout :(", e);
-        dispatch({ type: AUTH_FAILED });
+        dispatch(getAuthFailedAction());
       });
   };
-}

@@ -4,20 +4,22 @@ export type TItemDataOrder = {
   readonly _id: string;
   readonly type: string;
 };
-
+export type TOrders = Array<{
+  name: string;
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}>;
 export type TPayloadGetHistory = {
-  orders: Array<{
-    name: string;
-    ingredients: string[];
-    _id: string;
-    status: string;
-    number: number;
-    createdAt: string;
-    updatedAt: string;
-  }>;
+  orders: TOrders;
   total: number;
   totalToday: number;
 };
+export type TPayloadGetFeed = TPayloadGetHistory;
+
 export type TGetData = {
   data: Array<IItem>;
   success: boolean;

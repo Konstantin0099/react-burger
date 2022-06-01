@@ -1,8 +1,13 @@
-import { PASS_FORGOT, PASS_RESET, PASS_SUCCESS, PASS_FAILED } from "../actions/password-reset-forgot";
+import {
+  getPassForgotAction,
+  getPassResetAction,
+  getPassSuccessAction,
+  getPassFailedAction,
+} from "../actions/password-reset-forgot";
 import { DATA_FETCH, URL_USER_PASS } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 import { History } from "history";
-import { AppDispatch, TNewData } from "../types/types";
+import { AppDispatch, TNewData, AppThunk } from "../types/types";
 
 type TResetPassword = {
   success: boolean;
@@ -13,42 +18,39 @@ type TForgotPassword = {
   message: "Reset email sent";
 };
 
-export function forgotPassword(history: History<unknown>, email: string) {
-  return function (dispatch: AppDispatch) {
-    dispatch({ type: PASS_FORGOT });
-    fetch(`${URL_USER_PASS}`, {
-      ...DATA_FETCH,
-      body: JSON.stringify({ email: email }),
-    })
-      .then((res) => checkResponse<TForgotPassword>(res))
-      .then((user) => {
-        dispatch({ type: PASS_SUCCESS, user: user });
-        history.replace({
-          pathname: "/reset-password",
-          state: { getPass: true },
-        });
-      })
-      .catch((e) => {
-        dispatch({ type: PASS_FAILED });
+export const forgotPassword: AppThunk = (history: History<unknown>, email: string) => (dispatch: AppDispatch) => {
+  dispatch(getPassForgotAction());
+  fetch(`${URL_USER_PASS}`, {
+    ...DATA_FETCH,
+    body: JSON.stringify({ email: email }),
+  })
+    .then((res) => checkResponse<TForgotPassword>(res))
+    .then(() => {
+      dispatch(getPassSuccessAction());
+      history.replace({
+        pathname: "/reset-password",
+        state: { getPass: true },
       });
-  };
-}
+    })
+    .catch((e) => {
+      dispatch(getPassFailedAction());
+    });
+};
 
-export function resetPassword(history: History<unknown>, newData: Omit<TNewData, "email" | "name">) {
-  return function (dispatch: AppDispatch) {
-    dispatch({ type: PASS_FORGOT });
+export const resetPassword: AppThunk =
+  (history: History<unknown>, newData: Omit<TNewData, "email" | "name">) => (dispatch: AppDispatch) => {
+    dispatch(getPassForgotAction());
     fetch(`${URL_USER_PASS}/reset`, {
       ...DATA_FETCH,
       body: JSON.stringify(newData),
     })
       .then((res) => checkResponse<TResetPassword>(res))
-      .then((user) => {
-        dispatch({ type: PASS_RESET, password: newData.password });
+      .then(() => {
+        dispatch(getPassResetAction(newData.password));
         history.replace({ pathname: "/" });
       })
       .catch((e) => {
         console.log("упс...checkResponse ошибка :(", e);
-        dispatch({ type: PASS_FAILED });
+        dispatch(getPassFailedAction());
       });
   };
-}

@@ -5,9 +5,9 @@ import {
   WS_GET_FEED,
   TWsFeedActions,
 } from "../action-types";
-import { TPayloadGetHistory } from "../../types/data";
+import { TPayloadGetFeed } from "../../types/data";
 
-export type TInitialState = TPayloadGetHistory & {
+export type TInitialState = TPayloadGetFeed & {
   socket: WebSocket | null;
   wsConnected: boolean;
 };

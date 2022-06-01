@@ -1,21 +1,19 @@
-import { GET_NUMBER, GET_NUMBER_SUCCESS, GET_NUMBER_FAILED } from "../actions/burger-constructor";
+import { getNumberFailedAction, getNumberAction, getNumberSuccessAction } from "../actions/burger-constructor";
 import { baseUrl } from "../../utils/data";
 import { checkResponse } from "./checkResponse";
 import { IItem } from "../actions";
 import { getToken } from "../thunk/get-token";
 import { timeToken } from "../../utils/functions";
-import { AppDispatch } from "../types/types";
+import { AppDispatch, AppThunk } from "../types/types";
 import { TGetNumber } from "../types/data";
 
 const URL_ORDER = `${baseUrl}/orders`;
 
-export function getNumber(dataOrder: Array<IItem>) {
-  const arrDataID = dataOrder.map((el) => {
+export const getNumber: AppThunk = (dataOrder: Array<IItem>) => (dispatch: AppDispatch) => {
+    const arrDataID = dataOrder.map((el) => {
     return el._id;
   });
-
-  return function (dispatch: AppDispatch) {
-    dispatch({ type: GET_NUMBER });
+    dispatch(getNumberAction());
     timeToken() && getToken();
     fetch(`${URL_ORDER}`, {
       method: "POST",
@@ -29,11 +27,11 @@ export function getNumber(dataOrder: Array<IItem>) {
     })
       .then((res) => checkResponse<TGetNumber>(res))
       .then((order) => {
-        dispatch({ type: GET_NUMBER_SUCCESS, number: order.order.number });
+        dispatch(getNumberSuccessAction(order.order.number));
       })
       .catch((e) => {
         console.log("getNumber ошибка ", e);
-        dispatch({ type: GET_NUMBER_FAILED });
+        dispatch(getNumberFailedAction());
       })
   };
-}
+

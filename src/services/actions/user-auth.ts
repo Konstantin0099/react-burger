@@ -38,9 +38,9 @@ export type TAuthActions =
   | IAuthUserAction
   | IAuthFailedAction;
 
-export const getAuthLoginAction = (): IAuthLoginAction => ({
-  type: AUTH_LOGIN,
-});
+export const getAuthLoginAction = (): IAuthLoginAction => {
+  return {type: AUTH_LOGIN}
+};
 export const getAuthTokenAction = (): IAuthTokenAction => ({
   type: AUTH_TOKEN,
 });

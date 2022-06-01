@@ -1,5 +1,5 @@
 import { wsUrl } from "../../../utils/data";
-import { TPayloadGetHistory } from "../../types/data";
+import { TPayloadGetFeed, TPayloadGetHistory } from "../../types/data";
 export const WS_FEED: "WS_FEED" = "WS_FEED";
 export const CLOSE_WS_FEED: "CLOSE_WS_FEED" = "CLOSE_WS_FEED";
 export const WS_CONNECTION: "WS_CONNECTION" = "WS_CONNECTION";
@@ -31,7 +31,7 @@ export interface IWsConnectionClosedAction {
 }
 export interface IWsGetFeedAction {
   type: typeof WS_GET_FEED;
-  payload: any;
+  payload: TPayloadGetFeed;
 }
 export type TWsFeedActions =
   | IWsFeedAction
@@ -86,7 +86,7 @@ export const wsConnectionClosed = (): IWsConnectionClosedAction => {
     type: WS_CONNECTION_CLOSED,
   };
 };
-export const wsGetFeed = (data: any): IWsGetFeedAction => {
+export const wsGetFeed = (data: TPayloadGetFeed): IWsGetFeedAction => {
   return {
     type: WS_GET_FEED,
     payload: data,

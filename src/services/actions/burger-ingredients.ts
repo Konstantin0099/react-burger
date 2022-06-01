@@ -23,7 +23,7 @@ export interface IGetDataFailedAction {
 export const getGetDataAction = (): IGetDataAction => ({
     type: GET_DATA,
   });
-export const getGetDataSuccessAction = (data: any): IGetDataSuccessAction => ({
+export const getGetDataSuccessAction = (data: Array<IItem>): IGetDataSuccessAction => ({
     type: GET_DATA_SUCCESS,
     data
   });

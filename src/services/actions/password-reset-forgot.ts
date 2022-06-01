@@ -8,7 +8,7 @@ export interface IPassForgotAction {
 }
 export interface IPassResetAction {
   readonly type: typeof PASS_RESET;
-  password: string | undefined;
+  password: string;
 }
 export interface IPassSuccessAction {
   readonly type: typeof PASS_SUCCESS;
